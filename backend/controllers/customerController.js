@@ -5,7 +5,12 @@ const customerController = {
 
     //* Create a new customer account
     register : async (req , res) => {
-        const { first_name , last_name , email , password } = req.body ;
+        const { 
+            first_name , 
+            last_name , 
+            email , 
+            password 
+        } = req.body ;
 
         //* Check is there is any validation problem
         const errors = validationResult(req) ;
@@ -34,7 +39,10 @@ const customerController = {
     //* Get all the customers list
     listingCustomers : async (req , res) => {
         try {
-            const customers = await customerModel.paginate({} , { page : req.query.page , limit : 5 }) ;
+            const customers = await customerModel.paginate(
+                {} , 
+                { page : req.query.page , limit : 5 }
+            ) ;
             res.status(200).send(customers) ;
         }
         catch ( error ) {
@@ -45,7 +53,10 @@ const customerController = {
     //* Search for a customer
     searchForCustomer : async (req , res) => {
         try {
-            const customer = await customerModel.paginate({$or : [{first_name : req.query.name} , {last_name : req.query.name}]} , { name : req.query.name , page : req.query.page , limit : 5 }) ;
+            const customer = await customerModel.paginate(
+                {$or : [{first_name : req.query.name} , {last_name : req.query.name}]} ,
+                { name : req.query.name , page : req.query.page , limit : 5 }
+            ) ;
             res.status(200).send(customer) ;
         }
         catch ( error ) {
@@ -59,6 +70,27 @@ const customerController = {
         try {
             const customer = await customerModel.find({_id : id}) ;
             res.status(200).send(customer) ;
+        }
+        catch ( error ) {
+            console.log( error ) ;
+        }
+    } ,
+
+    //* Validate the customer's account 
+    validateAndInvalidateCustomerAccount : async (req , res) => {
+        const { id } = req.params ;
+        try {
+            const customer = await customerModel.findOne({_id : id}) ;
+            //* Make the account invalid
+            if ( customer.valid_account == true ) {
+                await customerModel.findByIdAndUpdate(id , {valid_account : false})
+                res.status(200).json({message : 'The account is invalid now'})
+            }
+            //* Make the account valid
+            else {
+                await customerModel.findByIdAndUpdate(id , {valid_account : true}) ;
+                res.status(200).json({message : 'The account is valid now'})
+            }
         }
         catch ( error ) {
             console.log( error ) ;
