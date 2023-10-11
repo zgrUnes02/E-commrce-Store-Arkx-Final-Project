@@ -14,4 +14,10 @@ customerRouter.post('/v1/customers', [
 //* Get all customers 
 customerRouter.get('/v1/customers' , customerController.listingCustomers) ;
 
+//* Search for a customer
+customerRouter.get('/v1/customer' , customerController.searchForCustomer) ;
+
+//* Get a customer by ID
+customerRouter.get('/v1/customers/:id' , customerController.getCustomerById) ;
+
 module.exports = customerRouter ;

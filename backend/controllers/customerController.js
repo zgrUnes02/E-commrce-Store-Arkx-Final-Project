@@ -3,7 +3,7 @@ const customerModel = require("../models/customerModel");
 
 const customerController = {
 
-    //* Function for creating new customer 
+    //* Create a new customer account
     register : async (req , res) => {
         const { first_name , last_name , email , password } = req.body ;
 
@@ -31,7 +31,7 @@ const customerController = {
         }
     } ,
 
-    //* Function for listing all customers
+    //* Get all the customers list
     listingCustomers : async (req , res) => {
         try {
             const customers = await customerModel.paginate({} , { page : req.query.page , limit : 5 }) ;
@@ -40,7 +40,30 @@ const customerController = {
         catch ( error ) {
             console.log('Something went wrong' , error) ;
         }
-    } 
+    } ,
+
+    //* Search for a customer
+    searchForCustomer : async (req , res) => {
+        try {
+            const customer = await customerModel.paginate({$or : [{first_name : req.query.name} , {last_name : req.query.name}]} , { name : req.query.name , page : req.query.page , limit : 5 }) ;
+            res.status(200).send(customer) ;
+        }
+        catch ( error ) {
+            console.log('Something went wrong' , error) ;
+        }
+    } ,
+
+    //* Get a customer by ID
+    getCustomerById : async (req , res) => {
+        const { id } = req.params ;
+        try {
+            const customer = await customerModel.find({_id : id}) ;
+            res.status(200).send(customer) ;
+        }
+        catch ( error ) {
+            console.log( error ) ;
+        }
+    }
 } ;
 
 module.exports = customerController ;
