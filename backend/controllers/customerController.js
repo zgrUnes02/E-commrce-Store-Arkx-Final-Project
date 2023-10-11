@@ -31,7 +31,16 @@ const customerController = {
         }
     } ,
 
-    //* Function for login a customer 
+    //* Function for listing all customers
+    listingCustomers : async (req , res) => {
+        try {
+            const customers = await customerModel.paginate({} , { page : req.query.page , limit : 5 }) ;
+            res.status(200).send(customers) ;
+        }
+        catch ( error ) {
+            console.log('Something went wrong' , error) ;
+        }
+    } 
 } ;
 
 module.exports = customerController ;

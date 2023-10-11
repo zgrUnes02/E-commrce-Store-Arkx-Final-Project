@@ -11,4 +11,7 @@ customerRouter.post('/v1/customers', [
     body('password').trim().notEmpty().withMessage('the password is required') ,
 ] , customerController.register) ;
 
+//* Get all customers 
+customerRouter.get('/v1/customers' , customerController.listingCustomers) ;
+
 module.exports = customerRouter ;
