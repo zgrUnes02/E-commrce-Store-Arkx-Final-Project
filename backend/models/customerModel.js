@@ -1,4 +1,5 @@
 const mongoose = require('mongoose') ;
+const mongoosePagination = require('mongoose-paginate-v2') ;
 
 const customerSchema = new mongoose.Schema({
     first_name : {
@@ -37,5 +38,6 @@ const customerSchema = new mongoose.Schema({
 
 } , { timestamps : true }) ;
 
+customerSchema.plugin(mongoosePagination) ;
 const customerModel = mongoose.model('customer' , customerSchema) ;
 module.exports = customerModel ;
