@@ -4,45 +4,47 @@ const customerRouter = express.Router();
 const { body } = require("express-validator");
 
 //* Create new customer ( Register )
-customerRouter.post(
-"/v1/customers",
+customerRouter.post("/v1/customers" ,
   [
     body("first_name")
       .trim()
       .notEmpty()
       .withMessage("the first name is required")
       .isAlpha()
-      .withMessage("please enter a valid first name"),
+      .withMessage("please enter a valid first name") ,
     body("last_name")
       .trim()
       .notEmpty()
       .withMessage("the last name is required")
       .isAlpha()
-      .withMessage("please enter a valid last name"),
+      .withMessage("please enter a valid last name") ,
     body("email")
       .trim()
       .notEmpty()
       .withMessage("the email is required")
       .isEmail()
-      .withMessage("please enter a valid email"),
-    body("password").trim().notEmpty().withMessage("the password is required"),
-  ],
+      .withMessage("please enter a valid email") ,
+    body("password").trim().notEmpty().withMessage("the password is required") ,
+  ] ,
   customerController.register
 );
 
 //* Get all customers
-customerRouter.get("/v1/customers", customerController.listingCustomers);
+customerRouter.get("/v1/customers" , customerController.listingCustomers);
 
 //* Search for a customer
-customerRouter.get("/v1/customer", customerController.searchForCustomer);
+customerRouter.get("/v1/customer" , customerController.searchForCustomer);
 
 //* Get a customer by ID
-customerRouter.get("/v1/customers/:id", customerController.getCustomerById);
+customerRouter.get("/v1/customers/:id" , customerController.getCustomerById);
 
 //* Validate the customer's account
-customerRouter.put(
-  "/v1/validate/:id",
-  customerController.validateAndInvalidateCustomerAccount
-);
+customerRouter.put("/v1/validate/:id" , customerController.validateAndInvalidateCustomerAccount);
+
+//* Updating the customer's data 
+customerRouter.put("/v1/customers/:id" , customerController.updateCustomer) ;
+
+//* Deleting the customer's account
+customerRouter.delete("/v1/customers/delete/:id" , customerController.deleteCustomer) ;
 
 module.exports = customerRouter;
