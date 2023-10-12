@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs') ;
 
 const customerController = {
 
-    //* Create a new customer account
+    //! Create a new customer account
     register : async (req , res) => {
         const { 
             first_name , 
@@ -47,7 +47,7 @@ const customerController = {
         }
     } ,
 
-    //* Get all the customers list
+    //! Get all the customers list
     listingCustomers : async (req , res) => {
         try {
             const customers = await customerModel.paginate(
@@ -61,7 +61,7 @@ const customerController = {
         }
     } ,
 
-    //* Search for a customer
+    //! Search for a customer
     searchForCustomer : async (req , res) => {
         try {
             const customer = await customerModel.paginate(
@@ -75,7 +75,7 @@ const customerController = {
         }
     } ,
 
-    //* Get a customer by ID
+    //! Get a customer by ID
     getCustomerById : async (req , res) => {
         const { id } = req.params ;
         try {
@@ -87,7 +87,7 @@ const customerController = {
         }
     } ,
 
-    //* Validate the customer's account 
+    //! Validate the customer's account 
     validateAndInvalidateCustomerAccount : async (req , res) => {
         const { id } = req.params ;
         try {
@@ -108,7 +108,7 @@ const customerController = {
         }
     } ,
 
-    //* Updating the customer's data 
+    //! Updating the customer's data 
     updateCustomer : async (req , res) => {
         const { first_name , last_name , email , valid_account , active } = req.body ;
         const { id } = req.params ;
@@ -120,8 +120,7 @@ const customerController = {
                 first_name : first_name ,
                 last_name : last_name ,
                 email : email ,
-                password : customerWantToUpdate.password ,
-                valid_account : valid_account ,
+                password : customerWantToUpdate.password , 
                 active : active ,
             }) ;
             res.status(200).json({message : 'The customer data has been updated with success'}) ;
@@ -131,15 +130,17 @@ const customerController = {
         }
     } ,
 
-    //* Get the customer's profile
+    //! Get the customer's profile
     deleteCustomer : async (req , res) => {
         const { id } = req.params ;
         try {
             await customerModel.findByIdAndDelete(id) ;
-            res.status(200).json({message : 'The customer has been deleted with success'}) ;        }
+            res.status(200).json({message : 'The customer has been deleted with success'}) ;        
+        }
         catch ( error ) {
             console.log( error ) ;
         }
     } 
-} ;
+} 
+
 module.exports = customerController ;
