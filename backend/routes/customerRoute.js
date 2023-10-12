@@ -3,34 +3,38 @@ const customerController = require("../controllers/customerController.js");
 const customerRouter = express.Router();
 const { body } = require("express-validator");
 
+//! Customer authentication ( Login )
+customerRouter.post('/customers/login' , [
+  body("email")
+    .trim()
+    .notEmpty().withMessage('the email is required')
+    .isEmail().withMessage('please enter a valid email') ,
+  body("password")
+    .trim()
+    .notEmpty().withMessage('the password is required')
+] , customerController.authenticateUser) ;
+
 //! Create new customer ( Register )
 customerRouter.post(
-  "/v1/customers",
+  "/customers",
   [
     body("first_name")
       .trim()
-      .notEmpty()
-      .withMessage("the first name is required")
-      .isAlpha()
-      .withMessage("please enter a valid first name") ,
+      .notEmpty().withMessage("the first name is required")
+      .isAlpha().withMessage("please enter a valid first name") ,
     body("last_name")
       .trim()
-      .notEmpty()
-      .withMessage("the last name is required")
-      .isAlpha()
-      .withMessage("please enter a valid last name") ,
+      .notEmpty().withMessage("the last name is required")
+      .isAlpha().withMessage("please enter a valid last name") ,
     body("email")
       .trim()
-      .notEmpty()
-      .withMessage("the email is required")
-      .isEmail()
-      .withMessage("please enter a valid email") ,
+      .notEmpty().withMessage("the email is required")
+      .isEmail().withMessage("please enter a valid email") ,
     body("password")
       .trim()
-      .notEmpty()
-      .withMessage("the password is required") ,
+      .notEmpty().withMessage("the password is required") ,
   ],
-  customerController.register
+  customerController.customerRegister
 );
 
 //! Get all customers
@@ -51,28 +55,20 @@ customerRouter.put(
   [
     body("first_name")
       .trim()
-      .notEmpty()
-      .withMessage("the first name is required")
-      .isAlpha()
-      .withMessage("please enter a valid first name"),
+      .notEmpty().withMessage("the first name is required")
+      .isAlpha().withMessage("please enter a valid first name"),
     body("last_name")
       .trim()
-      .notEmpty()
-      .withMessage("the last name is required")
-      .isAlpha()
-      .withMessage("please enter a valid last name"),
+      .notEmpty().withMessage("the last name is required")
+      .isAlpha().withMessage("please enter a valid last name"),
     body("email")
       .trim()
-      .notEmpty()
-      .withMessage("the email is required")
-      .isEmail()
-      .withMessage("please enter a valid email") ,
+      .notEmpty().withMessage("the email is required")
+      .isEmail().withMessage("please enter a valid email") ,
     body("active")
       .trim()
-      .notEmpty()
-      .withMessage('please choose the account activation')
-      .isBoolean()
-      .withMessage('please enter a valid value of the activation account')
+      .notEmpty().withMessage('please choose the account activation')
+      .isBoolean().withMessage('please enter a valid value of the activation account')
   ],
   customerController.updateCustomer
 );
