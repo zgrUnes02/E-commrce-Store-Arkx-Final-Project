@@ -1,5 +1,6 @@
-const { validationResult } = require("express-validator");
-const customerModel = require("../models/customerModel");
+const { validationResult } = require("express-validator") ;
+const customerModel = require("../models/customerModel") ;
+const bcrypt = require('bcryptjs') ;
 
 const customerController = {
 
@@ -18,13 +19,23 @@ const customerController = {
             return res.status(400).json(errors) ;
         }
 
+        //* Check if customer already has an account
+        const customer = await customerModel.findOne({email : email}) ;
+        if ( customer ) {
+            return res.status(400).json({message : 'The email is already exists'}) ;
+        }
+
+        //* Hashing the password
+        const salt = await bcrypt.genSalt(10) ;
+        const hashedPassword = await bcrypt.hash(password , salt) ;
+
         //* Create the new customer
         try {
             const newCustomer = await customerModel.create({
                 first_name : first_name , 
                 last_name : last_name ,
                 email : email , 
-                password : password ,
+                password : hashedPassword ,
             }) ;
             res.status(200).json({
                 message : 'Customer create with success' ,
@@ -95,7 +106,40 @@ const customerController = {
         catch ( error ) {
             console.log( error ) ;
         }
-    }
-} ;
+    } ,
 
+    //* Updating the customer's data 
+    updateCustomer : async (req , res) => {
+        const { first_name , last_name , email , valid_account , active } = req.body ;
+        const { id } = req.params ;
+        try {
+            //* Find the customer that i want to update his data
+            const customerWantToUpdate = await customerModel.findOne({_id : id}) ;
+            //* Then update his data
+            const customer = await customerModel.findByIdAndUpdate(customerWantToUpdate._id , {
+                first_name : first_name ,
+                last_name : last_name ,
+                email : email ,
+                password : customerWantToUpdate.password ,
+                valid_account : valid_account ,
+                active : active ,
+            }) ;
+            res.status(200).json({message : 'The customer data has been updated with success'}) ;
+        }
+        catch ( error ) {
+            console.log( error ) ;
+        }
+    } ,
+
+    //* Get the customer's profile
+    deleteCustomer : async (req , res) => {
+        const { id } = req.params ;
+        try {
+            await customerModel.findByIdAndDelete(id) ;
+            res.status(200).json({message : 'The customer has been deleted with success'}) ;        }
+        catch ( error ) {
+            console.log( error ) ;
+        }
+    } 
+} ;
 module.exports = customerController ;
