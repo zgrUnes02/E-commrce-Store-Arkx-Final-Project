@@ -1,11 +1,59 @@
 const { validationResult } = require("express-validator") ;
 const customerModel = require("../models/customerModel") ;
 const bcrypt = require('bcryptjs') ;
+const jwt = require('jsonwebtoken') ;
+const jwt_secret = process.env.JWT_SECRET ;
 
 const customerController = {
+    //! Customer authentication
+    authenticateUser : async (req , res) => {
+
+        const { email , password } = req.body ;
+
+        //* Check is there is any validation problem
+        const errors = validationResult(req) ;
+        if ( !errors.isEmpty() ) {
+            return res.status(400).json(errors) ;
+        }
+
+        try {
+            const customer = await customerModel.findOne({email : email}) ;
+
+            //* Check is there is any customer with this email
+            if ( customer ) {
+
+                //* Check if the password that came from input equal to the password that exists in database
+                const comparePasswords = await bcrypt.compare(password , customer.password) ;
+
+                if ( comparePasswords ) {
+
+                    //* Generate the token
+                    const token = jwt.sign({email : email} , jwt_secret) ;
+                    if ( token ) {
+                        res.status(200).json({
+                            customer : customer ,
+                            token : token
+                        }) ;
+                    }
+                    else {
+                        res.status(401).json({message : 'something went wrong with the token'})
+                    }
+                } 
+                else {
+                    res.status(401).json({message : 'the password is not correct'}) ;
+                }
+            }
+            else {
+                res.status(400).json({message : 'there is no account with this email'}) ;
+            } 
+        }
+        catch ( error ) {
+            console.log( error ) ;
+        }
+    } ,
 
     //! Create a new customer account
-    register : async (req , res) => {
+    customerRegister : async (req , res) => {
         const { 
             first_name , 
             last_name , 
@@ -50,6 +98,7 @@ const customerController = {
     //! Get all the customers list
     listingCustomers : async (req , res) => {
         try {
+            //* Paginate the customers
             const customers = await customerModel.paginate(
                 {} , 
                 { page : req.query.page , limit : 5 }
