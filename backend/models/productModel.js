@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema({
   product_name: {
     type: String,
     required: true,
-  },
+    },
   subcategory_id: {
     type: String,
     required: true,
