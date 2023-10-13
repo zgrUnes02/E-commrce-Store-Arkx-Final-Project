@@ -123,15 +123,14 @@ const productController = {
 
     //delete a product
     deleteProduct: async (req, res) => {
+      
         const { id } = req.params;
 
         try {
             await productModel.findByIdAndDelete(id);
-            res
-                .status(200)
-                .json({ message: "The product has been deleted with success" });
-        } catch (error) {
-            console.log(error);
+            res.status(200).json({ message: "The product has been deleted with success" });
+        } catch ( error) {
+            console.log( error );
         }
     },
 };
