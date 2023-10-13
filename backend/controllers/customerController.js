@@ -5,13 +5,13 @@ const jwt = require('jsonwebtoken') ;
 const jwt_secret = process.env.JWT_SECRET ;
 
 const customerController = {
+
     //! Customer authentication
     authenticateUser : async (req , res) => {
-
         const { email , password } = req.body ;
 
         //* Check is there is any validation problem
-        const errors = validationResult(req) ;
+        const errors = validationResult(req) ; 
         if ( !errors.isEmpty() ) {
             return res.status(400).json(errors) ;
         }
@@ -179,7 +179,7 @@ const customerController = {
         }
     } ,
 
-    //! Get the customer's profile
+    //! Delete the customer's profile
     deleteCustomer : async (req , res) => {
         const { id } = req.params ;
         try {
