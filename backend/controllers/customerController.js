@@ -5,9 +5,9 @@ const jwt = require('jsonwebtoken') ;
 const jwt_secret = process.env.JWT_SECRET ;
 
 const customerController = {
+
     //! Customer authentication
     authenticateUser : async (req , res) => {
-
         const { email , password } = req.body ;
 
         //* Check is there is any validation problem
