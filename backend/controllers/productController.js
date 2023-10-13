@@ -129,6 +129,9 @@ const productController = {
         try {
             await productModel.findByIdAndDelete(id);
             res.status(200).json({ message: "The product has been deleted with success" });
+        } catch (error) {
+            console.log(error);
+
         } catch ( error) {
             console.log( error );
         }
