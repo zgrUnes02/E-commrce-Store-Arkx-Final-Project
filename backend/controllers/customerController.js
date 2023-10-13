@@ -179,7 +179,7 @@ const customerController = {
         }
     } ,
 
-    //! Get the customer's profile
+    //! Delete the customer's profile
     deleteCustomer : async (req , res) => {
         const { id } = req.params ;
         try {
