@@ -4,6 +4,7 @@ const database = require('./config/database');
 const app = express() ;
 const customerRouter = require('./routes/customerRoute') ;
 const categoryRouter = require('./routes/categoryRoute');
+const productRouter = require('./routes/productRoute');
 const PORT = process.env.PORT ;
 
 //* Database connection
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: false }))
 //* Use the routes
 app.use('/v1' , customerRouter) ;
 app.use('/v1',categoryRouter)
+app.use('/v1', productRouter);
 
 //* Run the server
 app.listen(PORT, () => {
