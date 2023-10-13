@@ -60,7 +60,7 @@ productRouter.get("/product", productController.searchForProduct);
 //! Get a product by ID
 productRouter.get("/products/:id", productController.getProductById);
 
-//! update a product
+//! Update a product
 productRouter.put(
   "/product/:id",
   [
@@ -104,7 +104,7 @@ productRouter.put(
   productController.updateProduct
 );
 
-//! delete a product by id
+//! Delete a product by id
 productRouter.delete("/product/:id", productController.deleteProduct);
 
 module.exports = productRouter;
