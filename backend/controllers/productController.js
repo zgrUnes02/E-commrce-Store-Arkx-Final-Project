@@ -82,8 +82,9 @@ const productController = {
   
     //delete a product
     deleteProduct: async (req, res) => {
+
+    }
       
-  }
 };
 
 module.exports = productController;
