@@ -172,7 +172,7 @@ const customerController = {
                 password : customerWantToUpdate.password , 
                 active : active ,
             }) ;
-            res.status(200).json({message : 'The customer data has been updated with success'}) ;
+            res.status(200).json({message : 'The customer data has been updated with success'}) ;   
         }
         catch ( error ) {
             console.log( error ) ;
