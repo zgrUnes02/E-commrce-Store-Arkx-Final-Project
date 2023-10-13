@@ -1,23 +1,79 @@
-const express = require('express') ;
-const customerController = require('../controllers/customerController.js');
-const customerRouter = express.Router() ;
-const { body } = require('express-validator') ;
+const express = require("express");
+const customerController = require("../controllers/customerController.js");
+const customerRouter = express.Router();
+const { body } = require("express-validator");
 
-//* Create new customer ( Register )
-customerRouter.post('/v1/customers', [
-    body('first_name').trim().notEmpty().withMessage('the first name is required').isAlpha().withMessage('please enter a valid first name') ,
-    body('last_name').trim().notEmpty().withMessage('the last name is required').isAlpha().withMessage('please enter a valid last name') ,
-    body('email').trim().notEmpty().withMessage('the email is required').isEmail().withMessage('please enter a valid email') ,
-    body('password').trim().notEmpty().withMessage('the password is required') ,
-] , customerController.register) ;
+//! Customer authentication ( Login )
+customerRouter.post('/customers/login' , [
+  body("email")
+    .trim()
+    .notEmpty().withMessage('the email is required')
+    .isEmail().withMessage('please enter a valid email') ,
+  body("password")
+    .trim()
+    .notEmpty().withMessage('the password is required')
+] , customerController.authenticateUser) ;
 
-//* Get all customers 
-customerRouter.get('/v1/customers' , customerController.listingCustomers) ;
+//! Create new customer ( Register )
+customerRouter.post(
+  "/customers",
+  [
+    body("first_name")
+      .trim()
+      .notEmpty().withMessage("the first name is required")
+      .isAlpha().withMessage("please enter a valid first name") ,
+    body("last_name")
+      .trim()
+      .notEmpty().withMessage("the last name is required")
+      .isAlpha().withMessage("please enter a valid last name") ,
+    body("email")
+      .trim()
+      .notEmpty().withMessage("the email is required")
+      .isEmail().withMessage("please enter a valid email") ,
+    body("password")
+      .trim()
+      .notEmpty().withMessage("the password is required") ,
+  ],
+  customerController.customerRegister
+);
 
-//* Search for a customer
-customerRouter.get('/v1/customer' , customerController.searchForCustomer) ;
+//! Get all customers
+customerRouter.get("/customers" , customerController.listingCustomers);
 
-//* Get a customer by ID
-customerRouter.get('/v1/customers/:id' , customerController.getCustomerById) ;
+//! Search for a customer
+customerRouter.get("/customer" , customerController.searchForCustomer);
 
-module.exports = customerRouter ;
+//! Get a customer by ID
+customerRouter.get("/customers/:id" , customerController.getCustomerById);
+
+//! Validate the customer's account
+customerRouter.put("/validate/:id" , customerController.validateAndInvalidateCustomerAccount);
+
+//! Updating the customer's data 
+customerRouter.put(
+  "/customers/:id",
+  [
+    body("first_name")
+      .trim()
+      .notEmpty().withMessage("the first name is required")
+      .isAlpha().withMessage("please enter a valid first name"),
+    body("last_name")
+      .trim()
+      .notEmpty().withMessage("the last name is required")
+      .isAlpha().withMessage("please enter a valid last name"),
+    body("email")
+      .trim()
+      .notEmpty().withMessage("the email is required")
+      .isEmail().withMessage("please enter a valid email") ,
+    body("active")
+      .trim()
+      .notEmpty().withMessage('please choose the account activation')
+      .isBoolean().withMessage('please enter a valid value of the activation account')
+  ],
+  customerController.updateCustomer
+);
+
+//! Deleting the customer's account
+customerRouter.delete("/customers/delete/:id" , customerController.deleteCustomer) ;
+
+module.exports = customerRouter;

@@ -14,7 +14,7 @@ app.use(express.json()) ;
 app.use(express.urlencoded({ extended: false }))
 
 //* Use the routes
-app.use(customerRouter);
+app.use('/v1' , customerRouter) ;
 app.use('/v1', productRouter);
 
 //* Run the server
