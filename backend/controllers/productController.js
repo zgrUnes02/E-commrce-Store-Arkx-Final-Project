@@ -4,7 +4,7 @@ const { validationResult } = require("express-validator");
 const productController = {
 
     //! Create new product
-    addProduct: async (req, res) => {
+    addProduct : async (req, res) => {
         console.log(req.body.short_description);
         const {
             product_image,
@@ -23,7 +23,7 @@ const productController = {
             return res.status(400).json(errors);
         }
 
-        //adding a new product
+        //* adding a new product
         try {
             const newProduct = await productModel.create({
                 sku: `sku${Math.floor(Math.random() * 100000000)}`,
@@ -45,8 +45,8 @@ const productController = {
         }
     },
 
-    //* Get all the products list
-    listingProducts: async (req, res) => {
+    //! Get all the products list
+    listingProducts : async (req , res) => {
         try {
             const products = await productModel.paginate(
                 {},
@@ -58,8 +58,8 @@ const productController = {
         }
     },
 
-    //* Search for a product
-    searchForProduct: async (req, res) => {
+    //! Search for a product
+    searchForProduct : async (req , res) => {
         try {
             const products = await productModel.paginate(
                 { product_name: req.query.name },
@@ -71,8 +71,8 @@ const productController = {
         }
     },
 
-    //* Get a product by ID
-    getProductById: async (req, res) => {
+    //! Get a product by ID
+    getProductById : async (req, res) => {
         const { id } = req.params;
         try {
             const products = await productModel.findOne({ _id: id });
@@ -82,8 +82,8 @@ const productController = {
         }
     },
 
-    //update a product
-    updateProduct: async (req, res) => {
+    //! update a product
+    updateProduct : async (req, res) => {
          const {
             product_name,
             product_image,
@@ -98,12 +98,11 @@ const productController = {
 
         const { id } = req.params;
         try {
-            //find the product to update
+            //* find the product to update
             const productToUpdate = await productModel.findOne({ _id: id });
 
-            // update the product
-            const product = await productModel.findByIdAndUpdate(productToUpdate._id,
-                {
+            //* update the product
+            await productModel.findByIdAndUpdate(productToUpdate._id , {
                     product_name: product_name,
                     product_image: product_image,
                     subcategory_id: subcategory_id,
@@ -113,29 +112,25 @@ const productController = {
                     discount_price: discount_price,
                     options: options,
                     active: active,
-                }
-            );
+            });
             res.status(200).json({ message: "The product has been updated with success" });
-        } catch (error) {
-            console.log(error);
+        } catch ( error ) {
+            console.log( error );
         }
     },
 
-    //delete a product
-    deleteProduct: async (req, res) => {
+    //! delete a product
+    deleteProduct : async (req , res) => {
       
         const { id } = req.params;
 
         try {
             await productModel.findByIdAndDelete(id);
-            res.status(200).json({ message: "The product has been deleted with success" });
-        } catch (error) {
-            console.log(error);
-
-        } catch ( error) {
+            res.status(200).json({ message: "The product has been deleted with success"});
+        } catch ( error ) {
             console.log( error );
         }
-    },
+    } ,
 };
 
 module.exports = productController;
