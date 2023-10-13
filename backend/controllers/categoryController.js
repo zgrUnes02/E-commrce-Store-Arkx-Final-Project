@@ -29,7 +29,6 @@ const categoryController={
             console.log('Something went wrong' , error) ;
         }
     } ,
-    categoryDelete:
 }
 
 module.exports = categoryController ;

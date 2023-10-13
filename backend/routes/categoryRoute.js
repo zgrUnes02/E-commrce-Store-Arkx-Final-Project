@@ -18,7 +18,7 @@ categoryRouter.post(
     categoryController.addNewCategory
   );
 
-  categoryRouter.delete("/categories/:id" , categoryController.deleteCategory) ;
+//   categoryRouter.delete("/categories/:id" , categoryController.deleteCategory) ;
 
   module.exports = categoryRouter
   
