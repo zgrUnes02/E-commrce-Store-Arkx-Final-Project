@@ -11,7 +11,7 @@ const customerController = {
         const { email , password } = req.body ;
 
         //* Check is there is any validation problem
-        const errors = validationResult(req) ;
+        const errors = validationResult(req) ; 
         if ( !errors.isEmpty() ) {
             return res.status(400).json(errors) ;
         }
