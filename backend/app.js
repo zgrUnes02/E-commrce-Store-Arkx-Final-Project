@@ -5,21 +5,23 @@ const app = express() ;
 const customerRouter = require('./routes/customerRoute') ;
 const categoryRouter = require('./routes/categoryRoute');
 const productRouter = require('./routes/productRoute');
+const subcategoryRouter = require('./routes/subcategoryRoute');
 const PORT = process.env.PORT ;
 
-//* Database connection
+//! Database connection
 database() ;
 
-//* Use middlewares
+//! Use middlewares
 app.use(express.json()) ;
 app.use(express.urlencoded({ extended: false }))
 
-//* Use the routes
+//! Use the routes
 app.use('/v1' , customerRouter) ;
 app.use('/v1',categoryRouter)
 app.use('/v1', productRouter);
+app.use('/v1' , subcategoryRouter) ;
 
-//* Run the server
+//! Run the server
 app.listen(PORT, () => {
     console.log(`The server is running on http://localhost:${PORT}`)
 })

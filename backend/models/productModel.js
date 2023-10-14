@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const mongoosePagination = require('mongoose-paginate-v2') ;
 
-
 const productSchema = new mongoose.Schema({
   sku: {
     type: String,
