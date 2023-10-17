@@ -6,6 +6,7 @@ const customerRouter = require('./routes/customerRoute') ;
 const categoryRouter = require('./routes/categoryRoute');
 const productRouter = require('./routes/productRoute');
 const subcategoryRouter = require('./routes/subcategoryRoute');
+const companyRouter = require('./routes/companyRoute');
 const orderRouter = require('./routes/orderRoute');
 const PORT = process.env.PORT ;
 
@@ -21,6 +22,7 @@ app.use('/v1' , customerRouter) ;
 app.use('/v1',categoryRouter)
 app.use('/v1', productRouter);
 app.use('/v1' , subcategoryRouter) ;
+app.use('/v1' , companyRouter) ;
 app.use('/v1' , orderRouter);
 
 //! Run the server

@@ -100,8 +100,7 @@ const subcategoryController = {
         } 
 
         try {
-            const subcategoryWantToUpdate = await subcategoryModel.findOne({_id : id}) ;
-
+            
             //* Update the subcategory
             const subcategory = await subcategoryModel.findByIdAndUpdate(id , {
                 subcategory_name : subcategory_name ,
