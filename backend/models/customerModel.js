@@ -40,5 +40,5 @@ const customerSchema = new mongoose.Schema({
 } , { timestamps : true }) ;
 
 customerSchema.plugin(mongoosePagination) ;
-const customerModel = mongoose.model('customer' , customerSchema) ;
+const customerModel = mongoose.model('Customer' , customerSchema) ;
 module.exports = customerModel ;
