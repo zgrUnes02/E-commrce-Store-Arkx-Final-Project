@@ -37,6 +37,6 @@ const orderSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-orderSchema.plugin(mongoosePaginate);
-const order = mongoose.model('order', orderSchema);
-module.exports = order;
+orderSchema.plugin(mongoosePaginate) ;
+const orderModel = mongoose.model('order', orderSchema) ;
+module.exports = orderModel ;
