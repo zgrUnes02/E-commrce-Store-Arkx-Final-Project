@@ -2,7 +2,6 @@ const mongoose = require('mongoose') ;
 const EventEmitter = require('node:events') ;
 const event = new EventEmitter() ;
 const dotenv = require('dotenv').config() ;
-const PORT = process.env.PORT ;
 
 //* Make an event for informing us that the connection has been approved
 event.on('connectionApprovedWithSuccess' , () => {
