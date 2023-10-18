@@ -4,8 +4,7 @@ const userController = require('../controllers/userController');
 const { body } = require("express-validator");
 const userVerification = require("../middlewares/userVerification");
 
-
-
+//! Create new user ( Register )
 userRouter.post("/users",[
     body("first_name")
       .trim()
@@ -40,7 +39,7 @@ userRouter.post("/users",[
   ], 
   userController.register);
 
-//login
+//! login
 userRouter.post(
   "/users/login",
   [
@@ -55,21 +54,19 @@ userRouter.post(
   userController.login
 );
 
-//Get all users
+//! Get all users
 userRouter.get("/users" , userVerification , userController.listingUsers);
 
-//Search for a user
+//! Search for a user
 userRouter.get("/user", userController.searchForUser);
 
-//Get a user by ID
+//! Get a user by ID
 userRouter.get("/users/:id" , userVerification , userController.getUserById);
 
-//Update the user's data 
+//! Update the user's data 
 userRouter.put('/users/:id', userController.updateUser);
 
-//Deleting a user
+//! Deleting a user
 userRouter.delete('/users/:id', userController.deleteUser);
-
-
 
 module.exports = userRouter;
