@@ -12,7 +12,7 @@ const customerController = {
 
         //* Check is there is any validation problem
         const errors = validationResult(req) ; 
-        if ( !errors.isEmpty() ) {
+        if ( !errors.isEmpty() ) { 
             return res.status(400).json(errors) ;
         }
 
@@ -114,7 +114,7 @@ const customerController = {
     searchForCustomer : async (req , res) => {
         try {
             const customer = await customerModel.paginate(
-                {$or : [{first_name : req.query.name} , {last_name : req.query.name}]} ,
+                { $or : [{first_name : {$regex : req.query.name}} , {last_name : {$regex : req.query.name}}] } ,
                 { name : req.query.name , page : req.query.page , limit : 5 }
             ) ;
             res.status(200).send(customer) ;

@@ -89,6 +89,11 @@ const companyController = {
         catch ( error ) {
             console.log( error ) ;
         }
+    } ,
+
+    //! Update the company data
+    updateCompanyData : async (req , res) => {
+        
     }
 }
 
