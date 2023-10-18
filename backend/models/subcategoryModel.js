@@ -7,7 +7,8 @@ const subcategorySchema = new mongoose.Schema({
         required : [true , 'the subcategory name is required'] ,
     } ,
     category_id : {
-        type : mongoose.Schema.Types.ObjectId , ref: 'category' ,
+        type : mongoose.Schema.Types.ObjectId , 
+        ref: 'category' ,
         required : [true , 'the category name is required'] ,
     } ,
     active : {

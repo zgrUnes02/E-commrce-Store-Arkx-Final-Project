@@ -13,13 +13,15 @@ const serviceSchema = new mongoose.Schema({
   },
 
   category_id: {
-    type: String,
-    required: [true, "the category id is required"],
+    type: mongoose.Schema.Types.ObjectId ,
+    ref : 'category' ,
+    required: [true, "the category id is required"] ,
   },
 
   subcategory_id: {
-    type: String,
-    required: [true, "the subcategory id is required"],
+    type: mongoose.Schema.Types.ObjectId ,
+    ref : 'subcategory' ,
+    required: [true, "the subcategory id is required"] ,
   },
 
   price: {
@@ -37,18 +39,19 @@ const serviceSchema = new mongoose.Schema({
   },
 
   company_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: [true, "the company id is required"],
+    type: mongoose.Schema.Types.ObjectId ,
+    ref : 'company' ,
+    required: [true, "the company id is required"] ,
   },
 
   short_description: {
-    type: String,
-    required: [true, "a short description of the service is required"],
+    type: String ,
+    required: [true, "a short description of the service is required"] ,
   },
 
   options: {
-    type: Array,
-    required: true,
+    type: Array ,
+    required: true ,
   }
 });
 

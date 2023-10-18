@@ -4,17 +4,19 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const orderSchema = new mongoose.Schema({
 
   customer_id: {
-    type : mongoose.Schema.Types.ObjectId , ref: 'customer' ,
+    type : mongoose.Schema.Types.ObjectId , 
+    ref: 'customer' ,
     required: [true, 'Customer ID is missing'],
   },
 
   company_id: {
-    type : mongoose.Schema.Types.ObjectId , ref: 'company' ,
+    type : mongoose.Schema.Types.ObjectId , 
+    ref: 'company' ,
     required: [true, 'Company ID is missing'],
   },
 
   order_items: {
-    type: [String],
+    type: Array ,
     required: [true, 'Order items are missing'],
   },
 
