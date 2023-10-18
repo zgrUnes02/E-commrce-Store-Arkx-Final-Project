@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema({
 
   company_id: {
     type : mongoose.Schema.Types.ObjectId , 
-    ref: 'company' ,
+    ref: 'Company' ,
     required: [true, 'Company ID is missing'],
   },
 
@@ -40,5 +40,5 @@ const orderSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 orderSchema.plugin(mongoosePaginate) ;
-const orderModel = mongoose.model('order', orderSchema) ;
+const orderModel = mongoose.model('Order', orderSchema) ;
 module.exports = orderModel ;

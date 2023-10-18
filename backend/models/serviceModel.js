@@ -14,13 +14,13 @@ const serviceSchema = new mongoose.Schema({
 
   category_id: {
     type: mongoose.Schema.Types.ObjectId ,
-    ref : 'category' ,
+    ref : 'Category' ,
     required: [true, "the category id is required"] ,
   },
 
   subcategory_id: {
     type: mongoose.Schema.Types.ObjectId ,
-    ref : 'subcategory' ,
+    ref : 'Subcategory' ,
     required: [true, "the subcategory id is required"] ,
   },
 
@@ -40,7 +40,7 @@ const serviceSchema = new mongoose.Schema({
 
   company_id: {
     type: mongoose.Schema.Types.ObjectId ,
-    ref : 'company' ,
+    ref : 'Company' ,
     required: [true, "the company id is required"] ,
   },
 
@@ -56,5 +56,5 @@ const serviceSchema = new mongoose.Schema({
 });
 
 serviceSchema.plugin(mongoosePagination);
-const serviceModel = mongoose.model("service", serviceSchema);
+const serviceModel = mongoose.model("Service", serviceSchema);
 module.exports = serviceModel;

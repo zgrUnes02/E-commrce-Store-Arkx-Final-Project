@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema({
 
   subcategory_id: {
     type: mongoose.Schema.Types.ObjectId ,
-    ref : 'subcategory' ,
+    ref : 'Subcategory' ,
     required: true ,
   } ,
 
@@ -54,12 +54,12 @@ const productSchema = new mongoose.Schema({
 
   company_id: {
     type: mongoose.Schema.Types.ObjectId ,
-    ref : 'company' ,
+    ref : 'Company' ,
     required: true ,
   } ,
 
 });
 
 productSchema.plugin(mongoosePagination);
-const productModel = mongoose.model("product", productSchema);
+const productModel = mongoose.model("Product" , productSchema);
 module.exports = productModel;

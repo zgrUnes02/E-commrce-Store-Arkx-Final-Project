@@ -14,5 +14,5 @@ const categorySchema = new mongoose.Schema({
 } , { timestamps : true });
 
 categorySchema.plugin(mongoosePagination) ;
-const categoryModel = mongoose.model('category' , categorySchema) ;
+const categoryModel = mongoose.model('Category' , categorySchema) ;
 module.exports = categoryModel ;

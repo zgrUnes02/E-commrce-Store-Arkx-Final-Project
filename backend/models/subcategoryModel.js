@@ -8,7 +8,7 @@ const subcategorySchema = new mongoose.Schema({
     } ,
     category_id : {
         type : mongoose.Schema.Types.ObjectId , 
-        ref: 'category' ,
+        ref: 'Category' ,
         required : [true , 'the category name is required'] ,
     } ,
     active : {
@@ -18,5 +18,5 @@ const subcategorySchema = new mongoose.Schema({
 })
 
 subcategorySchema.plugin(mongoosePagination) ;
-const subcategoryModel = mongoose.model('subcategory' , subcategorySchema) ;
+const subcategoryModel = mongoose.model('Subcategory' , subcategorySchema) ;
 module.exports = subcategoryModel ;
