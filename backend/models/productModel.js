@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const mongoosePagination = require('mongoose-paginate-v2') ;
+const mongoosePagination = require("mongoose-paginate-v2");
 
 const productSchema = new mongoose.Schema({
   sku: {
@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema({
   product_name: {
     type: String,
     required: true,
-    },
+  },
   subcategory_id: {
     type: String,
     required: true,
@@ -42,8 +42,12 @@ const productSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  company_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
 });
 
-productSchema.plugin(mongoosePagination) ;
+productSchema.plugin(mongoosePagination);
 const productModel = mongoose.model("product", productSchema);
 module.exports = productModel;
