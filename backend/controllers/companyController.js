@@ -93,7 +93,31 @@ const companyController = {
 
     //! Update the company data
     updateCompanyData : async (req , res) => {
+        const { companyName , description , logo , email } = req.body ;
+        const { id } = req.params ;
+
+        //* Check is there is any validation problem
+        const errors = validationResult(req) ; 
+        if ( !errors.isEmpty() ) {
+            return res.status(400).json(errors) ;
+        }
         
+        try {
+            //* Update the company data
+            const companyUpdate = await companyModel.findByIdAndUpdate(id , {
+                companyName : companyName ,
+                description : description ,
+                logo : logo ,
+                email : email ,
+            }) ;
+
+            if ( companyUpdate ) {
+                res.status(200).send('the company data has been updated with success') ;
+            }
+        }
+        catch ( error ) {
+            res.status(404).json( error )
+        }
     }
 }
 
