@@ -5,7 +5,6 @@ const productController = {
 
     //! Create new product
     addProduct : async (req, res) => {
-        console.log(req.body.short_description);
         const {
             product_image,
             product_name,

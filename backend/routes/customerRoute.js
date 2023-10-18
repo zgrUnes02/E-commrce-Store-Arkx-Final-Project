@@ -2,6 +2,7 @@ const express = require("express");
 const customerController = require("../controllers/customerController.js");
 const customerRouter = express.Router();
 const { body } = require("express-validator");
+const customerVerification = require("../middlewares/customerVerification.js");
 
 //! Customer authentication ( Login )
 customerRouter.post('/customers/login' , [
@@ -38,7 +39,7 @@ customerRouter.post(
 );
 
 //! Get all customers
-customerRouter.get("/customers" , customerController.listingCustomers);
+customerRouter.get("/customers" , customerVerification , customerController.listingCustomers);
 
 //! Search for a customer
 customerRouter.get("/customer" , customerController.searchForCustomer);
@@ -51,7 +52,7 @@ customerRouter.put("/validate/:id" , customerController.validateAndInvalidateCus
 
 //! Updating the customer's data 
 customerRouter.put(
-  "/customers/:id",
+  "/customers/:id" , customerVerification ,
   [
     body("first_name")
       .trim()
