@@ -37,20 +37,26 @@ const subcategoryController = {
     //! List all the subcategories 
     getAllSubcategories : async (req , res) => {
         try {
-            //* Get all subcategories with pagination 
-            const subcategories = await subcategoryModel.paginate(
-                {} ,
-                { page : req.query.page , limit : 5 } ,
-            ) ;
+            //* Here are my option that i will use to paginate
+            var options = {
+                sort : { created_at: -1 } ,
+                lean : true ,
+                populate : 'category_id' ,
+                page : req.query.page  ,
+                limit : 10 ,
+            };
 
-            //* Show the subcategories 
+            //* Paginate with populate
+            const subcategories = await subcategoryModel.paginate( {} , options ) ;
+
+            //* Send all subcategories with the name of the category
             if ( subcategories ) {
                 return res.status(200).json(subcategories) ;
             }
         }
         catch ( error ) {
             console.log( error )
-        }
+        }        
     } ,
 
     //! Search for subcategories
