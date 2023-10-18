@@ -4,8 +4,7 @@ const orderModel = require("../models/orderModel");
 const orderController = {
   //! Create a new order
   addNewOrder: async (req, res) => {
-    const { customer_id, company_id, order_items, cart_total_price, status } =
-      req.body;
+    const { customer_id, company_id, order_items, cart_total_price, status, type } = req.body ;
 
     //! Check if there is any validation problem
     const errors = validationResult(req);
@@ -21,6 +20,7 @@ const orderController = {
         order_items: order_items,
         cart_total_price: cart_total_price,
         status: status,
+        type: type ,
       });
       res.status(200).json({
         message: "Order created with success",
@@ -84,7 +84,8 @@ const orderController = {
           company_id : order.company_id, 
           order_items : order.order_items,
           cart_total_price : order.cart_total_price,
-          status : req.body.status 
+          status : req.body.status,
+          type : order.type,
         },
       );
 
