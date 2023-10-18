@@ -132,10 +132,9 @@ const userController = {
     updateUser: async (req, res) => {
         try {
             const { id } = req.params;
-            const { first_name, last_name, email, user_name, role } = req.body; 
+            const { first_name, last_name, email, user_name, role } = req.body ; 
 
-            const updatedUser = await userModel.findOne({_id:id});
-            console.log(updatedUser);
+            const updatedUser = await userModel.findOne({_id:id}) ;
 
             await userModel.findByIdAndUpdate(id, {
                 first_name : first_name,
@@ -150,10 +149,10 @@ const userController = {
                 return res.status(404).json({ message: 'User not found' });
             }
 
-            res.status(200).json({ message: 'User updated successfully', user: updatedUser });
+            res.status(200).json({ message: 'User updated successfully'});
         } 
         catch (error) {
-            res.status(500).json({ message: 'Internal Server Error' });
+            res.status(500).json(error) ;
         }
     },
 
