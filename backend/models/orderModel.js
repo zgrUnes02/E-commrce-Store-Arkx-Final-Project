@@ -29,6 +29,12 @@ const orderSchema = new mongoose.Schema({
     required: [true, 'Order status is missing'],
   },
 
+  type : {
+    type : String ,
+    enum : ['product' , 'service'] ,
+    required : [true , 'the product type is required'] ,
+  }
+
 }, { timestamps: true });
 
 orderSchema.plugin(mongoosePaginate);
