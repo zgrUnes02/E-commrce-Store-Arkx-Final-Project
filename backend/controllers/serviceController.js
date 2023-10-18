@@ -2,7 +2,6 @@ const serviceModel = require("../models/serviceModel");
 const { validationResult } = require("express-validator");
 
 //! create a new service
-
 const serviceController = {
   addService: async (req, res) => {
     console.log(req.body);
