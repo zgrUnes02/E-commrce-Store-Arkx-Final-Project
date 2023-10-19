@@ -62,10 +62,19 @@ const subcategoryController = {
     //! Search for subcategories
     searchForSubcategories : async (req , res) => {
         try {
+            //* Here are my option that i will use to paginate
+            var options = {
+                sort : { created_at: -1 } ,
+                lean : true ,
+                populate : 'category_id' ,
+                page : req.query.page  ,
+                limit : 10 ,
+            };
+
             //* Get the subcategory by name
             const subcategories = await subcategoryModel.paginate(
-                { subcategory_name : req.query.name } ,
-                { page : req.query.page , limit : 5 } ,
+                { subcategory_name : { $regex :req.query.name } } ,
+                options ,
             ) ;
 
             //* Show the subcategories 
@@ -83,7 +92,8 @@ const subcategoryController = {
         const { id } = req.params ;
         try {
             //* Get the subcategory by its id
-            const subcategory = await subcategoryModel.findOne({_id : id}) ;
+            const subcategory = await subcategoryModel.findOne({ _id : id }).populate({path : 'category_id' , select : 'category_name'}) ;
+
             //* show the subcategory
             if ( subcategory ) {
                 return res.status(200).send(subcategory) ;

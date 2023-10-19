@@ -10,15 +10,11 @@ serviceRouter.post(
     body("service_name")
       .trim()
       .notEmpty()
-      .withMessage("The service name is required")
-      .isAlpha()
-      .withMessage("please enter a valid product name"),
+      .withMessage("The service name is required") ,
     body("service_image")
       .trim()
       .notEmpty()
-      .withMessage("The image of the service is required")
-      .isArray()
-      .withMessage("please enter valid images"),
+      .withMessage("The image of the service is required"),
     body("subcategory_id")
       .trim()
       .notEmpty()
@@ -47,8 +43,6 @@ serviceRouter.post(
       .trim()
       .notEmpty()
       .withMessage("the options are required")
-      .isArray()
-      .withMessage("please enter a valid option"),
   ],
   serviceController.addService
 );
