@@ -5,7 +5,7 @@ const orderSchema = new mongoose.Schema({
 
   customer_id: {
     type : mongoose.Schema.Types.ObjectId , 
-    ref: 'customer' ,
+    ref: 'Customer' ,
     required: [true, 'Customer ID is missing'],
   },
 
