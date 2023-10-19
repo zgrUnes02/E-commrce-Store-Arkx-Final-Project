@@ -18,8 +18,12 @@ orderRouter.post(
       .withMessage("Cart total price must be a number"),
     body("status")
       .trim()
-      .isIn(["Open", "Shipped", "Paid", "Closed", "Canceled"])
+      .isIn(["open", "shipped", "paid", "closed", "canceled"])
       .withMessage("Invalid order status"),
+    body('type')
+      .trim()
+      .notEmpty()
+      .withMessage('the type is required') ,
   ],
   orderController.addNewOrder
 );

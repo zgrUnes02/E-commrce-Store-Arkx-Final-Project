@@ -34,14 +34,31 @@ const orderController = {
   //! List all orders
   listOrders: async (req, res) => {
     try {
-      //* Paginate the categories
-      const orders = await orderModel.paginate(
-        {},
-        { page: req.query.page, limit: 5 }
-      );
-      res.status(200).json(orders);
-    } catch (error) {
-      res.status(500).json({ error: error });
+      //* Here are my option that i will use to paginate
+      var options = {
+        sort : { created_at: -1 } ,
+        lean : true ,
+        populate : ['company_id' , 'customer_id'] ,
+        page : req.query.page  ,
+        limit : 10 ,
+      };
+
+      //* Paginate with populate
+      const orders = await orderModel.paginate({} , options) ;
+      // const orders = await orderModel.find() ;
+      
+      
+      //* Send all subcategories with the name of the category
+      if ( orders ) {
+        res.status(200).json(orders);
+      }
+      
+    } 
+    catch ( error ) {
+      res.status(403).json({
+        message : 'Something went wrong' ,
+        error : error ,
+      });
     }
   },
 

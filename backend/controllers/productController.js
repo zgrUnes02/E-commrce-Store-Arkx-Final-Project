@@ -14,6 +14,7 @@ const productController = {
             price,
             discount_price,
             options,
+            company_id,
         } = req.body;
 
         //* Check is there is any validation problem
@@ -34,6 +35,7 @@ const productController = {
                 price: price,
                 discount_price: discount_price,
                 options: options,
+                company_id: company_id,
             });
             res.status(200).json({
                 message: "Product added with success",
@@ -47,12 +49,24 @@ const productController = {
     //! Get all the products list
     listingProducts : async (req , res) => {
         try {
-            const products = await productModel.paginate(
-                {},
-                { page: req.query.page, limit: 5 }
-            );
-            res.status(200).send(products);
-        } catch (error) {
+            //* Here are my option that i will use to paginate
+            var options = {
+                sort : { created_at: -1 } ,
+                lean : true ,
+                populate : ['company_id' , 'subcategory_id'] ,
+                page : req.query.page  ,
+                limit : 10 ,
+            } ;
+
+            //* Paginate with populate
+            const products = await productModel.paginate({} , options) ;
+
+            //* Send all products with the name of the category and subcategory
+            if ( products ) {
+                res.status(200).send(products);
+            }
+        } 
+        catch (error) {
             console.log("Something went wrong", error);
         }
     },
