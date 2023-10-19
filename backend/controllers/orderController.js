@@ -44,9 +44,7 @@ const orderController = {
       };
 
       //* Paginate with populate
-      const orders = await orderModel.paginate({} , options) ;
-      // const orders = await orderModel.find() ;
-      
+      const orders = await orderModel.paginate({} , options) ;      
       
       //* Send all subcategories with the name of the category
       if ( orders ) {
@@ -65,10 +63,14 @@ const orderController = {
   //! Get an order by ID
   getOrderById: async (req, res) => {
 
-    const {id} = req.params
+    const { id } = req.params ;
 
     try {
-      const order = await orderModel.findOne({_id:id});
+      const order = await orderModel.findOne({ _id : id }).populate([
+        {path : 'company_id' , select : ['companyName']} , 
+        {path : 'customer_id' , select : ['first_name' , 'family_name' , 'email']}
+      ]);
+
       if (order) {
         res.status(200).json(order);
       }

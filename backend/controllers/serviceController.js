@@ -3,8 +3,7 @@ const { validationResult } = require("express-validator");
 
 //! create a new service
 const serviceController = {
-  addService: async (req, res) => {
-    console.log(req.body);
+  addService: async (req , res) => {
     const {
       service_name,
       service_image,
@@ -15,6 +14,7 @@ const serviceController = {
       capacity_number,
       company_id,
       short_description,
+      options,
     } = req.body;
 
     //* Check is there is any validation problem
@@ -37,11 +37,14 @@ const serviceController = {
         short_description: short_description,
         options: options,
       });
+
       res.status(200).json({
         message: "Service added with success",
         service: newService,
       });
-    } catch (error) {
+
+    } 
+    catch (error) {
       console.log(error);
     }
   },
@@ -49,12 +52,24 @@ const serviceController = {
   //! get all the services list
   listingServices: async (req, res) => {
     try {
-      const services = await serviceModel.paginate(
-        {},
-        { page: req.query.page, limit: 5 }
-      );
-      res.status(200).send(services);
-    } catch (error) {
+      //* Here are my option that i will use to paginate
+      var options = {
+        sort : { created_at: -1 } ,
+        lean : true ,
+        populate : ['company_id' , 'category_id' , 'subcategory_id'] ,
+        page : req.query.page  ,
+        limit : 10 ,
+      };
+
+      //* Paginate with populate
+      const services = await serviceModel.paginate( {} , options );
+
+      //* Send all services with the name of the category , subcategory and the company
+      if ( services ) {
+        res.status(200).send(services);
+      }
+    } 
+    catch (error) {
       console.log("Something went wrong", error);
     }
   },

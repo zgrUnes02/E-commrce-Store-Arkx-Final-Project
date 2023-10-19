@@ -74,11 +74,23 @@ const productController = {
     //! Search for a product
     searchForProduct : async (req , res) => {
         try {
-            const products = await productModel.paginate(
-                { product_name: req.query.name },
-                { name: req.query.name, page: req.query.page, limit: 1 }
-            );
-            res.status(200).send(products);
+            //* Here are my option that i will use to paginate
+            var options = {
+                sort : { created_at: -1 } ,
+                lean : true ,
+                populate : 'company_id' ,
+                page : req.query.page  ,
+                limit : 10 ,
+            };
+
+            //* Paginate with populate
+            const products = await productModel.paginate({ product_name: {$regex : req.query.name }} , options);
+
+            //* Send all products with the name of the company
+            if ( products ) {
+                res.status(200).send(products);
+            }
+
         } catch (error) {
             console.log("Something went wrong", error);
         }
@@ -88,7 +100,10 @@ const productController = {
     getProductById : async (req, res) => {
         const { id } = req.params;
         try {
-            const products = await productModel.findOne({ _id: id });
+            const products = await productModel.findOne({ _id: id }).populate([
+                {path : 'company_id' , select : 'companyName'} ,
+                {path : 'subcategory_id' , select : 'subcategory_name'} ,
+            ]);
             res.status(200).send(products);
         } catch (error) {
             console.log(error);
