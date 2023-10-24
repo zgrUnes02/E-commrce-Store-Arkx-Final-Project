@@ -10,12 +10,14 @@ const subcategoryRouter = require('./routes/subcategoryRoute');
 const serviceRouter = require('./routes/serviceRoute');
 const companyRouter = require('./routes/companyRoute');
 const orderRouter = require('./routes/orderRoute');
+const cors = require('cors') ;
 const PORT = process.env.PORT ;
 
 //! Database connection
 database() ;
 
 //! Use middlewares
+app.use(cors()) ;
 app.use(express.json()) ;
 app.use(express.urlencoded({ extended: false }));
 

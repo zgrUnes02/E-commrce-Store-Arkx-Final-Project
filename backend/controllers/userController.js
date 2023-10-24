@@ -45,10 +45,10 @@ const userController = {
     //! Login
     login : async(req, res) => {
 
-        // Check is there is any validation problem
+        //* Check is there is any validation problem
         const errors = validationResult(req) ;
         if ( !errors.isEmpty() ) {
-            return res.status(400).json(errors) ;
+            return res.status(403).json(errors)
         }
 
         try {
@@ -63,7 +63,7 @@ const userController = {
                     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 
                     if ( token ) {
-                        res.status(200).json({ token : token })
+                        res.status(200).json({ user : user , token : token })
                     }
                 }
                 else {
