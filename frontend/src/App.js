@@ -1,9 +1,14 @@
+import React from "react";
+import UserRoutes from "./routes/UserRoutes";
+import Dashboard from "./pages/user/Dashboard";
 
 function App() {
   return (
-    <div className="App">
+    <React.Fragment>
       
-    </div>
+      {/* <Dashboard /> */}
+      <UserRoutes />
+    </React.Fragment>
   );
 }
 
