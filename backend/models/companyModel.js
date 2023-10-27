@@ -1,4 +1,5 @@
 const mongoose = require('mongoose') ;
+const mongoosePagination = require('mongoose-paginate-v2') ;
 
 const schemaCompany = new mongoose.Schema({
     companyName : {
@@ -26,5 +27,6 @@ const schemaCompany = new mongoose.Schema({
     }
 }) ;
 
+schemaCompany.plugin(mongoosePagination) ;
 const companyModel = mongoose.model('Company' , schemaCompany) ;
 module.exports = companyModel ;

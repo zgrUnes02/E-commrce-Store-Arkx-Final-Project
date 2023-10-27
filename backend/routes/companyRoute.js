@@ -44,6 +44,9 @@ companyRouter.post(
   companyController.loginCompany
 );
 
+//! Get All companies 
+companyRouter.get("/companies" , companyController.getAllCompanies) ;
+
 //! Update a company data
 companyRouter.put(
   "/company/:id" , companyVerification ,

@@ -91,6 +91,21 @@ const companyController = {
         }
     } ,
 
+    //! Get all companies 
+    getAllCompanies : async (req , res) => {
+        try {
+            //* Paginate the customers
+            const companies = await companyModel.paginate(
+                {} , 
+                { page : req.query.page , limit : 5 }
+            ) ;
+            res.status(200).send(companies) ;
+        }
+        catch ( error ) {
+            console.log('Something went wrong' , error) ;
+        }
+    } ,
+
     //! Update the company data
     updateCompanyData : async (req , res) => {
         const { companyName , description , logo , email } = req.body ;
