@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../../layouts/Header'
 import LeftSideBar from '../../layouts/LeftSideBar'
 
-function Users() {
+function Categories() {
     return (
         <React.Fragment>
             <Header/>
@@ -11,7 +11,7 @@ function Users() {
             <main id="main" class="main">
 
             <div class="pagetitle">
-                <h1> The Users </h1>
+                <h1> The Categories </h1>
             </div>
 
             <section class="section">
@@ -59,4 +59,4 @@ function Users() {
     )
 }
 
-export default Users ;
+export default Categories ;

@@ -12,12 +12,6 @@ function Companies() {
 
             <div class="pagetitle">
                 <h1> The Companies </h1>
-                <nav>
-                    <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}"> Accueil </a></li>
-                
-                    </ol>
-                </nav>
             </div>
 
             <section class="section">
