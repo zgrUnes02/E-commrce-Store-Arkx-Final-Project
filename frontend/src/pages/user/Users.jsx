@@ -24,11 +24,13 @@ function Users() {
                         <table class="table text-center table-responsive-lg">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">E-mail</th>
-                                    <th scope="col">Sujet</th>
-                                    <th scope="col">Processe</th>
+                                    <th scope="col"> # </th>
+                                    <th scope="col"> First Name </th>
+                                    <th scope="col"> Last Name </th>
+                                    <th scope="col"> Username </th>
+                                    <th scope="col"> Role </th>
+                                    <th scope="col"> Email </th>
+                                    <th scope="col"> Activation </th>
                                 </tr>
                             </thead>
 
@@ -38,10 +40,9 @@ function Users() {
                                     <td> 2 </td>
                                     <td> 3 </td>
                                     <td> 4 </td>
-                                    <td>
-                                        <a href="{{route('delete.message' , $message -> id)}}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a>
-                                        <a href="{{route('show.message' , $message -> id)}}" class="btn btn-outline-success"> <i class="fa-solid fa-eye"></i> </a>
-                                    </td>
+                                    <td> 4 </td>
+                                    <td> 4 </td>
+                                    <td> 4 </td>
                                 </tr>
                             </tbody>
 

@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../../layouts/Header'
 import LeftSideBar from '../../layouts/LeftSideBar'
 
-function Products() {
+function Dashboard() {
     return (
         <React.Fragment>
             <Header/>
@@ -11,7 +11,7 @@ function Products() {
             <main id="main" class="main">
 
             <div class="pagetitle">
-                <h1> The Products </h1>
+                <h1> Dashboard </h1>
             </div>
 
             <section class="section">
@@ -25,13 +25,10 @@ function Products() {
                             <thead>
                                 <tr>
                                     <th scope="col"> # </th>
-                                    <th scope="col"> Product Name </th>
-                                    <th scope="col"> Subcategory Name </th>
-                                    <th scope="col"> Short Description </th>
-                                    <th scope="col"> Long Description </th>
-                                    <th scope="col"> Price </th>
-                                    <th scope="col"> Activation </th>
-                                    <th scope="col"> Actions </th>
+                                    <th scope="col"> Company Name </th>
+                                    <th scope="col"> Description </th>
+                                    <th scope="col"> E-mail </th>
+                                    <th scope="col" width="10%"> Actions </th>
                                 </tr>
                             </thead>
 
@@ -40,12 +37,8 @@ function Products() {
                                     <th> 1 </th>
                                     <td> 2 </td>
                                     <td> 3 </td>
-                                    <td> 2 </td>
-                                    <td> 3 </td>
-                                    <td> 4 </td>
                                     <td> 4 </td>
                                     <td style={{ display:'flex' , justifyContent:'space-between' }}>
-                                        <button className='btn btn-outline-success'> <i class="fa-solid fa-eye"></i> </button>
                                         <button className='btn btn-outline-primary'> <i class="fa-solid fa-edit"></i> </button>
                                         <button className='btn btn-outline-danger'> <i class="fa-solid fa-trash"></i> </button>
                                     </td>
@@ -66,4 +59,4 @@ function Products() {
     )
 }
 
-export default Products ;
+export default Dashboard

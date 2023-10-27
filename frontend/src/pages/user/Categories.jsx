@@ -1,8 +1,18 @@
-import React from 'react'
-import Header from '../../layouts/Header'
-import LeftSideBar from '../../layouts/LeftSideBar'
+import React, { useEffect, useState } from 'react' ;
+import Header from '../../layouts/Header' ;
+import LeftSideBar from '../../layouts/LeftSideBar' ;
+import AuthAxios from '../../helpers/request' ;
 
 function Categories() {
+
+    const [categories , setCategories] = useState() ; 
+
+    useEffect(() => {
+        AuthAxios.get('http://localhost:4000/v1/categories')
+        .then(response => setCategories(response.data.docs))
+        .catch(error => console.log(error)) ;
+    } , [categories])
+
     return (
         <React.Fragment>
             <Header/>
@@ -24,25 +34,27 @@ function Categories() {
                         <table class="table text-center table-responsive-lg">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">E-mail</th>
-                                    <th scope="col">Sujet</th>
-                                    <th scope="col">Processe</th>
+                                    <th scope="col"> # </th>
+                                    <th scope="col"> Category Name </th>
+                                    <th scope="col"> Activation </th>
+                                    <th scope="col" width="10%"> Actions </th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <th> 1 </th>
-                                    <td> 2 </td>
-                                    <td> 3 </td>
-                                    <td> 4 </td>
-                                    <td>
-                                        <a href="{{route('delete.message' , $message -> id)}}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a>
-                                        <a href="{{route('show.message' , $message -> id)}}" class="btn btn-outline-success"> <i class="fa-solid fa-eye"></i> </a>
-                                    </td>
-                                </tr>
+                                {
+                                    categories?.map((category , index) => 
+                                        <tr>
+                                            <th> { index + 1 } </th>
+                                            <td> { category.category_name } </td>
+                                            { category.active ? <td> Active </td> : <td> Inactive </td> }
+                                            <td style={{ display:'flex' , justifyContent:'space-between' }}>
+                                                <button className='btn btn-outline-success'> <i class="fa-solid fa-edit"></i> </button>
+                                                <button className='btn btn-outline-danger'> <i class="fa-solid fa-trash"></i> </button>
+                                            </td>
+                                        </tr>
+                                    )
+                                }
                             </tbody>
 
                         </table>

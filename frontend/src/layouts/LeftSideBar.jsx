@@ -8,12 +8,14 @@ function LeftSideBar() {
 
             <ul class="sidebar-nav" id="sidebar-nav">
                 
+                <Link to={'/dashboard'} style={{ textDecoration:'none' }}>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="/">
+                    <a class="nav-link collapsed">
                         <i class="fa-solid fa-house"></i>
                         <span> Dashboard </span>
                     </a>
                 </li>
+                </Link>
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#category" data-bs-toggle="collapse" href="/">
@@ -21,14 +23,14 @@ function LeftSideBar() {
                     </a>
                     <ul id="category" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-                        <Link>
-                        <li>
+                        <Link style={{ textDecoration:'none' }}>
+                        <li style={{ display:'flex' ,justifyContent:'space-between', alignItems:'center'}}>
                             <i class="fa-solid fa-circle"></i><span> Create new category </span>
                         </li>
                         </Link>
 
-                        <Link to={'/categories'}>
-                        <li>
+                        <Link to={'/categories'} style={{ textDecoration:'none' }}>
+                        <li style={{ display:'flex' ,justifyContent:'space-between', alignItems:'center'}}>
                             <i class="fa-solid fa-circle"></i><span> List of categories </span>
                         </li>
                         </Link>
@@ -42,14 +44,14 @@ function LeftSideBar() {
                     </a>
                     <ul id="subcategory" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         
-                        <Link>
-                        <li>
+                        <Link style={{ textDecoration:'none' }}>
+                        <li style={{ display:'flex' ,justifyContent:'space-between', alignItems:'center'}}>
                             <i class="fa-solid fa-circle"></i><span> Create new subcategory </span>
                         </li>
                         </Link>
 
-                        <Link to={'/subcategories'}>
-                        <li>
+                        <Link to={'/subcategories'} style={{ textDecoration:'none' }}>
+                        <li style={{ display:'flex' ,justifyContent:'space-between', alignItems:'center'}}>
                             <i class="fa-solid fa-circle"></i><span> List of subcategories </span>
                         </li>
                         </Link>
@@ -63,14 +65,14 @@ function LeftSideBar() {
                     </a>
                     <ul id="products" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-                        <Link>
-                        <li>
+                        <Link style={{ textDecoration:'none' }}>
+                        <li style={{ display:'flex' ,justifyContent:'space-between', alignItems:'center'}}>
                             <i class="fa-solid fa-circle"></i><span> Create new product </span>
                         </li>
                         </Link>
 
-                        <Link to={'/products'}>
-                        <li>
+                        <Link to={'/products'} style={{ textDecoration:'none' }}>
+                        <li style={{ display:'flex' ,justifyContent:'space-between', alignItems:'center'}}>
                             <i class="fa-solid fa-circle"></i><span> List of products </span>
                         </li>
                         </Link>
@@ -84,14 +86,14 @@ function LeftSideBar() {
                     </a>
                     <ul id="users" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-                        <Link>
-                        <li>
+                        <Link style={{ textDecoration:'none' }}>
+                        <li style={{ display:'flex' ,justifyContent:'space-between', alignItems:'center'}}>
                             <i class="fa-solid fa-circle"></i><span> Create new user </span>
                         </li>
                         </Link>
 
-                        <Link to={'/users'}>
-                        <li>
+                        <Link to={'/users'} style={{ textDecoration:'none' }}>
+                        <li style={{ display:'flex' ,justifyContent:'space-between', alignItems:'center'}}>
                             <i class="fa-solid fa-circle"></i><span> List of users </span>
                         </li>
                         </Link>
@@ -103,8 +105,8 @@ function LeftSideBar() {
                     <i class="fa-solid fa-trash"></i><span> Customers </span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="customers" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <Link to={'/customers'}>
-                        <li>
+                        <Link to={'/customers'} style={{ textDecoration:'none' }}>
+                        <li style={{ display:'flex' ,justifyContent:'space-between', alignItems:'center'}}>
                             <i class="fa-solid fa-circle"></i><span> List of customers </span>
                         </li>
                         </Link>
@@ -117,14 +119,14 @@ function LeftSideBar() {
                     </a>
                     <ul id="companies" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-                        <Link>
-                        <li>
+                        <Link style={{ textDecoration:'none' }}>
+                        <li style={{ display:'flex' ,justifyContent:'space-between', alignItems:'center'}}>
                             <i class="fa-solid fa-circle"></i><span> Create new company </span>
                         </li>
                         </Link>
 
-                        <Link to={'/companies'}>
-                        <li>
+                        <Link to={'/companies'} style={{ textDecoration:'none' }}>
+                        <li style={{ display:'flex' ,justifyContent:'space-between', alignItems:'center'}}>
                             <i class="fa-solid fa-circle"></i><span> List of companies </span>
                         </li>
                         </Link>
@@ -136,8 +138,8 @@ function LeftSideBar() {
                     <i class="fa-solid fa-trash"></i><span> Orders </span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="orders" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <Link to={'/orders'}>
-                        <li>
+                        <Link to={'/orders'} style={{ textDecoration:'none' }}>
+                        <li style={{ display:'flex' ,justifyContent:'space-between', alignItems:'center'}}>
                             <i class="fa-solid fa-circle"></i><span> List of orders </span>
                         </li>
                         </Link>
