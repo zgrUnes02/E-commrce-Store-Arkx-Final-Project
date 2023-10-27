@@ -7,11 +7,13 @@ import Categories from '../pages/user/Categories';
 import Subcategories from '../pages/user/Subcategories';
 import Orders from '../pages/user/Orders';
 import Users from '../pages/user/Users';
+import Dashboard from '../pages/user/Dashboard';
 
 function UserRoutes() {
   return (
     <Router>
       <Routes>
+        <Route path='/dashboard' element={<Dashboard/>} />
         <Route path='/customers' element={<Customers/>} />
         <Route path='/companies' element={<Companies/>} />
         <Route path='/products' element={<Products/>} />

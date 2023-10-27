@@ -24,11 +24,11 @@ function Companies() {
                         <table class="table text-center table-responsive-lg">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">E-mail</th>
-                                    <th scope="col">Sujet</th>
-                                    <th scope="col">Processe</th>
+                                    <th scope="col"> # </th>
+                                    <th scope="col"> Company Name </th>
+                                    <th scope="col"> Description </th>
+                                    <th scope="col"> E-mail </th>
+                                    <th scope="col" width="10%"> Actions </th>
                                 </tr>
                             </thead>
 
@@ -38,9 +38,9 @@ function Companies() {
                                     <td> 2 </td>
                                     <td> 3 </td>
                                     <td> 4 </td>
-                                    <td>
-                                        <a href="{{route('delete.message' , $message -> id)}}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a>
-                                        <a href="{{route('show.message' , $message -> id)}}" class="btn btn-outline-success"> <i class="fa-solid fa-eye"></i> </a>
+                                    <td style={{ display:'flex' , justifyContent:'space-between' }}>
+                                        <button className='btn btn-outline-primary'> <i class="fa-solid fa-edit"></i> </button>
+                                        <button className='btn btn-outline-danger'> <i class="fa-solid fa-trash"></i> </button>
                                     </td>
                                 </tr>
                             </tbody>
