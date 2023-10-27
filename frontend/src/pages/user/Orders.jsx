@@ -1,8 +1,18 @@
-import React from 'react'
-import Header from '../../layouts/Header'
-import LeftSideBar from '../../layouts/LeftSideBar'
+import React, { useEffect, useState } from 'react' ;
+import Header from '../../layouts/Header' ;
+import LeftSideBar from '../../layouts/LeftSideBar' ;
+import AuthAxios from '../../helpers/request' ;
 
 function Orders() {
+
+    const [orders , setOrders] = useState() ;
+
+    useEffect(() => {
+        AuthAxios.get('http://localhost:4000/v1/orders')
+        .then(response => setOrders(response.data.docs))
+        .catch(error => console.log(error)) ;
+    } , [orders])
+
     return (
         <React.Fragment>
             <Header/>
@@ -26,22 +36,26 @@ function Orders() {
                                 <tr>
                                     <th scope="col"> # </th>
                                     <th scope="col"> Customer Name </th>
-                                    <th scope="col"> Product Name </th>
-                                    <th scope="col"> Quantity </th>
                                     <th scope="col"> Status </th>
-                                    <th scope="col"> Actions </th>
+                                    <th scope="col" width="14%"> Actions </th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <th> 1 </th>
-                                    <td> 2 </td>
-                                    <td> 3 </td>
-                                    <td> 4 </td>
-                                    <td> 4 </td>
-                                    <td> 4 </td>
-                                </tr>
+                                {
+                                    orders?.map((order , index) =>
+                                        <tr key={index}>
+                                            <th> { index + 1 } </th>
+                                            <td> { order.customer_id.first_name } { order.customer_id.last_name } </td>
+                                            <td> { order.status } </td>
+                                            <td style={{ display:'flex' , justifyContent:'space-between' }}>
+                                                <button className='btn btn-outline-success'> <i class="fa-solid fa-eye"></i> </button>
+                                                <button className='btn btn-outline-primary'> <i class="fa-solid fa-edit"></i> </button>
+                                                <button className='btn btn-outline-danger'> <i class="fa-solid fa-trash"></i> </button>
+                                            </td>
+                                        </tr>
+                                    )
+                                }
                             </tbody>
 
                         </table>
