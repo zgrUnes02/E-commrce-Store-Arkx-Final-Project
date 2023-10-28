@@ -1,37 +1,42 @@
-import React, { useEffect, useState } from 'react' ;
+import React, { useEffect } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import AuthAxios from '../../helpers/request' ;
+import { useDispatch , useSelector } from 'react-redux' ;
+import { getAllCompanies } from '../../redux/companySlice';
 
 function Companies() {
 
-    const [companies , setCompanies] = useState() ; 
+    const dispatch = useDispatch() ;
+    const companies = useSelector(state => state.company.companies) ;
 
     useEffect(() => {
-        AuthAxios.get('http://localhost:4000/v1/companies')
-        .then(response => setCompanies(response.data.docs))
-        .catch(error => console.log(error)) ;
-    } , [companies])
+        const getData = async () => {
+            const response = await AuthAxios.get('http://localhost:4000/v1/companies') ;
+            dispatch(getAllCompanies(response.data.docs)) ;
+        }
+        getData() ;
+    } , [])
 
     return (
         <React.Fragment>
             <Header/>
             <LeftSideBar/>
 
-            <main id="main" class="main">
+            <main id="main" className="main">
 
-            <div class="pagetitle">
+            <div className="pagetitle">
                 <h1> The Companies </h1>
             </div>
 
-            <section class="section">
-                <div class="row">
-                    <div class="col-lg-12">
+            <section className="section">
+                <div className="row">
+                    <div className="col-lg-12">
 
-                    <div class="card">
-                        <div class="card-body">
+                    <div className="card">
+                        <div className="card-body">
 
-                        <table class="table text-center table-responsive-lg">
+                        <table className="table text-center table-responsive-lg">
                             <thead>
                                 <tr>
                                     <th scope="col"> # </th>
@@ -45,14 +50,14 @@ function Companies() {
                             <tbody>
                                 {
                                     companies?.map((company , index) => 
-                                        <tr>
+                                        <tr key={index}>
                                             <th> { index + 1 } </th>
                                             <td> { company.companyName } </td>
                                             <td> { company.description } </td>
                                             <td> { company.email } </td>
                                             <td style={{ display:'flex' , justifyContent:'space-between' }}>
-                                                <button className='btn btn-outline-primary'> <i class="fa-solid fa-edit"></i> </button>
-                                                <button className='btn btn-outline-danger'> <i class="fa-solid fa-trash"></i> </button>
+                                                <button className='btn btn-outline-primary'> <i className="fa-solid fa-edit"></i> </button>
+                                                <button className='btn btn-outline-danger'> <i className="fa-solid fa-trash"></i> </button>
                                             </td>
                                         </tr>
                                     )

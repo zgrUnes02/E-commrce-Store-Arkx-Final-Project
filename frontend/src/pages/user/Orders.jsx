@@ -2,16 +2,21 @@ import React, { useEffect, useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import AuthAxios from '../../helpers/request' ;
+import { useDispatch , useSelector } from 'react-redux' ;
+import { getAllOrders } from '../../redux/orderSlice';
 
 function Orders() {
 
-    const [orders , setOrders] = useState() ;
+    const dispatch = useDispatch() ;
+    const orders = useSelector(state => state.order.orders) ;
 
     useEffect(() => {
-        AuthAxios.get('http://localhost:4000/v1/orders')
-        .then(response => setOrders(response.data.docs))
-        .catch(error => console.log(error)) ;
-    } , [orders])
+        const getData = async () => {
+            const response = await AuthAxios.get('http://localhost:4000/v1/orders') ;
+            dispatch(getAllOrders(response.data.docs)) ;
+        }
+        getData() ;
+    } , [])
 
     return (
         <React.Fragment>

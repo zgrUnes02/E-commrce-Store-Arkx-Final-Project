@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react' ;
-import Header from '../../layouts/Header';
-import LeftSideBar from '../../layouts/LeftSideBar';
-import AuthAxios from '../../helpers/request';
+import Header from '../../layouts/Header' ;
+import LeftSideBar from '../../layouts/LeftSideBar' ;
+import AuthAxios from '../../helpers/request' ;
+import { useDispatch , useSelector } from 'react-redux' ;
+import { getAllCustomers } from '../../redux/customerSlice';
 
 function Customers() {
 
-    const [customers , setCustomers] = useState() ; 
+    const dispatch = useDispatch() ;
+    const customers = useSelector(state => state.customer.customers) ;
 
     useEffect(() => {
-        AuthAxios.get('http://localhost:4000/v1/customers')
-        .then(response => setCustomers(response.data.docs))
-        .catch(error => console.log(error)) ;
-    } , [customers])
+        const getData = async () => {
+            const response = await AuthAxios.get('http://localhost:4000/v1/customers') ;
+            dispatch(getAllCustomers(response.data.docs)) ;         
+        }
+        getData() ;
+    } , [])
 
     const deleteCustomer = ( id ) => {
         AuthAxios.delete(`http://localhost:4000/v1/customers/delete/${id}`)
@@ -62,9 +67,9 @@ function Customers() {
                                             { customer.active ? <td>active</td> : <td>inactive</td> }
                                             { customer.valid_account ? <td> valid account </td> : <td> invalid account </td> }
                                             <td style={{ display:'flex' , justifyContent:'space-between' }}>
-                                                <button className='btn btn-outline-success'> <i class="fa-solid fa-eye"></i> </button>
-                                                <button onClick={() => { deleteCustomer(customer._id) }} className='btn btn-outline-danger'> <i class="fa-solid fa-trash"></i> </button>
-                                                <button className='btn btn-outline-warning'> <i class="fa-solid fa-lock"></i> </button>
+                                                <button className='btn btn-outline-success'> <i className="fa-solid fa-eye"></i> </button>
+                                                <button className='btn btn-outline-danger'> <i className="fa-solid fa-trash"></i> </button>
+                                                <button className='btn btn-outline-warning'> <i className="fa-solid fa-lock"></i> </button>
                                             </td>
                                         </tr>
                                     ) 
