@@ -2,36 +2,41 @@ import React, { useEffect, useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import AuthAxios from '../../helpers/request' ;
+import { useDispatch , useSelector } from 'react-redux' ;
+import { getAllUsers } from '../../redux/userSlice';
 
 function Users() {
 
-    const [users , setUsers] = useState() ; 
+    const dispatch = useDispatch() ;
+    const users = useSelector(state => state.user.users) ;
 
     useEffect(() => {
-        AuthAxios.get('http://localhost:4000/v1/users')
-        .then(response => setUsers(response.data.docs))
-        .catch(error => console.log(error)) ;
-    } , [users])
+        const getData = async () => {
+            const response = await AuthAxios.get('http://localhost:4000/v1/users') ;
+            dispatch(getAllUsers(response.data.docs)) ;
+        }
+        getData() ;
+    } , [])
 
     return (
         <React.Fragment>
             <Header/>
             <LeftSideBar/>
 
-            <main id="main" class="main">
+            <main id="main" className="main">
 
-            <div class="pagetitle">
+            <div className="pagetitle">
                 <h1> The Users </h1>
             </div>
 
-            <section class="section">
-                <div class="row">
-                    <div class="col-lg-12">
+            <section className="section">
+                <div className="row">
+                    <div className="col-lg-12">
 
-                    <div class="card">
-                        <div class="card-body">
+                    <div className="card">
+                        <div className="card-body">
 
-                        <table class="table text-center table-responsive-lg">
+                        <table className="table text-center table-responsive-lg">
                             <thead>
                                 <tr>
                                     <th scope="col"> # </th>
@@ -48,7 +53,7 @@ function Users() {
                             <tbody>
                                 {
                                     users?.map((user , index) => 
-                                        <tr>
+                                        <tr key={index}>
                                             <th> { index + 1 } </th>
                                             <td> { user.first_name } </td>
                                             <td> { user.last_name } </td>
@@ -57,9 +62,9 @@ function Users() {
                                             <td> { user.email } </td>
                                             { user.active ?  <td> Active </td> : <td> Inactive </td> }
                                             <td style={{ display:'flex' , justifyContent:'space-between' }}>
-                                                <button className='btn btn-outline-success'> <i class="fa-solid fa-edit"></i> </button>
-                                                <button className='btn btn-outline-danger'> <i class="fa-solid fa-trash"></i> </button>
-                                                <button className='btn btn-outline-warning'> <i class="fa-solid fa-lock"></i> </button>
+                                                <button className='btn btn-outline-success'> <i className="fa-solid fa-edit"></i> </button>
+                                                <button className='btn btn-outline-danger'> <i className="fa-solid fa-trash"></i> </button>
+                                                <button className='btn btn-outline-warning'> <i className="fa-solid fa-lock"></i> </button>
                                             </td>
                                         </tr>
                                     )

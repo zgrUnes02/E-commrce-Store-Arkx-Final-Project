@@ -2,16 +2,21 @@ import React, { useEffect, useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import AuthAxios from '../../helpers/request' ;
+import { useDispatch, useSelector } from 'react-redux' ;
+import { getAllSubcategories } from '../../redux/subcategorySlice';
 
 function Subcategories() {
 
-    const [subcategories , setSubcategories] = useState() ; 
+    const dispatch = useDispatch() ;
+    const subcategories = useSelector(state => state.subcategory.subcategories) ; 
 
     useEffect(() => {
-        AuthAxios.get('http://localhost:4000/v1/subcategories')
-        .then(response => setSubcategories(response.data.docs))
-        .catch(error => console.log(error)) ;
-    } , [subcategories])
+        const getData = async () => {
+            const response = await AuthAxios.get('http://localhost:4000/v1/subcategories') ;
+            dispatch(getAllSubcategories(response.data.docs)) ;
+        }
+        getData() 
+    } , [])
 
     return (
         <React.Fragment>
@@ -45,7 +50,7 @@ function Subcategories() {
                             <tbody>
                                 {
                                     subcategories?.map((subcategory , index) => 
-                                        <tr>
+                                        <tr key={index}>
                                             <th> { index + 1 } </th>
                                             <td> { subcategory.subcategory_name } </td>
                                             <td> { subcategory.category_id.category_name } </td>
