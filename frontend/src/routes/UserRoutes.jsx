@@ -8,6 +8,13 @@ import Subcategories from '../pages/user/Subcategories';
 import Orders from '../pages/user/Orders';
 import Users from '../pages/user/Users';
 import Dashboard from '../pages/user/Dashboard';
+import CategoriesCreate from '../pages/user/CategoriesCreate';
+import SubcategoriesCreate from '../pages/user/SubcategoriesCreate';
+import ProductCreate from '../pages/user/ProductsCreate';
+import UsersCreate from '../pages/user/UsersCreate';
+import Services from '../pages/user/Services';
+import ServicesCreate from '../pages/user/ServicesCreate';
+import CompaniesCreate from '../pages/user/CompaniesCreate';
 
 function UserRoutes() {
   return (
@@ -16,11 +23,18 @@ function UserRoutes() {
         <Route path='/dashboard' element={<Dashboard/>} />
         <Route path='/customers' element={<Customers/>} />
         <Route path='/companies' element={<Companies/>} />
+        <Route path='/companies/create' element={<CompaniesCreate/>} />
         <Route path='/products' element={<Products/>} />
+        <Route path='/products/create' element={<ProductCreate/>} />
         <Route path='/categories' element={<Categories/>} />
+        <Route path='/categories/create' element={<CategoriesCreate/>} />
         <Route path='/subcategories' element={<Subcategories/>} />
+        <Route path='/subcategories/create' element={<SubcategoriesCreate/>} />
         <Route path='/orders' element={<Orders/>} />
         <Route path='/users' element={<Users/>} />
+        <Route path='/users/create' element={<UsersCreate/>} />
+        <Route path='/services' element={<Services/>} />
+        <Route path='/services/create' element={<ServicesCreate/>} />
       </Routes>
     </Router>
   )

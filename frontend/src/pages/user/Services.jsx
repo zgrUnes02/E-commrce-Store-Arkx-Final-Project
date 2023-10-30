@@ -3,18 +3,18 @@ import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import AuthAxios from '../../helpers/request' ;
 import { useDispatch , useSelector } from 'react-redux' ;
-import { getAllProducts } from '../../redux/productSlice';
 import { Link } from 'react-router-dom';
+import { getAllServices } from '../../redux/serviceSlice';
 
-function Products() {
+function Services() {
 
     const dispatch = useDispatch() ;
-    const products = useSelector(state => state.product.products) ;
+    const services = useSelector(state => state.service.services) ;
 
     useEffect(() => {
         const getData = async () => {
-            const response = await AuthAxios.get('http://localhost:4000/v1/products') ;
-            dispatch(getAllProducts(response.data.docs)) ;
+            const response = await AuthAxios.get('http://localhost:4000/v1/services') ;
+            dispatch(getAllServices(response.data.docs)) ;
         }
         getData() ;
     } , [])
@@ -27,7 +27,7 @@ function Products() {
             <main id="main" className="main">
 
                 <div class="pagetitle">
-                    <h1> Products </h1>
+                    <h1> Services </h1>
                     <nav>
                         <ol class="breadcrumb">
                             <Link style={{ textDecoration:'none' }}> Home </Link>
@@ -46,28 +46,30 @@ function Products() {
                                 <thead>
                                     <tr>
                                         <th scope="col"> # </th>
-                                        <th scope="col"> Product Name </th>
+                                        <th scope="col"> Service Name </th>
+                                        <th scope="col"> Category Name </th>
                                         <th scope="col"> Subcategory Name </th>
+                                        <th scope="col"> Company Name </th>
                                         <th scope="col"> Price </th>
-                                        <th scope="col"> Activation </th>
                                         <th scope="col" width="14%"> Actions </th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     {
-                                        products?.map((product , index) => 
+                                        services?.map((service , index) => 
                                         <tr key={index}>
                                             <th> { index + 1 } </th>
-                                            <td> { product.product_name } </td>
-                                            <td> { product.subcategory_id.subcategory_name } </td>
-                                            <td> { product.price } MAD </td>
-                                            { product.active ? <td> Active </td> : <td> Inactive </td> }
+                                            <td> { service.service_name } </td>
+                                            <td> { service.category_id.category_name } </td>
+                                            <td> { service.subcategory_id.subcategory_name } </td>
+                                            <td> { service.company_id.companyName } </td>
+                                            <td> { service.price } MAD </td>
                                             <td style={{ display:'flex' , justifyContent:'space-between' }}>
                                                 <button className='btn btn-outline-success'> <i className="fa-solid fa-eye"></i> </button>
                                                 <button className='btn btn-outline-primary'> <i className="fa-solid fa-edit"></i> </button>
                                                 <button className='btn btn-outline-danger'> <i className="fa-solid fa-trash"></i> </button>
-                                            </td>
+                                            </td> 
                                         </tr>
                                         )
                                     }
@@ -87,4 +89,4 @@ function Products() {
     )
 }
 
-export default Products ;
+export default Services ;

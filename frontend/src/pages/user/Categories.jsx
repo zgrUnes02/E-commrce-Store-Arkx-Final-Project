@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import AuthAxios from '../../helpers/request' ;
-import { useDispatch  , useSelector } from 'react-redux' ;
+import { useDispatch , useSelector } from 'react-redux' ;
 import { getAllCategories } from '../../redux/categorySlice';
+import { Link } from 'react-router-dom';
 
 function Categories() {
 
@@ -25,8 +26,13 @@ function Categories() {
 
             <main id="main" className="main">
 
-            <div className="pagetitle">
-                <h1> The Categories </h1>
+            <div class="pagetitle">
+                <h1> Categories </h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <Link style={{ textDecoration:'none' }}> Home </Link>
+                    </ol>
+                </nav>
             </div>
 
             <section className="section">

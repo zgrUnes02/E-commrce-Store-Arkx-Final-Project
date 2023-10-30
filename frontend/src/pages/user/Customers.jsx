@@ -4,6 +4,7 @@ import LeftSideBar from '../../layouts/LeftSideBar' ;
 import AuthAxios from '../../helpers/request' ;
 import { useDispatch , useSelector } from 'react-redux' ;
 import { getAllCustomers } from '../../redux/customerSlice';
+import { Link } from 'react-router-dom';
 
 function Customers() {
 
@@ -32,8 +33,13 @@ function Customers() {
 
             <main id="main" className="main">
 
-            <div className="pagetitle">
-                <h1> The Customers </h1>
+            <div class="pagetitle">
+                <h1> Customers </h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <Link style={{ textDecoration:'none' }}> Home </Link>
+                    </ol>
+                </nav>
             </div>
 
             <section className="section">
