@@ -60,6 +60,13 @@ const categoryController={
     updateCategory : async (req , res) => {
         const { category_name , active } = req.body ;
         const { id } = req.params ;
+
+        //* Check if there is any validation problem
+        const errors = validationResult(req) ;
+        if ( !errors.isEmpty() ) {
+            return res.status(400).json(errors) ;
+        }
+        
         try {
             //* Find the category that i want to update his data
             const categoryWantToUpdate = await categoryModel.findOne({_id : id}) ;
@@ -81,7 +88,7 @@ const categoryController={
             //* Paginate the categories
             const categories = await categoryModel.paginate(
                 {} , 
-                { page : req.query.page , limit : 5 }
+                { page : req.query.page , limit :8 }
             ) ;
             res.status(200).send(categories) ;
         }

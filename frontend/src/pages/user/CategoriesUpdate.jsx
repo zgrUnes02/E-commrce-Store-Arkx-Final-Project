@@ -1,28 +1,31 @@
 import React, { useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
-import { Link, useNavigate } from 'react-router-dom' ;
+import { Link, useNavigate, useParams } from 'react-router-dom' ;
+import { useDispatch , useSelector } from 'react-redux' ;
 import AuthAxios from '../../helpers/request' ;
 
-function CategoriesCreate() {
-
-    const [category_name , setCategory_name] = useState() ;
-    const [active , setActive] = useState() ;
-    const [errors , setErrors] = useState() ;
+function CategoriesUpdate() {
 
     const navigate = useNavigate() ;
 
-    //! Create New Category In Database 
-    const createNewCategory = (e) => {
+    const { id } = useParams() ; 
+    const categories = useSelector(state => state.category.categories) ;
+    const category = categories.find(category => category._id === id) ;
+
+    const [category_name , setCategory_name] = useState(category.category_name) ;
+    const [active , setActive] = useState(category.active) ;
+    const [errors , setErrors] = useState() ;
+
+    //! Update Category In Database 
+    const updateCategory = (e) => {
         e.preventDefault() ;
-        AuthAxios.post('http://localhost:4000/v1/categories' , { category_name , active })
+        AuthAxios.put(`http://localhost:4000/v1/categories/${id}` , { category_name , active })
         .then(response => {
             alert(response.data.message) ;
-            navigate('/categories') ;
+            navigate('/categories')
         })
-        .catch(error => { 
-            setErrors(error.response.data.errors) ;
-        }) ;
+        .catch(error => setErrors(error.response.data.errors)) ;
     }
 
     return (
@@ -32,7 +35,7 @@ function CategoriesCreate() {
 
             <main id="main" class="main">
                 <div class="pagetitle">
-                    <h1> Create new category </h1>
+                    <h1> Update the category </h1>
                     <nav>
                         <ol class="breadcrumb">
                             <Link style={{ textDecoration:'none' }}> Home </Link>
@@ -55,12 +58,12 @@ function CategoriesCreate() {
                         <div className="col-lg-12">
                             <div className="card">
                                 <div className="card-body">
-                                    <form className='mt-3' onSubmit={createNewCategory}>  
+                                    <form className='mt-3' onSubmit={updateCategory}>  
 
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setCategory_name(e.target.value)} type="text" placeholder="Enter the category's name" id="form6Example1" class="form-control" />
+                                                    <input value={category_name} onChange={(e) => setCategory_name(e.target.value)} type="text" placeholder="Enter the category's name" id="form6Example1" class="form-control" />
                                                     <label class="form-label mt-2 mx-3" for="form6Example1">Category Name</label>
                                                 </div>
                                             </div>
@@ -70,16 +73,24 @@ function CategoriesCreate() {
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <select name='category_status' onChange={(e) => setActive(e.target.value)} class="form-select" id="exampleSelect" required >
-                                                        <option disabled selected> Enter the category's status </option>
-                                                        <option value="true"> Active </option>
-                                                        <option value="false"> Inactive </option>
+                                                        {
+                                                            category.active ? 
+                                                            <>
+                                                                <option selected value="true"> Active </option>
+                                                                <option value="false"> Inactive </option>
+                                                            </> :
+                                                            <>
+                                                                <option selected value="false"> Inactive </option>
+                                                                <option value="true"> Active </option>
+                                                            </>
+                                                        }
                                                     </select>
                                                     <label class="form-label mt-2 mx-3" for="form6Example1">Category Status</label>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary btn-block mb-4"> Add new category </button>
+                                        <button type="submit" class="btn btn-primary btn-block mb-4"> Update category </button>
 
                                     </form>
                                 </div>
@@ -92,4 +103,4 @@ function CategoriesCreate() {
     )
 }
 
-export default CategoriesCreate
+export default CategoriesUpdate ;

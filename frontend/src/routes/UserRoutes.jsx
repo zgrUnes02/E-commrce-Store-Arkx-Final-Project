@@ -16,27 +16,39 @@ import Services from '../pages/user/Services';
 import ServicesCreate from '../pages/user/ServicesCreate';
 import CompaniesCreate from '../pages/user/CompaniesCreate';
 import Profile from '../pages/user/Profile';
+import CategoriesUpdate from '../pages/user/CategoriesUpdate';
 
 function UserRoutes() {
   return (
     <Router>
       <Routes>
         <Route path='/profile' element={<Profile/>} />
+
         <Route path='/dashboard' element={<Dashboard/>} />
+
         <Route path='/customers' element={<Customers/>} />
+
         <Route path='/companies' element={<Companies/>} />
         <Route path='/companies/create' element={<CompaniesCreate/>} />
+
         <Route path='/products' element={<Products/>} />
         <Route path='/products/create' element={<ProductCreate/>} />
+        
         <Route path='/categories' element={<Categories/>} />
         <Route path='/categories/create' element={<CategoriesCreate/>} />
+        <Route path='/category/update/:id' element={<CategoriesUpdate/>} />
+
         <Route path='/subcategories' element={<Subcategories/>} />
         <Route path='/subcategories/create' element={<SubcategoriesCreate/>} />
+
         <Route path='/orders' element={<Orders/>} />
+
         <Route path='/users' element={<Users/>} />
         <Route path='/users/create' element={<UsersCreate/>} />
+
         <Route path='/services' element={<Services/>} />
         <Route path='/services/create' element={<ServicesCreate/>} />
+
       </Routes>
     </Router>
   )

@@ -16,9 +16,13 @@ const categorySlice = createSlice({
                     active : category.active 
                 }
             }) 
+        } ,
+
+        deleteCategory : (state , action) => {
+            state.categories = state.categories.filter(category => category._id !== action.payload.id) ;
         }
-    } ,
+    } 
 }) ;
 
-export const { getAllCategories , } = categorySlice.actions ;
+export const { getAllCategories , deleteCategory } = categorySlice.actions ;
 export default categorySlice.reducer ;
