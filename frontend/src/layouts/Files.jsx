@@ -6,6 +6,7 @@ import '../../assets/vendor/quill/quill.bubble.css' ;
 import '../../assets/vendor/remixicon/remixicon.css' ;
 import '../../assets/vendor/simple-datatables/style.css' ;
 import '../../assets/css/style.css' ; 
+import '../../dist/output.css' ;
 
 const Files = () => {}
 

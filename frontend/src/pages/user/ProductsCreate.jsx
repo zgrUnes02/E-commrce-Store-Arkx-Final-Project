@@ -2,8 +2,12 @@ import React from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { Link } from 'react-router-dom' ;
+import { useSelector } from 'react-redux' ;
 
-function Dashboard() {
+function ProductCreate() {
+
+    const subcategories = useSelector(state => state.subcategory.subcategories) ;
+
     return (
         <React.Fragment>
             <Header/>
@@ -20,7 +24,7 @@ function Dashboard() {
                     </nav>
                 </div>
 
-                {/* <section className="section">
+                <section className="section">
                     <div className="row">
                         <div className="col-lg-12">
 
@@ -32,81 +36,81 @@ function Dashboard() {
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input type="text" id="form6Example1" class="form-control" />
-                                                    <label class="form-label" for="form6Example1"> Product Name </label>
+                                                    <input type="text" id="form6Example1" class="form-control" required />
+                                                    <label class="form-label mt-2 mx-3" for="form6Example1"> Product Name </label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <input type="file" id="form6Example2" class="form-control" />
-                                                    <label class="form-label" for="form6Example2"> Product Image </label>
+                                                    <label class="form-label mt-2 mx-3" for="form6Example2"> Product Image </label>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="row mb-4">
+                                        <div class="row">
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
-                                                    <select class="form-select" id="exampleSelect">
+                                                    <select class="form-select" id="exampleSelect" required >
                                                         <option disabled selected> Enter the subcategory's name </option>
-                                                        <option value="option2">Option 2</option>
-                                                        <option value="option3">Option 3</option>
-                                                        <option value="option4">Option 4</option>
-                                                        <option value="option5">Option 5</option>
+                                                        {
+                                                            subcategories?.map(subcategory => 
+                                                                <option value={ subcategory._id }> { subcategory.subcategory_name } </option> 
+                                                            )
+                                                        }
                                                     </select>
-                                                    <label class="form-label" for="form6Example3"> Subcategory Name </label>
+                                                    <label class="form-label mt-2 mx-3" for="form6Example3"> Subcategory Name </label>
                                                 </div>
                                             </div>
 
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
-                                                    <input type="number" id="form6Example4" class="form-control" />
-                                                    <label class="form-label" for="form6Example4"> Product Price </label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row mb-4">
-                                            <div className='col'>
-                                                <div class="form-outline mb-4">
-                                                    <textarea class="form-control" id="form6Example7" rows="2"></textarea>
-                                                    <label class="form-label" for="form6Example7"> Enter the shirt description </label>
-                                                </div>
-                                            </div>
-
-                                            <div className='col'>
-                                                <div class="form-outline mb-4">
-                                                    <textarea class="form-control" id="form6Example7" rows="2"></textarea>
-                                                    <label class="form-label" for="form6Example7"> Enter the long description </label>
+                                                    <input type="number" id="form6Example4" class="form-control" required />
+                                                    <label class="form-label mt-2 mx-3" for="form6Example4"> Product Price </label>
                                                 </div>
                                             </div>
                                         </div>
 
+
+                                        <div class="row">
+                                            <div className='col'>
+                                                <div class="form-outline mb-4">
+                                                    <textarea class="form-control" id="form6Example7" rows="2" required ></textarea>
+                                                    <label class="form-label mt-2 mx-3" for="form6Example7"> Enter the shirt description </label>
+                                                </div>
+                                            </div>
+
+                                            <div className='col'>
+                                                <div class="form-outline mb-4">
+                                                    <textarea class="form-control" id="form6Example7" rows="2" required ></textarea>
+                                                    <label class="form-label mt-2 mx-3" for="form6Example7"> Enter the long description </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="row mb-4">
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
-                                                    <select class="form-select" id="exampleSelect" multiple>
+                                                    <select class="form-select" id="exampleSelect" multiple required>
                                                         <option disabled selected> Enter the options </option>
-                                                        <option value="option2">Option 2</option>
-                                                        <option value="option3">Option 3</option>
-                                                        <option value="option4">Option 4</option>
-                                                        <option value="option5">Option 5</option>
+                                                        <option value="XS"> XS </option>
+                                                        <option value="S"> S </option>
+                                                        <option value="M"> M </option>
+                                                        <option value="L"> L </option>
+                                                        <option value="XL"> XL </option>
                                                     </select>
-                                                    <label class="form-label" for="form6Example3"> Subcategory Options </label>
+                                                    <label class="form-label mt-2 mx-3" for="form6Example3"> Subcategory Options </label>
                                                 </div>
                                             </div>
 
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
-                                                    <select class="form-select" id="exampleSelect">
+                                                    <select class="form-select" id="exampleSelect" required>
                                                         <option disabled selected> Enter activation status </option>
-                                                        <option value="option2">Option 2</option>
-                                                        <option value="option3">Option 3</option>
-                                                        <option value="option4">Option 4</option>
-                                                        <option value="option5">Option 5</option>
+                                                        <option value="option2"> Active </option>
+                                                        <option value="option3"> Inactive </option>
                                                     </select>
-                                                    <label class="form-label" for="form6Example3"> Subcategory Activation Status </label>
+                                                    <label class="form-label mt-2 mx-3" for="form6Example3"> Product activation status </label>
                                                 </div>
                                             </div>
 
@@ -123,11 +127,11 @@ function Dashboard() {
 
                     </div>
 
-                </section> */}
+                </section>
 
             </main>
         </React.Fragment>
     )
 }
 
-export default Dashboard
+export default ProductCreate
