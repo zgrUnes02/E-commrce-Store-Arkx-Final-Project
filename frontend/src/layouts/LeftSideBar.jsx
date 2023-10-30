@@ -17,9 +17,18 @@ function LeftSideBar() {
                 </li>
                 </Link>
 
+                <Link style={{ textDecoration:'none' }} to={'/profile'}>
+                <li class="nav-item">
+                    <a class="nav-link collapsed">
+                        <i class="fa-solid fa-user"></i>
+                        <span> My profile </span>
+                    </a>
+                </li>
+                </Link>
+
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#category" data-bs-toggle="collapse" href="/">
-                    <i class="fa-solid fa-trash"></i><span> Categories </span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="fa-solid fa-paste"></i><span> Categories </span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="category" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
@@ -40,7 +49,7 @@ function LeftSideBar() {
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#subcategory" data-bs-toggle="collapse" href="/">
-                    <i class="fa-solid fa-trash"></i><span> Subcategories </span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="fa-solid fa-file-circle-plus"></i><span> Subcategories </span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="subcategory" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         
@@ -61,7 +70,7 @@ function LeftSideBar() {
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#products" data-bs-toggle="collapse" href="/">
-                    <i class="fa-solid fa-trash"></i><span> Products </span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="fa-solid fa-shirt"></i><span> Products </span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="products" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
@@ -82,7 +91,7 @@ function LeftSideBar() {
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#services" data-bs-toggle="collapse" href="/">
-                    <i class="fa-solid fa-trash"></i><span> Services </span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="fa-solid fa-bell-concierge"></i><span> Services </span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="services" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
@@ -103,7 +112,7 @@ function LeftSideBar() {
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#users" data-bs-toggle="collapse" href="/">
-                    <i class="fa-solid fa-trash"></i><span> Users </span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="fa-solid fa-user-shield"></i><span> Users </span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="users" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
@@ -123,7 +132,7 @@ function LeftSideBar() {
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#customers" data-bs-toggle="collapse" href="/">
-                    <i class="fa-solid fa-trash"></i><span> Customers </span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="fa-solid fa-users"></i><span> Customers </span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="customers" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <Link to={'/customers'} style={{ textDecoration:'none' }}>
@@ -136,7 +145,7 @@ function LeftSideBar() {
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#companies" data-bs-toggle="collapse" href="/">
-                    <i class="fa-solid fa-trash"></i><span> Companies </span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="fa-solid fa-building"></i><span> Companies </span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="companies" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
@@ -156,7 +165,7 @@ function LeftSideBar() {
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#orders" data-bs-toggle="collapse" href="/">
-                    <i class="fa-solid fa-trash"></i><span> Orders </span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="fa-solid fa-folder-plus"></i><span> Orders </span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="orders" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <Link to={'/orders'} style={{ textDecoration:'none' }}>
@@ -166,6 +175,15 @@ function LeftSideBar() {
                         </Link>
                     </ul>
                 </li>
+
+                <Link style={{ textDecoration:'none' }}>
+                <li class="nav-item">
+                    <a class="nav-link collapsed">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span> Log out </span>
+                    </a>
+                </li>
+                </Link>
 
             </ul>
 

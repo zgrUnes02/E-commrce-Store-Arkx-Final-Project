@@ -15,11 +15,13 @@ import UsersCreate from '../pages/user/UsersCreate';
 import Services from '../pages/user/Services';
 import ServicesCreate from '../pages/user/ServicesCreate';
 import CompaniesCreate from '../pages/user/CompaniesCreate';
+import Profile from '../pages/user/Profile';
 
 function UserRoutes() {
   return (
     <Router>
       <Routes>
+        <Route path='/profile' element={<Profile/>} />
         <Route path='/dashboard' element={<Dashboard/>} />
         <Route path='/customers' element={<Customers/>} />
         <Route path='/companies' element={<Companies/>} />
