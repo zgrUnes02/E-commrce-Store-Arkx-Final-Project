@@ -39,8 +39,6 @@ categoryRouter.put(
       .trim()
       .notEmpty()
       .withMessage("the category status is required")
-      .isBoolean()
-      .withMessage("the category status value is required"),
   ],
   categoryController.updateCategory
 );

@@ -1,4 +1,5 @@
 import React from 'react' ;
+import { Link } from 'react-router-dom' ;
 
 function Header() {
 
@@ -28,26 +29,22 @@ function Header() {
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                   <li class="dropdown-header">
-                    <h6> Hello </h6>
+                    <h6> Youness Zagouri </h6>
                     <span></span>
                   </li>
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
                   <li>
-                    <form
-                      class="col"
-                      method="POST"
-                      action="{{ URL('/profile') }}"
-                    >
-                      <button
-                        type="submit"
-                        class="dropdown-item d-flex align-items-center"
-                      >
-                        <i class="bi bi-person"></i>
-                        <span>Mon profil</span>
-                      </button>
-                    </form>
+                      <Link style={{ textDecoration:'none' }} to={'/profile'}>
+                        <button
+                          type="submit"
+                          class="dropdown-item d-flex align-items-center"
+                        >
+                          <i class="bi bi-person"></i>
+                          <span>Mon profil</span>
+                        </button>
+                      </Link>
                   </li>
                   <li>
                     <form

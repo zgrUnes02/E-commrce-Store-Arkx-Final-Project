@@ -12,9 +12,8 @@ function EditInformation() {
                         <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                         <div class="col-md-8 col-lg-9">
                             <img src="https://upload.wikimedia.org/wikipedia/en/d/db/Daryl_Dixon_Norman_Reedus.png" alt="Profile" />
-                            <div class="pt-2" style={{ display:'flex' , justifyContent:'space-between' , width:'18%'}}>
-                                <a href="/" class="btn btn-primary" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                                <a href="/" class="btn btn-danger" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                            <div class="pt-2">
+                                <input name="profileImage" type="file" class="form-control" id="fullName" />
                             </div>
                         </div>
                     </div>
