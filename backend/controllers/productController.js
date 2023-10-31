@@ -14,7 +14,7 @@ const productController = {
             price,
             discount_price,
             options,
-            company_id,
+            active,
         } = req.body;
 
         //* Check is there is any validation problem
@@ -35,7 +35,7 @@ const productController = {
                 price: price,
                 discount_price: discount_price,
                 options: options,
-                company_id: company_id,
+                active : active
             });
             res.status(200).json({
                 message: "Product added with success",
@@ -53,7 +53,7 @@ const productController = {
             var options = {
                 sort : { created_at: -1 } ,
                 lean : true ,
-                populate : ['company_id' , 'subcategory_id'] ,
+                populate : ['subcategory_id'] ,
                 page : req.query.page  ,
                 limit : 10 ,
             } ;
@@ -123,6 +123,12 @@ const productController = {
             options,
             active,
         } = req.body;
+
+        //* Check is there is any validation problem
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json(errors);
+        }
 
         const { id } = req.params;
         try {

@@ -77,7 +77,7 @@ function Categories() {
                                         <tr key={index}>
                                             <th> { index + 1 } </th>
                                             <td> { category.category_name } </td>
-                                            { category.active ? <td> Active </td> : <td> Inactive </td> }
+                                            { category.active ? <td> <span className='badge bg-success' > Active </span> </td> : <td> <span className='badge bg-danger'> Inactive </span> </td> }
                                             <td style={{ display:'flex' , justifyContent:'space-between' }}>
                                                 <Link to={`/category/update/${category._id}`}> <button className='btn btn-outline-success'> <i className="fa-solid fa-edit"></i> </button> </Link>
                                                 <button onClick={() => {handleDelete(category._id)}} className="btn btn-outline-danger" > <i className="fa-solid fa-trash"></i> </button>

@@ -49,13 +49,6 @@ const productSchema = new mongoose.Schema({
 
   active: {
     type: Boolean ,
-    default: true ,
-  } ,
-
-  company_id: {
-    type: mongoose.Schema.Types.ObjectId ,
-    ref : 'Company' ,
-    required: true ,
   } ,
 
 });
