@@ -1,23 +1,27 @@
 import React, { useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
-import { Link, useNavigate } from 'react-router-dom' ;
+import { Link, useNavigate, useParams } from 'react-router-dom' ;
 import { useSelector } from 'react-redux' ;
 import AuthAxios from '../../helpers/request' ;
 
-function SubcategoriesCreate() {
+function SubcategoriesUpdate() {
 
+    const { id } = useParams() ;
     const categories = useSelector(state => state.category.categories) ;
+    const subcategories = useSelector(state => state.subcategory.subcategories) ;
+    const subcategory = subcategories.find(subcategory => subcategory._id === id ) ;
     const navigate = useNavigate() ;
 
-    const [subcategory_name , setSubcategory_name] = useState() ;
-    const [active , setActive] = useState() ;
-    const [category_id , setCategory_id] = useState() ;
+    const [subcategory_name , setSubcategory_name] = useState(subcategory.subcategory_name) ;
+    const [active , setActive] = useState(subcategory.active) ;
+    const [category_id , setCategory_id] = useState(subcategory.category_id._id) ;
     const [errors , setErrors] = useState() ;
+    
 
-    const createNewSubcategory = (e) => {
+    const updateSubcategory = (e) => {
         e.preventDefault() ;
-        AuthAxios.post('http://localhost:4000/v1/subcategories' , { subcategory_name , active , category_id })
+        AuthAxios.put(`http://localhost:4000/v1/subcategories/${id}` , { subcategory_name , active , category_id })
         .then(response => {
             alert(response.data.message) ;
             navigate('/subcategories') ;
@@ -33,7 +37,7 @@ function SubcategoriesCreate() {
             <main id="main" class="main">
 
                 <div class="pagetitle">
-                    <h1> Create new subcategory </h1>
+                    <h1> Update { subcategory.subcategory_name } subcategory </h1>
                     <nav>
                         <ol class="breadcrumb">
                             <Link style={{ textDecoration:'none' }}> Home </Link>
@@ -63,12 +67,12 @@ function SubcategoriesCreate() {
                                 <div className="card-body">
 
 
-                                    <form className='mt-3' onSubmit={createNewSubcategory}>  
+                                    <form className='mt-3' onSubmit={updateSubcategory} >  
 
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setSubcategory_name(e.target.value)} type="text" placeholder="Enter the subcategory's name" id="form6Example1" class="form-control" />
+                                                    <input onChange={(e) => setSubcategory_name(e.target.value)} value={subcategory_name} type="text" placeholder="Enter the subcategory's name" id="form6Example1" class="form-control" />
                                                     <label class="form-label mt-2 mx-3" for="form6Example1"> Subcategory Name </label>
                                                 </div>
                                             </div>
@@ -78,9 +82,9 @@ function SubcategoriesCreate() {
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <select onChange={(e) => setCategory_id(e.target.value)} class="form-select" id="exampleSelect">
-                                                        <option disabled selected> Enter the category's name </option>
-                                                        {
+                                                        {  
                                                             categories?.map(category => 
+                                                                category._id === subcategory.category_id._id ? <option selected value={category._id}> { category.category_name } </option> :
                                                                 <option value={category._id}> { category.category_name } </option>    
                                                             )
                                                         }
@@ -94,16 +98,24 @@ function SubcategoriesCreate() {
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <select onChange={(e) => setActive(e.target.value)} class="form-select" id="exampleSelect">
-                                                        <option disabled selected> Enter the subcategory's status </option>
-                                                        <option value="true"> Active </option>
-                                                        <option value="false"> Inactive </option>
+                                                        {
+                                                            active ? 
+                                                            <>
+                                                                <option value="true" selected> Active </option>
+                                                                <option value="false"> Inactive </option> 
+                                                            </> :
+                                                            <>
+                                                                <option value="true"> Active </option>
+                                                                <option value="false" selected> Inactive </option>
+                                                            </>
+                                                        }
                                                     </select>
-                                                    <label class="form-label mt-2 mx-3" for="form6Example1"> Subcategory Status</label>
+                                                    <label class="form-label mt-2 mx-3" for="form6Example1"> Subcategory Status </label>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary btn-block mb-4"> Add new subcategory </button>
+                                        <button type="submit" class="btn btn-primary btn-block mb-4"> Update subcategory </button>
 
                                     </form>
 
@@ -121,4 +133,4 @@ function SubcategoriesCreate() {
     )
 }
 
-export default SubcategoriesCreate
+export default SubcategoriesUpdate

@@ -20,8 +20,12 @@ const subcategorySlice = createSlice({
                 }
             })
         } ,
+
+        deleteSubcategory : (state , action) => {
+            state.subcategories = state.subcategories.filter(subcategory => subcategory._id !== action.payload.id) ;
+        }
     } ,
 }) ;
 
-export const { getAllSubcategories } = subcategorySlice.actions ;
+export const { getAllSubcategories , deleteSubcategory } = subcategorySlice.actions ;
 export default subcategorySlice.reducer ;

@@ -17,6 +17,7 @@ import ServicesCreate from '../pages/user/ServicesCreate';
 import CompaniesCreate from '../pages/user/CompaniesCreate';
 import Profile from '../pages/user/Profile';
 import CategoriesUpdate from '../pages/user/CategoriesUpdate';
+import SubcategoriesUpdate from '../pages/user/SubcategoriesUpdate';
 
 function UserRoutes() {
   return (
@@ -40,6 +41,7 @@ function UserRoutes() {
 
         <Route path='/subcategories' element={<Subcategories/>} />
         <Route path='/subcategories/create' element={<SubcategoriesCreate/>} />
+        <Route path='/subcategories/update/:id' element={<SubcategoriesUpdate/>} />
 
         <Route path='/orders' element={<Orders/>} />
 
