@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react' ;
+import React, { useEffect, useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import AuthAxios from '../../helpers/request' ;
 import { useDispatch, useSelector } from 'react-redux' ;
-import { getAllSubcategories } from '../../redux/subcategorySlice';
+import { deleteSubcategory, getAllSubcategories } from '../../redux/subcategorySlice';
 import { Link } from 'react-router-dom';
 
 function Subcategories() {
@@ -11,6 +11,7 @@ function Subcategories() {
     const dispatch = useDispatch() ;
     const subcategories = useSelector(state => state.subcategory.subcategories) ; 
 
+    //! UseEffect
     useEffect(() => {
         const getData = async () => {
             const response = await AuthAxios.get('http://localhost:4000/v1/subcategories') ;
@@ -18,6 +19,17 @@ function Subcategories() {
         }
         getData() 
     } , [])
+
+    //! Delete subcategory
+    const [deleteMessage , setDeleteMessage] = useState() ;
+    const handleDelete = ( id ) => {
+        AuthAxios.delete(`http://localhost:4000/v1/subcategories/${id}`)
+        .then(response => {
+            setDeleteMessage(response.data.message) ;
+            dispatch(deleteSubcategory({id})) ;
+        })
+        .catch(error => console.log(error)) ;
+    }
 
     return (
         <React.Fragment>
@@ -33,6 +45,13 @@ function Subcategories() {
                             <Link style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
+                    {
+                        deleteMessage && 
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong> Success : </strong> { deleteMessage }
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
                 </div>
 
                 <section class="section">
@@ -62,8 +81,8 @@ function Subcategories() {
                                                 <td> { subcategory.category_id.category_name } </td>
                                                 { subcategory.active ? <td> Active </td> : <td> Inactive </td> }
                                                 <td style={{ display:'flex' , justifyContent:'space-between' }}>
-                                                    <button className='btn btn-outline-success'> <i class="fa-solid fa-edit"></i> </button>
-                                                    <button className='btn btn-outline-danger'> <i class="fa-solid fa-trash"></i> </button>
+                                                    <Link to={`/subcategories/update/${subcategory._id}`}> <button className='btn btn-outline-success'> <i class="fa-solid fa-edit"></i> </button> </Link>
+                                                    <button onClick={() => handleDelete(subcategory._id)} className='btn btn-outline-danger'> <i class="fa-solid fa-trash"></i> </button>
                                                 </td>
                                             </tr>
                                         )
