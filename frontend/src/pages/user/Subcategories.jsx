@@ -79,7 +79,7 @@ function Subcategories() {
                                                 <th> { index + 1 } </th>
                                                 <td> { subcategory.subcategory_name } </td>
                                                 <td> { subcategory.category_id.category_name } </td>
-                                                { subcategory.active ? <td> Active </td> : <td> Inactive </td> }
+                                                { subcategory.active ? <td> <span className='badge bg-success'> Active </span>  </td> : <td> <span className='badge bg-danger'> Inactive </span> </td> }
                                                 <td style={{ display:'flex' , justifyContent:'space-between' }}>
                                                     <Link to={`/subcategories/update/${subcategory._id}`}> <button className='btn btn-outline-success'> <i class="fa-solid fa-edit"></i> </button> </Link>
                                                     <button onClick={() => handleDelete(subcategory._id)} className='btn btn-outline-danger'> <i class="fa-solid fa-trash"></i> </button>

@@ -38,13 +38,8 @@ const { body } = require("express-validator");
         .isNumeric()
         .withMessage("please enter a valid price") ,
       body("options")
-        .trim()
         .notEmpty()
         .withMessage("the options are required") ,
-      body('company_id')
-        .trim()
-        .notEmpty()
-        .withMessage('The company is required') , 
     ],
     productController.addProduct
   );
@@ -65,9 +60,7 @@ productRouter.put(
     body("product_name")
       .trim()
       .notEmpty()
-      .withMessage("the product name is required")
-      .isAlpha()
-      .withMessage("please enter a valid name"),
+      .withMessage("the product name is required") ,
     body("product_image")
       .trim()
       .notEmpty()
@@ -85,13 +78,7 @@ productRouter.put(
     body("price")
       .trim()
       .notEmpty()
-      .withMessage("the price of the product is required")
-      .isNumeric()
-      .withMessage("please enter a valid price"),
-    body("discount_price")
-      .trim()
-      .isNumeric()
-      .withMessage("please enter a valid price"),
+      .withMessage("the price of the product is required") ,
     body("active")
       .trim()
       .notEmpty()

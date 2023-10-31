@@ -18,6 +18,7 @@ import CompaniesCreate from '../pages/user/CompaniesCreate';
 import Profile from '../pages/user/Profile';
 import CategoriesUpdate from '../pages/user/CategoriesUpdate';
 import SubcategoriesUpdate from '../pages/user/SubcategoriesUpdate';
+import ProductUpdate from '../pages/user/ProductsUpdate';
 
 function UserRoutes() {
   return (
@@ -34,6 +35,7 @@ function UserRoutes() {
 
         <Route path='/products' element={<Products/>} />
         <Route path='/products/create' element={<ProductCreate/>} />
+        <Route path='/products/update/:id' element={<ProductUpdate/>} />
         
         <Route path='/categories' element={<Categories/>} />
         <Route path='/categories/create' element={<CategoriesCreate/>} />
