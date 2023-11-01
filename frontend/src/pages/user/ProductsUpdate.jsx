@@ -106,7 +106,6 @@ function ProductUpdate() {
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
                                                     <select onChange={(e) => setSubcategory_id(e.target.value)} class="form-select" id="exampleSelect" >
-                                                        <option disabled selected> Enter the subcategory's name </option>
                                                         {
                                                             subcategories?.map(subcategory => 
                                                                 subcategory._id === product.subcategory_id._id ? <option selected value={subcategory._id}> { subcategory.subcategory_name } </option> :
