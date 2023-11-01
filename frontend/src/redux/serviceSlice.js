@@ -18,14 +18,19 @@ const serviceSlice = createSlice({
                     subcategory_id : service.subcategory_id ,
                     price : service.price ,
                     location : service.location ,
+                    city : service.city ,
                     company_id : service.company_id ,
                     short_description : service.short_description ,
                     option : service.option ,
                 }
             }) ;
         } ,
+
+        deleteService : (state , action) => {
+            state.services = state.services.filter(service => service._id !== action.payload.id) ;
+        }
     }
 }) ;
 
-export const { getAllServices } = serviceSlice.actions ;
+export const { getAllServices , deleteService } = serviceSlice.actions ;
 export default serviceSlice.reducer ;

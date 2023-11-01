@@ -39,10 +39,18 @@ serviceRouter.post(
       .withMessage("The price of the service is required")
       .isNumeric()
       .withMessage("please enter a valid price"),
-    body("options")
+    body("option")
       .trim()
       .notEmpty()
-      .withMessage("the options are required")
+      .withMessage("the option is required") ,
+    body("city")
+      .trim()
+      .notEmpty()
+      .withMessage("the city is required") ,
+    body("location")
+      .trim()
+      .notEmpty()
+      .withMessage("the location is required")
   ],
   serviceController.addService
 );

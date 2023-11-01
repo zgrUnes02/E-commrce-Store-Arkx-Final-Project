@@ -11,10 +11,10 @@ const serviceController = {
       subcategory_id,
       price,
       location,
-      capacity_number,
+      city,
       company_id,
       short_description,
-      options,
+      option,
     } = req.body;
 
     //* Check is there is any validation problem
@@ -32,10 +32,10 @@ const serviceController = {
         subcategory_id: subcategory_id,
         price: price,
         location: location,
-        capacity_number: capacity_number,
+        city: city,
         company_id: company_id,
         short_description: short_description,
-        options: options,
+        option: option,
       });
 
       res.status(200).json({
@@ -107,10 +107,10 @@ const serviceController = {
       subcategory_id,
       price,
       location,
-      capacity_number,
+      city,
       company_id,
       short_description,
-      options,
+      option,
     } = req.body;
     const { id } = req.params;
     try {
@@ -126,10 +126,10 @@ const serviceController = {
         subcategory_id: subcategory_id,
         price: price,
         location: location,
-        capacity_number: capacity_number,
+        city: city,
         company_id: company_id,
         short_description: short_description,
-        options: options,
+        option: option,
       });
       res.status(200).json({ message: "The service has been updated with success" });
     } catch (error) {

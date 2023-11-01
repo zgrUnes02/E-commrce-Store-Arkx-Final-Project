@@ -34,10 +34,6 @@ const serviceSchema = new mongoose.Schema({
     required: [true, "the location is required"],
   },
 
-  capacity_number: {
-    type: Number,
-  },
-
   company_id: {
     type: mongoose.Schema.Types.ObjectId ,
     ref : 'Company' ,
@@ -49,10 +45,21 @@ const serviceSchema = new mongoose.Schema({
     required: [true, "a short description of the service is required"] ,
   },
 
-  options: {
-    type: Array ,
-    required: true ,
-  }
+  option : {
+    type: String ,
+    required: [true , 'the option is required'] ,
+  } ,
+
+  city : {
+    type : String ,
+    required : [true , 'the city is required'] ,
+  } ,
+
+  location : {
+    type : String ,
+    required : [true , 'the location is required'] ,
+  } ,
+
 });
 
 serviceSchema.plugin(mongoosePagination);

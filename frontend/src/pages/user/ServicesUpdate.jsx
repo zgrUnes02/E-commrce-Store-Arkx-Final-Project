@@ -1,32 +1,48 @@
 import React, { useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
-import { Link, useNavigate } from 'react-router-dom' ;
+import { Link, useNavigate, useParams } from 'react-router-dom' ;
 import { useSelector } from 'react-redux' ;
 import AuthAxios from '../../helpers/request' ;
 
-function ServicesCreate() {
+function ServicesUpdate() {
 
+    const { id } = useParams() ;
     const navigate = useNavigate() ;
 
+    const services = useSelector(state => state.service.services) ;
     const companies = useSelector(state => state.company.companies) ;
     const categories = useSelector(state => state.category.categories) ;
     const subcategories = useSelector(state => state.subcategory.subcategories) ;
 
-    const [service_name , setService_name] = useState() ;
-    const [service_image, setService_image] = useState() ;
-    const [category_id , setCategory_id] = useState() ;
-    const [subcategory_id , setSubcategory_id] = useState() ;
-    const [short_description , setShort_description] = useState() ;
-    const [price , setPrice] = useState() ;
-    const [city , setCity] = useState() ;
-    const [location , setLocation] = useState() ;
-    const [option , setOption] = useState() ;
-    const [company_id , setCompany_id] = useState() ;
+    const service = services.find(service => service._id === id) ;
 
+    const allOptions = [
+        '5 vs 5' ,
+        '7 vs 7' ,
+        '11 vs 11' ,
+    ] ;
+
+    const allCities = [
+        'casablanca' ,
+        'bouskoura' ,
+        'berrechid' ,
+        'settat' ,
+    ] ;
+
+    const [service_name , setService_name] = useState(service.service_name) ;
+    const [service_image, setService_image] = useState(service.service_image) ;
+    const [category_id , setCategory_id] = useState(service.category_id._id) ;
+    const [subcategory_id , setSubcategory_id] = useState(service.subcategory_id._id) ;
+    const [short_description , setShort_description] = useState(service.short_description) ;
+    const [price , setPrice] = useState(service.price) ;
+    const [city , setCity] = useState(service.city) ;
+    const [location , setLocation] = useState(service.location) ;
+    const [option , setOption] = useState(service.option) ;
+    const [company_id , setCompany_id] = useState(service.company_id._id) ;
     const [errors , setErrors] = useState() ;
 
-    const createNewService = (e) => {
+    const updateService = (e) => {
         e.preventDefault() ;
         const data = {
             service_name ,
@@ -40,7 +56,7 @@ function ServicesCreate() {
             option ,
             company_id
         }
-        AuthAxios.post('http://localhost:4000/v1/services' , data)
+        AuthAxios.put(`http://localhost:4000/v1/services/${id}` , data)
         .then(response => {
             alert(response.data.message) ;
             navigate('/services') ;
@@ -57,7 +73,7 @@ function ServicesCreate() {
             <main id="main" class="main">
 
                 <div class="pagetitle">
-                    <h1> Create new service </h1>
+                    <h1> Update { service.service_name } service </h1>
                     <nav>
                         <ol class="breadcrumb">
                             <Link style={{ textDecoration:'none' }}> Home </Link>
@@ -83,11 +99,11 @@ function ServicesCreate() {
                                 <div className="card-body">
 
 
-                                <form className='mt-3' onSubmit={createNewService}>
+                                <form className='mt-3' onSubmit={updateService}>
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input placeholder='Enter the service name' onChange={(e) => setService_name(e.target.value)} type="text" id="form6Example1" class="form-control" />
+                                                    <input placeholder='Enter the service name' onChange={(e) => setService_name(e.target.value)} value={service_name} type="text" id="form6Example1" class="form-control" />
                                                     <label class="form-label mt-2 mx-3" for="form6Example1"> Service Name </label>
                                                 </div>
                                             </div>
@@ -103,9 +119,9 @@ function ServicesCreate() {
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
                                                     <select onChange={(e) => setCategory_id(e.target.value)} class="form-select" id="exampleSelect">
-                                                        <option disabled selected> Enter the category's name </option>
                                                         {
                                                             categories?.map(category => 
+                                                                category._id === category_id ? <option selected value={category._id}> { category.category_name } </option>  : 
                                                                 <option value={category._id}> { category.category_name } </option>    
                                                             )
                                                         }
@@ -117,10 +133,11 @@ function ServicesCreate() {
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
                                                     <select onChange={(e) => setSubcategory_id(e.target.value)} class="form-select" id="exampleSelect">
-                                                        <option disabled selected> Enter the subcategory's name </option>
                                                         {
                                                             subcategories?.map(subcategory => 
-                                                                <option value= {subcategory._id} > { subcategory.subcategory_name } </option>
+                                                                subcategory._id === service.subcategory_id._id ?
+                                                                <option selected value= {subcategory._id} > { subcategory.subcategory_name } </option> :
+                                                                <option value= {subcategory._id} > { subcategory.subcategory_name } </option> 
                                                             )
                                                         }
                                                     </select>
@@ -133,7 +150,7 @@ function ServicesCreate() {
                                         <div class="row mb-4">
                                             <div className='col'>
                                                 <div class="form-outline">
-                                                    <textarea onChange={(e) => setShort_description(e.target.value)} class="form-control" id="form6Example7" rows="2"></textarea>
+                                                    <textarea onChange={(e) => setShort_description(e.target.value)} value={short_description} class="form-control" id="form6Example7" rows="2">{short_description}</textarea>
                                                     <label class="form-label mt-2 mx-3" for="form6Example7"> Enter the shirt description </label>
                                                 </div>
                                             </div>
@@ -141,11 +158,12 @@ function ServicesCreate() {
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
                                                     <select onChange={(e) => setCity(e.target.value)} class="form-select" id="exampleSelect">
-                                                        <option disabled selected> Enter the stadium city </option>
-                                                        <option value="casablanca"> Casablanca </option>
-                                                        <option value="bouskoura"> Bouskoura </option>
-                                                        <option value="berrechid"> Berrechid </option>
-                                                        <option value="settat"> Settat </option>
+                                                        {
+                                                            allCities.map(oneCity => 
+                                                                oneCity === city ? <option select value={ oneCity }> { oneCity } </option> :
+                                                                <option value={ oneCity }> { oneCity } </option> 
+                                                            )
+                                                        }
                                                     </select>
                                                     <label class="form-label mt-2 mx-3" for="form6Example3"> Stadium City </label>
                                                 </div>
@@ -155,14 +173,14 @@ function ServicesCreate() {
                                         <div class="row ">
                                             <div className='col'>
                                                 <div class="form-outline">
-                                                    <input placeholder='Enter the service price' onChange={(e) => setPrice(e.target.value)} type="number" id="form6Example2" class="form-control" />
+                                                    <input placeholder='Enter the service price' value={price} onChange={(e) => setPrice(e.target.value)} type="number" id="form6Example2" class="form-control" />
                                                     <label class="form-label mt-2 mx-3" for="form6Example7"> Enter the service price </label>
                                                 </div>
                                             </div>
 
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
-                                                    <input placeholder='Enter the service location' onChange={(e) => setLocation(e.target.value)} type="text" id="form6Example2" class="form-control" />
+                                                    <input placeholder='Enter the service location' value={location} onChange={(e) => setLocation(e.target.value)} type="text" id="form6Example2" class="form-control" />
                                                     <label class="form-label mt-2 mx-3" for="form6Example7"> Enter the service location </label>
                                                 </div>
                                             </div>
@@ -172,10 +190,12 @@ function ServicesCreate() {
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
                                                     <select onChange={(e) => setOption(e.target.value)} class="form-select" id="exampleSelect">
-                                                        <option disabled selected> Enter the stadium options </option>
-                                                        <option value="5 vs 5"> 5 vs 5 </option>
-                                                        <option value="7 vs 7"> 7 vs 7 </option>
-                                                        <option value="11 vs 11"> 11 x 11 </option>
+                                                        {
+                                                            allOptions?.map(oneOption =>
+                                                                oneOption === option ? <option selected value={ option }> { option } </option> :
+                                                                <option value={ oneOption }> { oneOption } </option>
+                                                            )
+                                                        }
                                                     </select>
                                                     <label class="form-label mt-2 mx-3" for="form6Example3"> Stadium Options </label>
                                                 </div>
@@ -184,9 +204,10 @@ function ServicesCreate() {
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
                                                     <select onChange={(e => setCompany_id(e.target.value))} class="form-select" id="exampleSelect">
-                                                        <option disabled selected> Enter the company name </option>
                                                         {
                                                             companies?.map(company => 
+                                                                company._id === service.company_id._id ?
+                                                                <option selected value={company._id}> { company.companyName } </option> :
                                                                 <option value={company._id}> { company.companyName } </option>
                                                             )
                                                         }
@@ -197,7 +218,7 @@ function ServicesCreate() {
 
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary btn-block mb-4"> Create the new service </button>
+                                        <button type="submit" class="btn btn-primary btn-block mb-4"> Update service </button>
                                     </form>
 
                                 </div>
@@ -215,4 +236,4 @@ function ServicesCreate() {
     )
 }
 
-export default ServicesCreate
+export default ServicesUpdate
