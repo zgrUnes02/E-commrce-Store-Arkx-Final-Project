@@ -74,6 +74,9 @@ customerRouter.put(
   customerController.updateCustomer
 );
 
+//! Block or unblock a customer 
+customerRouter.put("/customers/block-unblock/:id" , customerController.blockOrUnblock) ;
+
 //! Deleting the customer's account
 customerRouter.delete("/customers/delete/:id" , customerController.deleteCustomer) ;
 

@@ -29,12 +29,12 @@ const customerSchema = new mongoose.Schema({
 
     valid_account : {
         type : Boolean ,
-        default : true ,
+        default : false ,
     } ,
 
     active : {
         type : Boolean ,
-        default : false ,
+        default : true ,
     }
 
 } , { timestamps : true }) ;

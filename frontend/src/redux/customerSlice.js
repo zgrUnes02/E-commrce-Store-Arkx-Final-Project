@@ -22,8 +22,13 @@ const customerSlice = createSlice({
                 }
             })
         } ,
+
+        //! Delete customer
+        deleteCustomer : ( state , action ) => {
+            state.customers = state.customers.filter(customer => customer._id !== action.payload.id) ;
+        }
     }
 }) ;
 
-export const { getAllCustomers } = customerSlice.actions ;
+export const { getAllCustomers , deleteCustomer } = customerSlice.actions ;
 export default customerSlice.reducer ;

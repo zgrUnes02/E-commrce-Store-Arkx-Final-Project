@@ -23,8 +23,16 @@ const userSlice = createSlice({
                 }
             })
         } ,
+
+        deleteUser : (state , action) => {
+            state.users = state.users.filter(user => user._id !== action.payload.id) ;
+        } ,
+
+        refreshUser : (state , action) => {
+            state.users = state.users.filter(user => user._id !== 'test') ;
+        }
     }
 }) ;
 
-export const { getAllUsers } = userSlice.actions ;
+export const { getAllUsers , deleteUser , refreshUser } = userSlice.actions ;
 export default userSlice.reducer ;

@@ -179,6 +179,30 @@ const customerController = {
         }
     } ,
 
+    //! Block or unblock s customer
+    blockOrUnblock : async (req , res) => {
+        const { id } = req.params ;
+        try {
+            const updatedCustomer = await customerModel.findOne({_id:id}) ;
+
+            if (!updatedCustomer) {
+                return res.status(404).json({ message: 'Customer not found' });
+            }
+
+            const blockOrUnblock = await customerModel.findByIdAndUpdate(id, {
+                active : !updatedCustomer.active ,
+            });
+
+            if ( blockOrUnblock ) {
+                res.status(200).json({ message: 'Customer updated successfully'});
+            }
+                  
+        }
+        catch ( error ) {
+            console.log( error ) ;
+        }
+    } ,
+
     //! Delete the customer's profile
     deleteCustomer : async (req , res) => {
         const { id } = req.params ;

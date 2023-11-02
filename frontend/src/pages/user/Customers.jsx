@@ -3,7 +3,7 @@ import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import AuthAxios from '../../helpers/request' ;
 import { useDispatch , useSelector } from 'react-redux' ;
-import { getAllCustomers } from '../../redux/customerSlice';
+import { deleteCustomer, getAllCustomers } from '../../redux/customerSlice';
 import { Link } from 'react-router-dom';
 
 function Customers() {
@@ -11,6 +11,7 @@ function Customers() {
     const dispatch = useDispatch() ;
     const customers = useSelector(state => state.customer.customers) ;
 
+    //! UseEffect
     useEffect(() => {
         const getData = async () => {
             const response = await AuthAxios.get('http://localhost:4000/v1/customers') ;
@@ -19,11 +20,24 @@ function Customers() {
         getData() ;
     } , [])
 
-    const deleteCustomer = ( id ) => {
+    //! Delete customer
+    const [deleteMessage , setDeleteMessage] = useState() ;
+    const deleteAnCustomer = ( id ) => {
         AuthAxios.delete(`http://localhost:4000/v1/customers/delete/${id}`)
-        .then(response => console.log(response.data))
+        .then(response => {
+            setDeleteMessage(response.data.message) ;
+            dispatch(deleteCustomer({id})) ;
+        })
         .catch(error => console.log(error)) ;
     } 
+
+    //! Block or unblock customer
+    const blockOrUnblock = ( id ) => {
+        AuthAxios.put(`http://localhost:4000/v1/customers/block-unblock/${id}`)
+        .then(response => {
+            window.location.reload() ;
+        }).catch(error => console.log(error)) ;
+    }
 
     return (
         <React.Fragment>
@@ -40,6 +54,13 @@ function Customers() {
                         <Link style={{ textDecoration:'none' }}> Home </Link>
                     </ol>
                 </nav>
+                {
+                    deleteMessage && 
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong> Success : </strong> { deleteMessage }
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
             </div>
 
             <section className="section">
@@ -58,7 +79,7 @@ function Customers() {
                                     <th scope="col"> Email </th>
                                     <th scope="col"> Active </th>
                                     <th scope="col"> Account Validation </th>
-                                    <th scope="col" width="14%"> Actions </th>
+                                    <th scope="col" width="10%"> Actions </th>
                                 </tr>
                             </thead>
 
@@ -70,12 +91,20 @@ function Customers() {
                                             <td> { customer.first_name } </td>
                                             <td> { customer.last_name } </td>
                                             <td> { customer.email } </td>
-                                            { customer.active ? <td>active</td> : <td>inactive</td> }
-                                            { customer.valid_account ? <td> valid account </td> : <td> invalid account </td> }
+                                            { customer.active ? <td> <span className='badge bg-success'> Active </span> </td> : <td> <span className='badge bg-danger'> Blocked </span> </td> }
+                                            { customer.valid_account ? <td> <span className='badge bg-success'> Verified </span> </td> : <td> <span className='badge bg-danger'> Unverified </span> </td> }
                                             <td style={{ display:'flex' , justifyContent:'space-between' }}>
-                                                <button className='btn btn-outline-success'> <i className="fa-solid fa-eye"></i> </button>
-                                                <button className='btn btn-outline-danger'> <i className="fa-solid fa-trash"></i> </button>
-                                                <button className='btn btn-outline-warning'> <i className="fa-solid fa-lock"></i> </button>
+                                                {
+                                                    customer.active ? 
+                                                    <>
+                                                        <button onClick={() => { deleteAnCustomer(customer._id) }} className='btn btn-outline-danger'> <i className="fa-solid fa-trash"></i> </button>
+                                                        <button onClick={() => { blockOrUnblock(customer._id) }} className='btn btn-outline-warning'> <i className="fa-solid fa-lock"></i> </button>
+                                                    </> :
+                                                    <>
+                                                        <button onClick={() => { deleteAnCustomer(customer._id) }} className='btn btn-outline-danger'> <i className="fa-solid fa-trash"></i> </button>
+                                                        <button onClick={() => { blockOrUnblock(customer._id) }} className='btn btn-outline-warning'> <i className="fa-solid fa-unlock"></i> </button>
+                                                    </>
+                                                }
                                             </td>
                                         </tr>
                                     ) 

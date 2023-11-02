@@ -8,22 +8,22 @@ const userController = {
     //! Register
     register : async (req , res) => { 
 
-        // Check is there is any validation problem
+        //* Check is there is any validation problem
         const errors = validationResult(req) ;
         if ( !errors.isEmpty() ) {
             return res.status(400).json(errors) ;
         }
         
-        //checking if the user ia already in the db
+        //* checking if the user ia already in the db
         const emailExist = await userModel.findOne({email: req.body.email});
         if(emailExist) return res.status(400).send('Email already exists');
         
-        //hash passwords
+        //* hash passwords
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
         
         
-        //create a new user
+        //* create a new user
         const user = new userModel({
             first_name: req.body.first_name, 
             last_name: req.body.last_name, 
@@ -34,11 +34,13 @@ const userController = {
         });
     
         try {
-            const saveduserModel = await user.save();
-            res.send(saveduserModel);
+            await user.save();
+            res.status(200).json({
+                message : 'The user has been created with success' ,
+            });
         }
         catch ( error ) {
-            res.status(400).send(error);
+            console.log( NativeError );
         }
     },
 
@@ -156,6 +158,29 @@ const userController = {
         }
     },
 
+    //! Block or unblock an user
+    blockOrUnblock : async (req , res) => {
+        try {
+            const { id } = req.params;
+
+            const updatedUser = await userModel.findOne({_id:id}) ;
+
+            if (!updatedUser) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            const blockOrUnblock = await userModel.findByIdAndUpdate(id, {
+                active : !updatedUser.active ,
+            });
+
+            if ( blockOrUnblock ) {
+                res.status(200).json({ message: 'User updated successfully'});
+            }
+        } 
+        catch (error) {
+            res.status(500).json(error) ;
+        }
+    } ,
 
     //! Deleting a user
     deleteUser: async (req, res) => {

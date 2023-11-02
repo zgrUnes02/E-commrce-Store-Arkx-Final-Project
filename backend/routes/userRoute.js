@@ -66,6 +66,9 @@ userRouter.get("/users/:id" , userVerification , userController.getUserById);
 //! Update the user's data 
 userRouter.put('/users/:id', userController.updateUser);
 
+//! Block or unblock an user
+userRouter.put('/users/block-unblock/:id', userController.blockOrUnblock);
+
 //! Deleting a user
 userRouter.delete('/users/:id', userController.deleteUser);
 
