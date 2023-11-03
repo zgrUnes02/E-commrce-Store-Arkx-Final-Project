@@ -6,7 +6,7 @@ const companyVerification = require('../middlewares/companyVerification');
 
 //! Create a new company ( Register )
 companyRouter.post(
-"/company-register" ,
+"/companies" ,
   [
     body("companyName")
       .trim()
@@ -19,9 +19,12 @@ companyRouter.post(
       .trim()
       .notEmpty().withMessage('the email is required')
       .isEmail().withMessage('enter a valid email') ,
-    body('password')
+    body('city')
       .trim()
-      .notEmpty().withMessage('the password is required'),
+      .notEmpty().withMessage('the city is required'),
+    body('location')
+      .trim()
+      .notEmpty().withMessage('the location is required'),
     body('logo')
       .trim()
       .notEmpty().withMessage('the logo is required') ,
@@ -69,8 +72,19 @@ companyRouter.put(
       .trim()
       .notEmpty()
       .withMessage("the logo is required"),
+    body("city")
+      .trim()
+      .notEmpty()
+      .withMessage("the city is required"),
+    body("location")
+      .trim()
+      .notEmpty()
+      .withMessage("the location is required"),
   ] ,
   companyController.updateCompanyData
 );
+
+//! Delete a company
+companyRouter.delete("/companies/:id" , companyController.deleteCompany) ;
 
 module.exports = companyRouter ;

@@ -7,7 +7,7 @@ const companyController = {
 
     //! Create a new company ( Register )
     registerCompany : async (req , res) => {
-        const { companyName , description , email , password , logo } = req.body ;
+        const { companyName , description , email , city , location , logo } = req.body ;
 
         //* Check is there is any validation problem
         const errors = validationResult(req) ; 
@@ -23,16 +23,13 @@ const companyController = {
             }) ;
         }
 
-        //* Hash the password before insert it 
-        const salt = await bcrypt.genSalt(10) ;
-        const hashedPassword = await bcrypt.hash(password , salt) ;
-
         try {
             const company = await companyModel.create({
                 companyName : companyName ,
                 description : description ,
                 email : email ,
-                password : hashedPassword ,
+                city : city ,
+                location : location ,
                 logo : logo ,
             }) ;
 
@@ -108,7 +105,7 @@ const companyController = {
 
     //! Update the company data
     updateCompanyData : async (req , res) => {
-        const { companyName , description , logo , email } = req.body ;
+        const { companyName , description , city , location , logo , email } = req.body ;
         const { id } = req.params ;
 
         //* Check is there is any validation problem
@@ -123,12 +120,30 @@ const companyController = {
                 companyName : companyName ,
                 description : description ,
                 logo : logo ,
+                city : city ,
+                location : location ,
                 email : email ,
             }) ;
 
             if ( companyUpdate ) {
-                res.status(200).send('the company data has been updated with success') ;
+                res.status(200).json({message :'the company data has been updated with success'}) ;
             }
+        }
+        catch ( error ) {
+            res.status(404).json( error )
+        }
+    } ,
+
+    //! Delete company 
+    deleteCompany : async (req , res) => {
+        const { id } = req.params ;
+        try {
+            const deletedCompany = await companyModel.findByIdAndDelete(id) ;
+            if ( deletedCompany ) {
+                res.status(200).json({
+                    message : 'The company has been deleted with success' ,
+                })
+            } 
         }
         catch ( error ) {
             res.status(404).json( error )

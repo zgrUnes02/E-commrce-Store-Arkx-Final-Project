@@ -16,6 +16,7 @@ const orderSlice = createSlice({
                     _id : order._id ,
                     customer_id : order.customer_id ,
                     status : order.status ,
+                    type : order.type,
                 }
             })
         } ,

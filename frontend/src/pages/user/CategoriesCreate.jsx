@@ -35,7 +35,7 @@ function CategoriesCreate() {
                     <h1> Create new category </h1>
                     <nav>
                         <ol class="breadcrumb">
-                            <Link style={{ textDecoration:'none' }}> Home </Link>
+                            <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
 

@@ -1,7 +1,15 @@
 import React from 'react' ;
-import { Link } from 'react-router-dom' ;
+import { Link, useNavigate } from 'react-router-dom' ;
 
 function LeftSideBar() {
+
+    const navigate = useNavigate() ;
+
+    const logout = () => {
+        localStorage.clear() ;
+        navigate('/') ;
+    }
+
     return (
         <React.Fragment>
             <aside id="sidebar" class="sidebar">
@@ -176,14 +184,12 @@ function LeftSideBar() {
                     </ul>
                 </li>
 
-                <Link style={{ textDecoration:'none' }}>
-                <li class="nav-item">
+                <li style={{ cursor:'pointer' }} onClick={logout} class="nav-item">
                     <a class="nav-link collapsed">
                         <i class="fa-solid fa-right-from-bracket"></i>
                         <span> Log out </span>
                     </a>
                 </li>
-                </Link>
 
             </ul>
 

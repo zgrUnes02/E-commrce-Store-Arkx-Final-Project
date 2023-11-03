@@ -42,7 +42,7 @@ function Products() {
                     <h1> Products </h1>
                     <nav>
                         <ol class="breadcrumb">
-                            <Link style={{ textDecoration:'none' }}> Home </Link>
+                            <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
                     {

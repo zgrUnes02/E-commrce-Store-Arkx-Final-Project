@@ -1,36 +1,41 @@
 import React, { useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
-import { Link, useNavigate } from 'react-router-dom' ;
+import { Link, useNavigate, useParams } from 'react-router-dom' ;
 import AuthAxios from '../../helpers/request' ;
+import { useSelector } from 'react-redux' ;
 
-function UsersCreate() {
+function CompaniesUpdate() {
 
+    const { id } = useParams() ; 
     const navigate = useNavigate() ;
 
-    const [first_name , setFirst_name] = useState() ;
-    const [last_name , setLast_name] = useState() ;
-    const [user_name , setUser_name] = useState() ;
-    const [email , setEmail] = useState() ;
-    const [password , setPassword] = useState() ;
-    const [role , setRole] = useState() ;
+    const companies = useSelector(state => state.company.companies) ;
+    const company = companies.find(company => company._id === id) ; 
+
+    const [companyName , setCompanyName] = useState(company.companyName) ;
+    const [description, setDescription] = useState(company.description) ;
+    const [logo , setLogo] = useState(company.logo) ;
+    const [email , setEmail] = useState(company.email) ;
+    const [city , setCity] = useState(company.city) ;
+    const [location , setLocation] = useState(company.location) ;
     const [errors , setErrors] = useState() ;
 
-    //! Create new user
-    const createNewUser = (e) => {
+    //! Update company
+    const updateCompany = (e) => {
         e.preventDefault() ;
         const data = {
-            first_name ,
-            last_name ,
-            user_name ,
+            companyName ,
+            description ,
+            logo ,
             email ,
-            password ,
-            role ,
+            city ,
+            location ,
         } ;
-        AuthAxios.post('http://localhost:4000/v1/users' , data)
+        AuthAxios.put(`http://localhost:4000/v1/company/${id}` , data)
         .then(response => {
-            alert(response.data.message) ;
-            navigate('/users') ;
+            alert(response.data.message)
+            navigate('/companies') ;
         }).catch(error => setErrors(error.response.data.errors)) ;
     }
 
@@ -42,7 +47,7 @@ function UsersCreate() {
             <main id="main" class="main">
 
                 <div class="pagetitle">
-                    <h1> Create new user </h1>
+                    <h1> Update { company.companyName } company </h1>
                     <nav>
                         <ol class="breadcrumb">
                             <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
@@ -62,90 +67,72 @@ function UsersCreate() {
                 <section className="section">
                     <div className="row">
                         <div className="col-lg-12">
-
                             <div className="card">
                                 <div className="card-body">
-
-
-                                <form className='mt-3' onSubmit={createNewUser}>
+                                    <form className='mt-3' onSubmit={updateCompany}>  
 
                                         <div class="row mb-4">
-
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setFirst_name(e.target.value)} placeholder='enter the first name' type="text" id="form6Example1" class="form-control" />
-                                                    <label class="form-label mt-2 mx-3" for="form6Example1"> First Name </label>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-outline">
-                                                    <input onChange={(e) => setLast_name(e.target.value)} placeholder='enter the last name' type="text" id="form6Example2" class="form-control" />
-                                                    <label class="form-label mt-2 mx-3" for="form6Example2"> Last Name </label>
+                                                    <input onChange={(e) => setCompanyName(e.target.value)} value={companyName} type="text" placeholder="Enter the company's name" id="form6Example1" class="form-control" />
+                                                    <label class="form-label mt-2 mx-3" for="form6Example1"> Company Name </label>
                                                 </div>
                                             </div>
 
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" placeholder="Enter the category's email" id="form6Example1" class="form-control" />
+                                                    <label class="form-label mt-2 mx-3" for="form6Example1"> Company Email </label>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="row mb-4">
-
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setUser_name(e.target.value)} placeholder='enter the username' type="text" id="form6Example1" class="form-control" />
-                                                    <label class="form-label mt-2 mx-3" for="form6Example1"> Username </label>
+                                                    <input onChange={(e) => setCity(e.target.value)} value={city} type="text" placeholder="Enter the company's city" id="form6Example1" class="form-control" />
+                                                    <label class="form-label mt-2 mx-3" for="form6Example1"> Company's City </label>
                                                 </div>
                                             </div>
 
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <label class="form-label mt-2 mx-5" for="form6Example1"> Role </label>
-
-                                                    <div class="form-check form-check-inline">
-                                                        <input onChange={(e) => setRole(e.target.value)} checked={role === 'admin'} class="form-check-input" type="radio" name="role" id="inlineRadio1" value="admin" />
-                                                        <label class="form-check-label" for="inlineRadio1"> Admin </label>
-                                                    </div>
-
-                                                    <div class="form-check form-check-inline">
-                                                        <input onChange={(e) => setRole(e.target.value)} checked={role === 'manager'} class="form-check-input" type="radio" name="role" id="inlineRadio2" value="manager" />
-                                                        <label class="form-check-label" for="inlineRadio2"> Manager </label>
-                                                    </div>
+                                                    <input onChange={(e) => setLocation(e.target.value)} value={location} type="text" placeholder="Enter the company's location" id="form6Example1" class="form-control" />
+                                                    <label class="form-label mt-2 mx-3" for="form6Example1"> Company's Location </label>
                                                 </div>
                                             </div>
-
                                         </div>
 
                                         <div class="row mb-4">
-
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setEmail(e.target.value)} placeholder='enter the email' type="email" id="form6Example1" class="form-control" />
-                                                    <label class="form-label mt-2 mx-3" for="form6Example1"> Email</label>
+                                                    <textarea onChange={(e) => setDescription(e.target.value)} value={description} class="form-control" id="form6Example7" rows="4" >{description}</textarea>
+                                                    <label class="form-label mt-2 mx-3" for="form6Example1"> Company Description </label>
                                                 </div>
                                             </div>
-                                            <div class="col">
-                                                <div class="form-outline">
-                                                    <input onChange={(e) => setPassword(e.target.value)} placeholder='enter the password' type="password" id="form6Example2" class="form-control" />
-                                                    <label class="form-label mt-2 mx-3" for="form6Example2"> Password </label>
-                                                </div>
-                                            </div>
-
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary btn-block mb-3"> Create the new user </button>
+                                        <div class="row mb-4">
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input onChange={(e) => setLogo(e.target.value)} type="file" id="form6Example1" class="form-control" />
+                                                    <label class="form-label mt-2 mx-3" for="form6Example1"> Company Logo </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-block mb-4"> Update company </button>
+                                    
                                     </form>
 
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </section>
-
             </main>
         </React.Fragment>
     )
 }
 
-export default UsersCreate
+export default CompaniesUpdate ;

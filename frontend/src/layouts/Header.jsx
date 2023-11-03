@@ -1,7 +1,14 @@
 import React from 'react' ;
-import { Link } from 'react-router-dom' ;
+import { Link, useNavigate } from 'react-router-dom' ;
 
 function Header() {
+
+    const navigate = useNavigate() ;
+
+    const logout = () => {
+        localStorage.clear() ;
+        navigate('/') ;
+    }
 
     return (
       <React.Fragment>
@@ -42,7 +49,7 @@ function Header() {
                           class="dropdown-item d-flex align-items-center"
                         >
                           <i class="bi bi-person"></i>
-                          <span>Mon profil</span>
+                          <span> My profile </span>
                         </button>
                       </Link>
                   </li>
@@ -52,12 +59,12 @@ function Header() {
                       method="POST"
                       action="{{ URL('/logout') }}"
                     >
-                      <button
+                      <button onClick={logout}
                         type="submit"
                         class="dropdown-item d-flex align-items-center"
                       >
                         <i class="bi bi-box-arrow-right"></i>
-                        <span> Deconnecter </span>
+                        <span> Log out </span>
                       </button>
                     </form>
                   </li>

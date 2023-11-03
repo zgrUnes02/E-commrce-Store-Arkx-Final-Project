@@ -40,7 +40,7 @@ function SubcategoriesUpdate() {
                     <h1> Update { subcategory.subcategory_name } subcategory </h1>
                     <nav>
                         <ol class="breadcrumb">
-                            <Link style={{ textDecoration:'none' }}> Home </Link>
+                            <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
 
