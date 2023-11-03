@@ -30,7 +30,7 @@ function Orders() {
                     <h1> Orders </h1>
                     <nav>
                         <ol class="breadcrumb">
-                            <Link style={{ textDecoration:'none' }}> Home </Link>
+                            <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
                 </div>
@@ -48,6 +48,7 @@ function Orders() {
                                         <th scope="col"> # </th>
                                         <th scope="col"> Customer Name </th>
                                         <th scope="col"> Status </th>
+                                        <th scope="col"> Type </th>
                                         <th scope="col" width="14%"> Actions </th>
                                     </tr>
                                 </thead>
@@ -59,6 +60,7 @@ function Orders() {
                                                 <th> { index + 1 } </th>
                                                 <td> { order.customer_id.first_name } { order.customer_id.last_name } </td>
                                                 <td> { order.status } </td>
+                                                <td> { order.type } </td>
                                                 <td style={{ display:'flex' , justifyContent:'space-between' }}>
                                                     <button className='btn btn-outline-success'> <i class="fa-solid fa-eye"></i> </button>
                                                     <button className='btn btn-outline-primary'> <i class="fa-solid fa-edit"></i> </button>

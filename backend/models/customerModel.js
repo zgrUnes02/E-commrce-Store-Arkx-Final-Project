@@ -35,6 +35,11 @@ const customerSchema = new mongoose.Schema({
     active : {
         type : Boolean ,
         default : true ,
+    } ,
+
+    role : {
+        type : String ,
+        default : 'customer'
     }
 
 } , { timestamps : true }) ;

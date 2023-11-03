@@ -63,7 +63,7 @@ function ProductUpdate() {
                     <h1> Update product </h1>
                     <nav>
                         <ol className="breadcrumb">
-                            <Link style={{ textDecoration:'none' }}> Home </Link>
+                            <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
 

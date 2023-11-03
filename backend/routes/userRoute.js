@@ -37,7 +37,7 @@ userRouter.post("/users",[
       .withMessage("please enter a valid email"),
     body("password").trim().notEmpty().withMessage("the password is required"),
   ], 
-  userController.register);
+  userController.register) ;
 
 //! login
 userRouter.post(
@@ -49,27 +49,30 @@ userRouter.post(
       .withMessage("the email is required")
       .isEmail()
       .withMessage("please enter a valid email"),
-    body("password").trim().notEmpty().withMessage("the password is required"),
+    body("password")
+      .trim()
+      .notEmpty()
+      .withMessage("the password is required"),
   ],
   userController.login
-);
+) ;
 
 //! Get all users
-userRouter.get("/users" , userVerification , userController.listingUsers);
+userRouter.get("/users" , userController.listingUsers) ;
 
 //! Search for a user
-userRouter.get("/user", userController.searchForUser);
+userRouter.get("/user" , userController.searchForUser) ;
 
 //! Get a user by ID
-userRouter.get("/users/:id" , userVerification , userController.getUserById);
+userRouter.get("/users/:id" , userController.getUserById) ;
 
 //! Update the user's data 
-userRouter.put('/users/:id', userController.updateUser);
+userRouter.put('/users/:id', userController.updateUser) ;
 
 //! Block or unblock an user
-userRouter.put('/users/block-unblock/:id', userController.blockOrUnblock);
+userRouter.put('/users/block-unblock/:id' , userController.blockOrUnblock) ;
 
 //! Deleting a user
-userRouter.delete('/users/:id', userController.deleteUser);
+userRouter.delete('/users/:id' , userController.deleteUser) ;
 
-module.exports = userRouter;
+module.exports = userRouter ;

@@ -21,9 +21,14 @@ const schemaCompany = new mongoose.Schema({
         required : [true , 'the email is required'] ,
     } ,
 
-    password : {
+    city : {
         type : String ,
-        required : [true , 'the password is required'] ,
+        required : [true , 'the city is required'] ,
+    } ,
+
+    location : {
+        type : String ,
+        required : [true , 'the company\'s location is required'] ,
     }
 }) ;
 

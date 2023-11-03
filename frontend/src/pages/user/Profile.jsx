@@ -6,8 +6,14 @@ import Overview from '../../components/profile/Overview' ;
 import EditInformation from '../../components/profile/EditInformation' ;
 import ChangePassword from '../../components/profile/ChangePassword' ;
 import ImageAndName from '../../components/profile/ImageAndName';
+import { useSelector } from 'react-redux' ;
 
 function Profile() {
+
+    const id = localStorage.getItem('id') ;
+    const users = useSelector(state => state.user.users) ;
+    const currentUser = users.find(user => user._id === id) ;
+
     return (
         <React.Fragment>
             <Header/>
@@ -19,7 +25,7 @@ function Profile() {
                     <h1> My profile </h1>
                     <nav>
                         <ol class="breadcrumb">
-                            <Link style={{ textDecoration:'none' }}> Home </Link>
+                            <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
                 </div>
@@ -27,7 +33,7 @@ function Profile() {
                 <section class="section profile">
                     <div class="row">
 
-                        <ImageAndName />
+                        <ImageAndName currentUser={currentUser} />
 
                         <div class="col-xl-8">
 
@@ -50,9 +56,9 @@ function Profile() {
                                     </ul>
 
                                     <div class="tab-content pt-2">
-                                        <Overview />
-                                        <EditInformation />
-                                        <ChangePassword />
+                                        <Overview currentUser={currentUser} />
+                                        <EditInformation currentUser={currentUser} />
+                                        <ChangePassword currentUser={currentUser} />
                                     </div>
 
                                 </div>

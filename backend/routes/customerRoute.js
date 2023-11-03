@@ -3,6 +3,7 @@ const customerController = require("../controllers/customerController.js");
 const customerRouter = express.Router();
 const { body } = require("express-validator");
 const customerVerification = require("../middlewares/customerVerification.js");
+const userVerification = require("../middlewares/userVerification.js");
 
 //! Customer authentication ( Login )
 customerRouter.post('/customers/login' , [
@@ -39,7 +40,7 @@ customerRouter.post(
 );
 
 //! Get all customers
-customerRouter.get("/customers" , customerVerification , customerController.listingCustomers);
+customerRouter.get("/customers" , customerController.listingCustomers);
 
 //! Search for a customer
 customerRouter.get("/customer" , customerController.searchForCustomer);

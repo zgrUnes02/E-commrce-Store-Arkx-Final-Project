@@ -41,7 +41,7 @@ function Services() {
                     <h1> Services </h1>
                     <nav>
                         <ol class="breadcrumb">
-                            <Link style={{ textDecoration:'none' }}> Home </Link>
+                            <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
                     {
@@ -75,7 +75,7 @@ function Services() {
 
                                 <tbody>
                                     {
-                                        services?.map((service , index) => 
+                                        services.length ? services?.map((service , index) => 
                                         <tr key={index}>
                                             <th> { index + 1 } </th>
                                             <td> { service.service_name } </td>
@@ -89,7 +89,12 @@ function Services() {
                                                 <button onClick={() => { handleDelete(service._id) }} className='btn btn-outline-danger'> <i className="fa-solid fa-trash"></i> </button> 
                                             </td> 
                                         </tr>
-                                        )
+                                        ) :
+                                        <tr>
+                                            <td colSpan={7}>
+                                                There no services for now
+                                            </td>
+                                        </tr>
                                     }
                                 </tbody>
 
