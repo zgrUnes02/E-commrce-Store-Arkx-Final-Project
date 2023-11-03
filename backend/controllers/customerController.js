@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator") ;
 const customerModel = require("../models/customerModel") ;
 const bcrypt = require('bcryptjs') ;
 const jwt = require('jsonwebtoken') ;
+const dotenv = require('dotenv').config();
 const jwt_secret = process.env.JWT_SECRET ;
 
 const customerController = {
