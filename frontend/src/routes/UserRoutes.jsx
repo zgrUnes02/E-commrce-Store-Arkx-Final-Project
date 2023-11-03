@@ -8,6 +8,7 @@ import Subcategories from '../pages/user/Subcategories';
 import Orders from '../pages/user/Orders';
 import Users from '../pages/user/Users';
 import Dashboard from '../pages/user/Dashboard';
+import CustomerLogin from '../pages/customer/CustomerLogin';
 
 function UserRoutes() {
   return (
@@ -21,6 +22,8 @@ function UserRoutes() {
         <Route path='/subcategories' element={<Subcategories/>} />
         <Route path='/orders' element={<Orders/>} />
         <Route path='/users' element={<Users/>} />
+
+        
       </Routes>
     </Router>
   )
