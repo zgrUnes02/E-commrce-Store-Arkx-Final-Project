@@ -2,11 +2,15 @@ import React, { useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { Link, useNavigate } from 'react-router-dom' ;
-import AuthAxios from '../../helpers/request' ;
+import { useDispatch , useSelector } from 'react-redux' ;
+import { createNewUser } from '../../redux/userSlice';
 
 function UsersCreate() {
 
     const navigate = useNavigate() ;
+    const dispatch = useDispatch() ;
+
+    const errors = useSelector(state => state.user.error) ;
 
     const [first_name , setFirst_name] = useState() ;
     const [last_name , setLast_name] = useState() ;
@@ -14,10 +18,9 @@ function UsersCreate() {
     const [email , setEmail] = useState() ;
     const [password , setPassword] = useState() ;
     const [role , setRole] = useState() ;
-    const [errors , setErrors] = useState() ;
 
     //! Create new user
-    const createNewUser = (e) => {
+    const createNewUserSubmit = (e) => {
         e.preventDefault() ;
         const data = {
             first_name ,
@@ -27,11 +30,11 @@ function UsersCreate() {
             password ,
             role ,
         } ;
-        AuthAxios.post('http://localhost:4000/v1/users' , data)
-        .then(response => {
-            alert(response.data.message) ;
-            navigate('/users') ;
-        }).catch(error => setErrors(error.response.data.errors)) ;
+        dispatch(createNewUser(data)).then(response => {
+            if ( response.payload.messageSuccess ) {
+                navigate('/users') ;
+            }
+        })
     }
 
     return (
@@ -67,19 +70,19 @@ function UsersCreate() {
                                 <div className="card-body">
 
 
-                                <form className='mt-3' onSubmit={createNewUser}>
+                                <form className='mt-3' onSubmit={createNewUserSubmit}>
 
                                         <div class="row mb-4">
 
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setFirst_name(e.target.value)} placeholder='enter the first name' type="text" id="form6Example1" class="form-control" required/>
+                                                    <input onChange={(e) => setFirst_name(e.target.value)} placeholder='enter the first name' type="text" id="form6Example1" class="form-control"/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example1"> First Name </label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setLast_name(e.target.value)} placeholder='enter the last name' type="text" id="form6Example2" class="form-control" required/>
+                                                    <input onChange={(e) => setLast_name(e.target.value)} placeholder='enter the last name' type="text" id="form6Example2" class="form-control" />
                                                     <label class="form-label mt-2 mx-3" for="form6Example2"> Last Name </label>
                                                 </div>
                                             </div>
@@ -90,7 +93,7 @@ function UsersCreate() {
 
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setUser_name(e.target.value)} placeholder='enter the username' type="text" id="form6Example1" class="form-control" required/>
+                                                    <input onChange={(e) => setUser_name(e.target.value)} placeholder='enter the username' type="text" id="form6Example1" class="form-control" />
                                                     <label class="form-label mt-2 mx-3" for="form6Example1"> Username </label>
                                                 </div>
                                             </div>
@@ -117,13 +120,13 @@ function UsersCreate() {
 
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setEmail(e.target.value)} placeholder='enter the email' type="email" id="form6Example1" class="form-control" required/>
+                                                    <input onChange={(e) => setEmail(e.target.value)} placeholder='enter the email' type="email" id="form6Example1" class="form-control" />
                                                     <label class="form-label mt-2 mx-3" for="form6Example1"> Email</label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setPassword(e.target.value)} placeholder='enter the password' type="password" id="form6Example2" class="form-control" required/>
+                                                    <input onChange={(e) => setPassword(e.target.value)} placeholder='enter the password' type="password" id="form6Example2" class="form-control" />
                                                     <label class="form-label mt-2 mx-3" for="form6Example2"> Password </label>
                                                 </div>
                                             </div>

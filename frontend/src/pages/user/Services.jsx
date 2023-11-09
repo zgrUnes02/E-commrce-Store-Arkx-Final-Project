@@ -9,6 +9,7 @@ function Services() {
 
     const dispatch = useDispatch() ;
     const services = useSelector(state => state.service.services) ;
+    const success = useSelector(state => state.service.success) ;
 
     useEffect(() => { dispatch(getAllServices()) } , [])
 
@@ -24,11 +25,11 @@ function Services() {
 
     return (
         <React.Fragment>
+            
             <Header/>
             <LeftSideBar/>
 
             <main id="main" className="main">
-
                 <div class="pagetitle">
                     <h1> Services </h1>
                     <nav>
@@ -93,8 +94,6 @@ function Services() {
                             </table>
                             </div>
                         </div>
-
-
                         </div>
                     </div>
                 </section>

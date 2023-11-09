@@ -7,18 +7,9 @@ import { Link } from 'react-router-dom';
 
 function Categories() {
 
-    
     const dispatch = useDispatch() ;
-
-        const categories = useSelector(state => state.category.categories);
-
-    //! useEffect Hook 
-    useEffect(() => {
-        dispatch(getAllCategories()) ;
-    } , [])
-
-   console.log(categories)
-
+    useEffect(() => { dispatch(getAllCategories()) } , [])
+    const categories = useSelector(state => state.category.categories);
 
     //! Delete Category
     const [deleteMessage , setDeleteMessage] = useState() ;
