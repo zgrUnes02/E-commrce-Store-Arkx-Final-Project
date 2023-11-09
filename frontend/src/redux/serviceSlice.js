@@ -1,4 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit" ;
+import AuthAxios from '../helpers/request' ;
+
+export const getAllServices = createAsyncThunk('services/getAllServices' , async () => {
+    return AuthAxios.get('http://localhost:4000/v1/services')
+    .then(response => response.data.docs)
+    .catch(error => console.log(error)) ;
+})
+
+export const deleteService = createAsyncThunk('services/deleteService' , async ( id ) => {
+    return AuthAxios.delete(`http://localhost:4000/v1/services/${id}`)
+    .then(response => {
+        const returnData = { id : id , message : response.data.message } ;
+        return returnData ;
+    }).catch(error => console.log(error)) ;
+})
 
 const serviceSlice = createSlice({
     name : 'services' ,
@@ -7,30 +22,37 @@ const serviceSlice = createSlice({
         services : [] ,
     } ,
 
-    reducers : {
-        getAllServices : (state , action) => {
-            state.services = action.payload.map(service => {
-                return {
-                    _id : service._id ,
-                    service_name : service.service_name ,
-                    service_image : service.service_image ,
-                    category_id : service.category_id ,
-                    subcategory_id : service.subcategory_id ,
-                    price : service.price ,
-                    location : service.location ,
-                    city : service.city ,
-                    company_id : service.company_id ,
-                    short_description : service.short_description ,
-                    option : service.option ,
-                }
-            }) ;
-        } ,
+    reducers : {} ,
 
-        deleteService : (state , action) => {
-            state.services = state.services.filter(service => service._id !== action.payload.id) ;
-        }
+    extraReducers : ( builder ) => {
+        builder
+
+        //! Get all services
+        .addCase(getAllServices.fulfilled , (state , action) => {
+            state.services = action.payload ;
+            state.status = 'fulfilled' ;
+        })
+        .addCase(getAllServices.rejected , (state , action) => {
+            state.error = action.payload ;
+            state.status = 'rejected' ;
+        })
+        .addCase(getAllServices.pending , (state , action) => {
+            state.status = 'pending' ;
+        })
+
+        //! Delete service
+        .addCase(deleteService.fulfilled , (state , action) => {
+            state.services = state.services.filter(service => service._id !== action.payload.id);
+            state.status = 'fulfilled' ;
+        })
+        .addCase(deleteService.rejected , (state , action) => {
+            state.error = action.payload ;
+            state.status = 'rejected' ;
+        })
+        .addCase(deleteService.pending , (state , action) => {
+            state.status = 'pending' ;
+        })
     }
 }) ;
 
-export const { getAllServices , deleteService } = serviceSlice.actions ;
 export default serviceSlice.reducer ;

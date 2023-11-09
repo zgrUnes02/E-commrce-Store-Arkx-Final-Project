@@ -191,10 +191,10 @@ const customerController = {
 
             const blockOrUnblock = await customerModel.findByIdAndUpdate(id, {
                 active : !updatedCustomer.active ,
-            });
+            } , { new : true });
 
             if ( blockOrUnblock ) {
-                res.status(200).json({ message: 'Customer updated successfully'});
+                res.status(200).json({ message: 'Customer updated successfully' , blockOrUnblock});
             }
                   
         }

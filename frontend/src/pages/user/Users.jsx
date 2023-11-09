@@ -4,38 +4,30 @@ import LeftSideBar from '../../layouts/LeftSideBar' ;
 import AuthAxios from '../../helpers/request' ;
 import { useDispatch , useSelector } from 'react-redux' ;
 import { deleteUser, getAllUsers, refreshUser } from '../../redux/userSlice';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Users() {
 
     const dispatch = useDispatch() ;
     const users = useSelector(state => state.user.users) ;
-    const navigate = useNavigate() ;
 
-    //! UseEffect
-    useEffect(() => {
-        const getData = async () => {
-            const response = await AuthAxios.get('http://localhost:4000/v1/users') ;
-            dispatch(getAllUsers(response.data.docs)) ;
-        }
-        getData() ;
-    } , [])
+    useEffect(() => { dispatch(getAllUsers()) } , [])
 
     //! Delete an user
     const [deleteMessage , setDeleteMessage] = useState() ;
     const deleteAnUser = ( id ) => {
-        AuthAxios.delete(`http://localhost:4000/v1/users/${id}`)
-        .then(response => {
-            setDeleteMessage(response.data.message) ;
-            dispatch(deleteUser({id})) ;
-        }).catch(error => console.log(error)) ;
+        dispatch(deleteUser(id)).then(response => {
+            if ( response.payload.message ) {
+                setDeleteMessage(response.payload.message) ;
+            }
+        });
     }
 
     //! Block or unblock user 
     const blockOrUnblock = ( id ) => {
         AuthAxios.put(`http://localhost:4000/v1/users/block-unblock/${id}`)
         .then(response => {
-            window.location.reload() ;
+            dispatch(refreshUser(response.data.blockOrUnblock)) ;
         }).catch(error => console.log(error)) ;
     }
 

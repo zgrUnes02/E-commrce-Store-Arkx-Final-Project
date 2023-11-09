@@ -3,7 +3,7 @@ import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import AuthAxios from '../../helpers/request' ;
 import { useDispatch , useSelector } from 'react-redux' ;
-import { deleteCustomer, getAllCustomers } from '../../redux/customerSlice';
+import { deleteCustomer, getAllCustomers , refreshCustomer } from '../../redux/customerSlice';
 import { Link } from 'react-router-dom';
 
 function Customers() {
@@ -11,31 +11,23 @@ function Customers() {
     const dispatch = useDispatch() ;
     const customers = useSelector(state => state.customer.customers) ;
 
-    //! UseEffect
-    useEffect(() => {
-        const getData = async () => {
-            const response = await AuthAxios.get('http://localhost:4000/v1/customers') ;
-            dispatch(getAllCustomers(response.data.docs)) ;         
-        }
-        getData() ;
-    } , [])
+    useEffect(() => { dispatch(getAllCustomers()) } , []) ;
 
     //! Delete customer
     const [deleteMessage , setDeleteMessage] = useState() ;
     const deleteAnCustomer = ( id ) => {
-        AuthAxios.delete(`http://localhost:4000/v1/customers/delete/${id}`)
-        .then(response => {
-            setDeleteMessage(response.data.message) ;
-            dispatch(deleteCustomer({id})) ;
-        })
-        .catch(error => console.log(error)) ;
+        dispatch(deleteCustomer(id)).then(response => {
+            if ( response.payload.message ) {
+                setDeleteMessage(response.payload.message)
+            }
+        }) ;
     } 
 
     //! Block or unblock customer
     const blockOrUnblock = ( id ) => {
         AuthAxios.put(`http://localhost:4000/v1/customers/block-unblock/${id}`)
         .then(response => {
-            window.location.reload() ;
+            dispatch(refreshCustomer(response.data.blockOrUnblock)) ;
         }).catch(error => console.log(error)) ;
     }
 

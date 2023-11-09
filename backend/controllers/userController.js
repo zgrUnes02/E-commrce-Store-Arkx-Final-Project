@@ -171,10 +171,10 @@ const userController = {
 
             const blockOrUnblock = await userModel.findByIdAndUpdate(id, {
                 active : !updatedUser.active ,
-            });
+            } , { new : true });
 
             if ( blockOrUnblock ) {
-                res.status(200).json({ message: 'User updated successfully'});
+                res.status(200).json({ message: 'User updated successfully' , blockOrUnblock});
             }
         } 
         catch (error) {

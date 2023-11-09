@@ -85,13 +85,13 @@ function ProductCreate() {
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setProduct_name(e.target.value)} placeholder='Enter the product name' type="text" id="form6Example1" class="form-control" />
+                                                    <input onChange={(e) => setProduct_name(e.target.value)} placeholder='Enter the product name' type="text" id="form6Example1" class="form-control" required/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example1"> Product Name </label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setProduct_image(e.target.value)} type="file" id="form6Example2" class="form-control" />
+                                                    <input onChange={(e) => setProduct_image(e.target.value)} type="file" id="form6Example2" class="form-control" required/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example2"> Product Image </label>
                                                 </div>
                                             </div>
@@ -100,7 +100,7 @@ function ProductCreate() {
                                         <div class="row">
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
-                                                    <select onChange={(e) => setSubcategory_id(e.target.value)} class="form-select" id="exampleSelect" >
+                                                    <select onChange={(e) => setSubcategory_id(e.target.value)} class="form-select" id="exampleSelect" required>
                                                         <option disabled selected> Enter the subcategory's name </option>
                                                         {
                                                             subcategories?.map(subcategory => 
@@ -114,7 +114,7 @@ function ProductCreate() {
 
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
-                                                    <input onChange={(e) => setPrice(e.target.value)} placeholder='Enter the product price' type="number" id="form6Example4" class="form-control" />
+                                                    <input onChange={(e) => setPrice(e.target.value)} placeholder='Enter the product price' type="number" id="form6Example4" class="form-control" required />
                                                     <label class="form-label mt-2 mx-3" for="form6Example4"> Product Price </label>
                                                 </div>
                                             </div>
@@ -124,14 +124,14 @@ function ProductCreate() {
                                         <div class="row">
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
-                                                    <textarea onChange={(e) => setShortDescription(e.target.value)} class="form-control" id="form6Example7" rows="2" ></textarea>
+                                                    <textarea onChange={(e) => setShortDescription(e.target.value)} class="form-control" id="form6Example7" rows="2" required ></textarea>
                                                     <label class="form-label mt-2 mx-3" for="form6Example7"> Enter the short description </label>
                                                 </div>
                                             </div>
 
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
-                                                    <textarea onChange={(e) => setLongDescription(e.target.value)} class="form-control" id="form6Example7" rows="2" ></textarea>
+                                                    <textarea onChange={(e) => setLongDescription(e.target.value)} class="form-control" id="form6Example7" rows="2" required></textarea>
                                                     <label class="form-label mt-2 mx-3" for="form6Example7"> Enter the long description </label>
                                                 </div>
                                             </div>
@@ -154,7 +154,7 @@ function ProductCreate() {
 
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
-                                                    <select onChange={(e) => setActive(e.target.value)} class="form-select" id="exampleSelect" >
+                                                    <select onChange={(e) => setActive(e.target.value)} class="form-select" id="exampleSelect" required >
                                                         <option disabled selected> Enter activation status </option>
                                                         <option value="true"> Active </option>
                                                         <option value="false"> Inactive </option>

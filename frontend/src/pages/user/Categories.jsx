@@ -1,35 +1,34 @@
 import React, { useEffect, useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
-import AuthAxios from '../../helpers/request' ;
 import { useDispatch , useSelector } from 'react-redux' ;
 import { deleteCategory, getAllCategories } from '../../redux/categorySlice';
 import { Link } from 'react-router-dom';
 
 function Categories() {
 
-    const categories = useSelector(state => state.category.categories) ;
+    
     const dispatch = useDispatch() ;
+
+        const categories = useSelector(state => state.category.categories);
 
     //! useEffect Hook 
     useEffect(() => {
-        const getData = async () => {
-            const response = await AuthAxios.get('http://localhost:4000/v1/categories') ;
-            dispatch(getAllCategories(response.data.docs)) ;
-        }
-        getData()
+        dispatch(getAllCategories()) ;
     } , [])
 
+   console.log(categories)
+
+
     //! Delete Category
-    const [deleteMessage , setDeleteMessage] = useState() ; 
+    const [deleteMessage , setDeleteMessage] = useState() ;
     const handleDelete = ( id ) => {
-        AuthAxios.delete(`http://localhost:4000/v1/categories/${id}`)
-        .then(response => {
-            setDeleteMessage(response.data.message) ;
-            dispatch(deleteCategory({id})) ;
-        })
-        .catch(error => console.log(error.response)) ;
-    }
+        dispatch(deleteCategory(id)).then(response => {
+            if ( response.payload.message ) {
+                setDeleteMessage(response.payload.message)
+            }
+        }) ;
+    } ;
 
     return (
         <React.Fragment>
@@ -73,7 +72,7 @@ function Categories() {
 
                             <tbody>
                                 {
-                                    categories?.map((category , index) => 
+                                    categories.map((category , index) => 
                                         <tr key={index}>
                                             <th> { index + 1 } </th>
                                             <td> { category.category_name } </td>

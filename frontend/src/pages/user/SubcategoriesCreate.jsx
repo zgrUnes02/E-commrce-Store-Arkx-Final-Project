@@ -39,8 +39,6 @@ function SubcategoriesCreate() {
                             <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
-
-                    {/* Show Alerts If There Is Any Errors  */}
                     { 
                         errors && errors?.map(error => 
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -49,7 +47,6 @@ function SubcategoriesCreate() {
                             </div>
                         )
                     }
-
                 </div>
 
                 <section className="section">
@@ -68,7 +65,7 @@ function SubcategoriesCreate() {
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setSubcategory_name(e.target.value)} type="text" placeholder="Enter the subcategory's name" id="form6Example1" class="form-control" />
+                                                    <input onChange={(e) => setSubcategory_name(e.target.value)} type="text" placeholder="Enter the subcategory's name" id="form6Example1" class="form-control" required/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example1"> Subcategory Name </label>
                                                 </div>
                                             </div>
@@ -77,7 +74,7 @@ function SubcategoriesCreate() {
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <select onChange={(e) => setCategory_id(e.target.value)} class="form-select" id="exampleSelect">
+                                                    <select required onChange={(e) => setCategory_id(e.target.value)} class="form-select" id="exampleSelect">
                                                         <option disabled selected> Enter the category's name </option>
                                                         {
                                                             categories?.map(category => 
@@ -93,7 +90,7 @@ function SubcategoriesCreate() {
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <select onChange={(e) => setActive(e.target.value)} class="form-select" id="exampleSelect">
+                                                    <select onChange={(e) => setActive(e.target.value)} class="form-select" id="exampleSelect" required>
                                                         <option disabled selected> Enter the subcategory's status </option>
                                                         <option value="true"> Active </option>
                                                         <option value="false"> Inactive </option>

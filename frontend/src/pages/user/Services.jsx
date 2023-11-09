@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
-import AuthAxios from '../../helpers/request' ;
 import { useDispatch , useSelector } from 'react-redux' ;
 import { Link } from 'react-router-dom';
 import { deleteService, getAllServices } from '../../redux/serviceSlice';
@@ -11,23 +10,16 @@ function Services() {
     const dispatch = useDispatch() ;
     const services = useSelector(state => state.service.services) ;
 
-    //! UseEffect
-    useEffect(() => {
-        const getData = async () => {
-            const response = await AuthAxios.get('http://localhost:4000/v1/services') ;
-            dispatch(getAllServices(response.data.docs)) ;
-        }
-        getData() ;
-    } , [])
+    useEffect(() => { dispatch(getAllServices()) } , [])
 
     //! Delete service
     const [deleteMessage , setDeleteMessage] = useState() ;
     const handleDelete = ( id ) => {
-        AuthAxios.delete(`http://localhost:4000/v1/services/${id}`)
-        .then(response => {
-            setDeleteMessage(response.data.message) ;
-            dispatch(deleteService({id})) ;
-        }).catch(error => console.log(error)) ;
+        dispatch(deleteService(id)).then(response => {
+            if ( response.payload.message ) {
+                setDeleteMessage(response.payload.message) ;
+            }
+        }) ;
     }
 
     return (
