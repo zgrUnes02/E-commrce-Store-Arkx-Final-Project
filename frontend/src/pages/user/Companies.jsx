@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
-import AuthAxios from '../../helpers/request' ;
 import { useDispatch , useSelector } from 'react-redux' ;
 import { deleteCompany, getAllCompanies } from '../../redux/companySlice';
 import { Link } from 'react-router-dom';
@@ -11,23 +10,16 @@ function Companies() {
     const dispatch = useDispatch() ;
     const companies = useSelector(state => state.company.companies) ;
 
-    //! UseEffect
-    useEffect(() => {
-        const getData = async () => {
-            const response = await AuthAxios.get('http://localhost:4000/v1/companies') ;
-            dispatch(getAllCompanies(response.data.docs)) ;
-        }
-        getData() ;
-    } , [])
+    useEffect(() => { dispatch(getAllCompanies()) } , [])
 
     //! Delete a company
     const [deleteMessage , setDeleteMessage] = useState() ;
     const deleteACompany = ( id ) => {
-        AuthAxios.delete(`http://localhost:4000/v1/companies/${id}`)
-        .then(response => {
-            setDeleteMessage(response.data.message) ;
-            dispatch(deleteCompany({id})) ;
-        }).catch(error => console.log(error)) ;
+        dispatch(deleteCompany(id)).then(response => {
+            if ( response.payload.message ) {
+                setDeleteMessage(response.payload.message) ;
+            }
+        }) ;
     }
 
     return (

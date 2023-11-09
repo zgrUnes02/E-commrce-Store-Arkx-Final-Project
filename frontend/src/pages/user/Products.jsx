@@ -1,34 +1,28 @@
 import React, { useEffect, useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
-import AuthAxios from '../../helpers/request' ;
 import { useDispatch , useSelector } from 'react-redux' ;
-import { deleteProduct, getAllProducts } from '../../redux/productSlice';
 import { Link } from 'react-router-dom';
+import { deleteProduct, getAllProducts } from '../../redux/productSlice';
 
 function Products() {
 
     const dispatch = useDispatch() ;
     const products = useSelector(state => state.product.products) ;
+    const [deleteMessage , setDeleteMessage] = useState() ;
 
     //! UseEffect
     useEffect(() => {
-        const getData = async () => {
-            const response = await AuthAxios.get('http://localhost:4000/v1/products') ;
-            dispatch(getAllProducts(response.data.docs)) ;
-        }
-        getData() ;
+        dispatch(getAllProducts()) ;
     } , [])
 
     //! Delete product
-    const [messageDelete , setMessageDelete] = useState() ;
     const handleDelete = ( id ) => {
-        AuthAxios.delete(`http://localhost:4000/v1/product/${id}`)
-        .then(response => {
-            setMessageDelete(response.data.message) ;
-            dispatch(deleteProduct({id})) ;
-        })
-        .catch(error => console.log(error)) ;
+        dispatch(deleteProduct(id)).then(response => {
+            if ( response.payload.message ) {
+                setDeleteMessage(response.payload.message)
+            }
+        }) ;
     }
 
     return (
@@ -45,10 +39,11 @@ function Products() {
                             <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
+                    {/* Show alert when user delete */}
                     {
-                        messageDelete && 
+                        deleteMessage && 
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong> Success : </strong> { messageDelete }
+                            <strong> Success : </strong> { deleteMessage }
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     }
@@ -75,20 +70,23 @@ function Products() {
 
                                 <tbody>
                                     {
-                                        products?.map((product , index) => 
-                                        <tr key={index}>
-                                            <th> { index + 1 } </th>
-                                            <td> { product.product_name } </td>
-                                            <td> { product.subcategory_id.subcategory_name } </td>
-                                            <td> { product.price } MAD </td>
-                                            { product.active ? <td> <span class='badge bg-success'> Active </span> </td> : <td> <span class='badge bg-danger'> Inactive </span> </td> }
-                                            <td style={{ display:'flex' , justifyContent:'space-between' }}>
-                                                <button className='btn btn-outline-success'> <i className="fa-solid fa-eye"></i> </button>
-                                                <Link to={`/products/update/${product._id}`}> <button className='btn btn-outline-primary'> <i className="fa-solid fa-edit"></i> </button> </Link>
-                                                <button onClick={() => { handleDelete(product._id) }} className='btn btn-outline-danger'> <i className="fa-solid fa-trash"></i> </button>
-                                            </td>
+                                        products.length ? products?.map((product , index) => 
+                                            <tr key={index}>
+                                                <th> { index + 1 } </th>
+                                                <td> { product.product_name } </td>
+                                                <td> { product.subcategory_id.subcategory_name } </td>
+                                                <td> { product.price } MAD </td>
+                                                { product.active ? <td> <span class='badge bg-success'> Active </span> </td> : <td> <span class='badge bg-danger'> Inactive </span> </td> }
+                                                <td style={{ display:'flex' , justifyContent:'space-between' }}>
+                                                    <button className='btn btn-outline-success'> <i className="fa-solid fa-eye"></i> </button>
+                                                    <Link to={`/products/update/${product._id}`}> <button className='btn btn-outline-primary'> <i className="fa-solid fa-edit"></i> </button> </Link>
+                                                    <button onClick={() => { handleDelete(product._id) }} className='btn btn-outline-danger'> <i className="fa-solid fa-trash"></i> </button>
+                                                </td>
+                                            </tr>
+                                        ) : 
+                                        <tr>
+                                            <td colSpan={6}> There is no products now </td>
                                         </tr>
-                                        )
                                     }
                                 </tbody>
 

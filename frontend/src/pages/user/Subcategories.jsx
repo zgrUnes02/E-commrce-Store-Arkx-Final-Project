@@ -1,34 +1,27 @@
 import React, { useEffect, useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
-import AuthAxios from '../../helpers/request' ;
 import { useDispatch, useSelector } from 'react-redux' ;
-import { deleteSubcategory, getAllSubcategories } from '../../redux/subcategorySlice';
 import { Link } from 'react-router-dom';
+import { deleteSubcategory, getAllSubcategories } from '../../redux/subcategorySlice';
 
 function Subcategories() {
 
     const dispatch = useDispatch() ;
     const subcategories = useSelector(state => state.subcategory.subcategories) ; 
+    const [deleteMessage , setDeleteMessage] = useState() ;
 
-    //! UseEffect
     useEffect(() => {
-        const getData = async () => {
-            const response = await AuthAxios.get('http://localhost:4000/v1/subcategories') ;
-            dispatch(getAllSubcategories(response.data.docs)) ;
-        }
-        getData() 
+        dispatch(getAllSubcategories()) ;
     } , [])
 
     //! Delete subcategory
-    const [deleteMessage , setDeleteMessage] = useState() ;
     const handleDelete = ( id ) => {
-        AuthAxios.delete(`http://localhost:4000/v1/subcategories/${id}`)
-        .then(response => {
-            setDeleteMessage(response.data.message) ;
-            dispatch(deleteSubcategory({id})) ;
-        })
-        .catch(error => console.log(error)) ;
+        dispatch(deleteSubcategory(id)).then(response => {
+            if ( response.payload.message ) {
+                setDeleteMessage(response.payload.message) ;
+            }
+        }) ;
     }
 
     return (
@@ -45,13 +38,14 @@ function Subcategories() {
                             <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
-                    {
-                        deleteMessage && 
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong> Success : </strong> { deleteMessage }
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    }
+                    {/* Show alert when user delete */}
+                {
+                    deleteMessage && 
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong> Success : </strong> { deleteMessage }
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
                 </div>
 
                 <section class="section">

@@ -2,6 +2,7 @@ const categoryController = require("../controllers/categoryController");
 const { body } = require("express-validator");
 const express = require("express");
 const categoryRouter = express.Router();
+const userVerification = require('../middlewares/userVerification') ;
 
 //! Create new category
 categoryRouter.post(
@@ -22,14 +23,14 @@ categoryRouter.post(
 );
 
 //! Delete category
-categoryRouter.delete("/categories/:id", categoryController.deleteCategory);
+categoryRouter.delete("/categories/:id" , userVerification , categoryController.deleteCategory);
 
 //! Get a category by ID
-categoryRouter.get("/categories/:id", categoryController.getCategoryById);
+categoryRouter.get("/categories/:id" , categoryController.getCategoryById);
 
 //! Updating the category data
 categoryRouter.put(
-  "/categories/:id",
+  "/categories/:id" ,
   [
     body("category_name")
       .trim()
@@ -43,10 +44,10 @@ categoryRouter.put(
   categoryController.updateCategory
 );
 
-//! Get all customers
+//! Get all categories
 categoryRouter.get("/categories" , categoryController.listingCategories);
 
-//! Search for a customer
+//! Search for a category
 categoryRouter.get("/category" , categoryController.searchForCategory);
 
 module.exports = categoryRouter;

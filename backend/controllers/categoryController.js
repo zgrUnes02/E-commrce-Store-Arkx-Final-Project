@@ -64,6 +64,7 @@ const categoryController={
         //* Check if there is any validation problem
         const errors = validationResult(req) ;
         if ( !errors.isEmpty() ) {
+            console.log(errors)
             return res.status(400).json(errors) ;
         }
         

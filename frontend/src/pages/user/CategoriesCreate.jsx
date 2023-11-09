@@ -2,26 +2,25 @@ import React, { useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { Link, useNavigate } from 'react-router-dom' ;
-import AuthAxios from '../../helpers/request' ;
+import { useDispatch, useSelector } from 'react-redux';
+import { createNewCategory } from '../../redux/categorySlice';
 
 function CategoriesCreate() {
 
+    const dispatch = useDispatch() ;
+    const navigate = useNavigate() ;
+    const errors = useSelector(state => state.category.error)
+
     const [category_name , setCategory_name] = useState() ;
     const [active , setActive] = useState() ;
-    const [errors , setErrors] = useState() ;
-
-    const navigate = useNavigate() ;
 
     //! Create New Category In Database 
-    const createNewCategory = (e) => {
+    const createCategory = (e) => {
         e.preventDefault() ;
-        AuthAxios.post('http://localhost:4000/v1/categories' , { category_name , active })
-        .then(response => {
-            alert(response.data.message) ;
-            navigate('/categories') ;
-        })
-        .catch(error => { 
-            setErrors(error.response.data.errors) ;
+        dispatch(createNewCategory({category_name , active})).then(response => {
+            if ( response.payload.messageSuccess ) {
+                navigate('/categories')
+            }
         }) ;
     }
 
@@ -38,8 +37,6 @@ function CategoriesCreate() {
                             <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
-
-                    {/* Show Alerts If There Is Any Errors  */}
                     { 
                         errors && errors?.map(error => 
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -48,19 +45,18 @@ function CategoriesCreate() {
                             </div>
                         )
                     }
-
                 </div>
                 <section className="section">
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="card">
                                 <div className="card-body">
-                                    <form className='mt-3' onSubmit={createNewCategory}>  
+                                    <form className='mt-3' onSubmit={createCategory}>  
 
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setCategory_name(e.target.value)} type="text" placeholder="Enter the category's name" id="form6Example1" class="form-control" />
+                                                    <input onChange={(e) => setCategory_name(e.target.value)} type="text" placeholder="Enter the category's name" id="form6Example1" class="form-control" required/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example1">Category Name</label>
                                                 </div>
                                             </div>
@@ -69,7 +65,7 @@ function CategoriesCreate() {
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <select name='category_status' onChange={(e) => setActive(e.target.value)} class="form-select" id="exampleSelect" required >
+                                                    <select name='category_status' onChange={(e) => setActive(e.target.value)} class="form-select" id="exampleSelect">
                                                         <option disabled selected> Enter the category's status </option>
                                                         <option value="true"> Active </option>
                                                         <option value="false"> Inactive </option>

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react' ;
+import React, { useEffect } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
-import AuthAxios from '../../helpers/request' ;
 import { useDispatch , useSelector } from 'react-redux' ;
 import { getAllOrders } from '../../redux/orderSlice';
 import { Link } from 'react-router-dom';
@@ -9,15 +8,8 @@ import { Link } from 'react-router-dom';
 function Orders() {
 
     const dispatch = useDispatch() ;
+    useEffect(() => { dispatch(getAllOrders()) } , []) ;
     const orders = useSelector(state => state.order.orders) ;
-
-    useEffect(() => {
-        const getData = async () => {
-            const response = await AuthAxios.get('http://localhost:4000/v1/orders') ;
-            dispatch(getAllOrders(response.data.docs)) ;
-        }
-        getData() ;
-    } , [])
 
     return (
         <React.Fragment>

@@ -73,13 +73,13 @@ function UsersCreate() {
 
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setFirst_name(e.target.value)} placeholder='enter the first name' type="text" id="form6Example1" class="form-control" />
+                                                    <input onChange={(e) => setFirst_name(e.target.value)} placeholder='enter the first name' type="text" id="form6Example1" class="form-control" required/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example1"> First Name </label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setLast_name(e.target.value)} placeholder='enter the last name' type="text" id="form6Example2" class="form-control" />
+                                                    <input onChange={(e) => setLast_name(e.target.value)} placeholder='enter the last name' type="text" id="form6Example2" class="form-control" required/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example2"> Last Name </label>
                                                 </div>
                                             </div>
@@ -90,7 +90,7 @@ function UsersCreate() {
 
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setUser_name(e.target.value)} placeholder='enter the username' type="text" id="form6Example1" class="form-control" />
+                                                    <input onChange={(e) => setUser_name(e.target.value)} placeholder='enter the username' type="text" id="form6Example1" class="form-control" required/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example1"> Username </label>
                                                 </div>
                                             </div>
@@ -117,13 +117,13 @@ function UsersCreate() {
 
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setEmail(e.target.value)} placeholder='enter the email' type="email" id="form6Example1" class="form-control" />
+                                                    <input onChange={(e) => setEmail(e.target.value)} placeholder='enter the email' type="email" id="form6Example1" class="form-control" required/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example1"> Email</label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setPassword(e.target.value)} placeholder='enter the password' type="password" id="form6Example2" class="form-control" />
+                                                    <input onChange={(e) => setPassword(e.target.value)} placeholder='enter the password' type="password" id="form6Example2" class="form-control" required/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example2"> Password </label>
                                                 </div>
                                             </div>
