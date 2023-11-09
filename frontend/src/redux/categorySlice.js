@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit" ;
 import AuthAxios from "../helpers/request";
-import { useNavigate } from "react-router-dom";
 
 //! Get aLl categories
 export const getAllCategories = createAsyncThunk('categories/getAllCategories', async () => {

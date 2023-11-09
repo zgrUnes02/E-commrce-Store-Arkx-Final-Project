@@ -1,28 +1,32 @@
-import React, { useState } from 'react' ;
+import React, { useEffect, useState } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { Link, useNavigate } from 'react-router-dom' ;
-import { useSelector } from 'react-redux' ;
-import AuthAxios from '../../helpers/request' ;
+import { useDispatch, useSelector } from 'react-redux' ;
+import { createNewSubcategory } from '../../redux/subcategorySlice';
+import { getAllCategories } from '../../redux/categorySlice';
 
 function SubcategoriesCreate() {
 
-    const categories = useSelector(state => state.category.categories) ;
     const navigate = useNavigate() ;
+    const dispatch = useDispatch() ;
+
+    useEffect(() => { dispatch(getAllCategories()) } , []) ;
+    
+    const categories = useSelector(state => state.category.categories) ;
+    const errors = useSelector(state => state.subcategory.error) ;
 
     const [subcategory_name , setSubcategory_name] = useState() ;
     const [active , setActive] = useState() ;
     const [category_id , setCategory_id] = useState() ;
-    const [errors , setErrors] = useState() ;
 
-    const createNewSubcategory = (e) => {
+    const createNewSubcategorySubmit= (e) => {
         e.preventDefault() ;
-        AuthAxios.post('http://localhost:4000/v1/subcategories' , { subcategory_name , active , category_id })
-        .then(response => {
-            alert(response.data.message) ;
-            navigate('/subcategories') ;
+        dispatch(createNewSubcategory({ subcategory_name , active , category_id })).then(response => {
+            if ( response.payload.messageSuccess ) {
+                navigate('/subcategories') ;
+            }
         })
-        .catch(error => setErrors(error.response.data.errors)) ;
     }
 
     return (
@@ -60,12 +64,12 @@ function SubcategoriesCreate() {
                                 <div className="card-body">
 
 
-                                    <form className='mt-3' onSubmit={createNewSubcategory}>  
+                                    <form className='mt-3' onSubmit={createNewSubcategorySubmit}>  
 
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setSubcategory_name(e.target.value)} type="text" placeholder="Enter the subcategory's name" id="form6Example1" class="form-control" required/>
+                                                    <input onChange={(e) => setSubcategory_name(e.target.value)} type="text" placeholder="Enter the subcategory's name" id="form6Example1" class="form-control"/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example1"> Subcategory Name </label>
                                                 </div>
                                             </div>

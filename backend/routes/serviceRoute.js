@@ -10,43 +10,41 @@ serviceRouter.post(
     body("service_name")
       .trim()
       .notEmpty()
-      .withMessage("The service name is required") ,
+      .withMessage("The service's name is required") ,
     body("service_image")
       .trim()
       .notEmpty()
-      .withMessage("The image of the service is required"),
+      .withMessage("The service's image is required"),
     body("subcategory_id")
       .trim()
       .notEmpty()
-      .withMessage("A subcategory id is required"),
+      .withMessage("The subcategory's name is required"),
     body("category_id")
       .trim()
       .notEmpty()
-      .withMessage("A category id is required"),
+      .withMessage("The category's name is required"),
     body("company_id")
       .trim()
       .notEmpty()
-      .withMessage("the id of the company is required"),
+      .withMessage("The company's name is required"),
     body("short_description")
       .trim()
       .notEmpty()
-      .withMessage("A short description of the service is required")
-      .isString()
-      .withMessage("please enter a valid description"),
+      .withMessage("The service's short description is required") ,
     body("price")
       .trim()
       .notEmpty()
-      .withMessage("The price of the service is required")
+      .withMessage("The service's price is required")
       .isNumeric()
       .withMessage("please enter a valid price"),
     body("option")
       .trim()
       .notEmpty()
-      .withMessage("the option is required") ,
+      .withMessage("The options are required") ,
     body("city")
       .trim()
       .notEmpty()
-      .withMessage("the city is required") ,
+      .withMessage("The city is required") ,
     body("location")
       .trim()
       .notEmpty()
