@@ -17,8 +17,6 @@ function CategoriesUpdate() {
     const [active , setActive] = useState(category.active) ;
     const [errors , setErrors] = useState() ;
    
-
-
     //! Update Category In Database 
     const changeCategory = (e) => {
         e.preventDefault() ;
@@ -47,8 +45,6 @@ function CategoriesUpdate() {
                             <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
-
-                    {/* Show Alerts If There Is Any Errors  */}
                     { 
                         errors && errors?.map(error => 
                             <div className="alert alert-danger alert-dismissible fade show" role="alert">

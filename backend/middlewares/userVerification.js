@@ -12,7 +12,7 @@ const userVerification = async (req, res, next) => {
             next();
         }
         else{
-            res.status(400).json(error);
+            return res.status(400).send('error');
         }
     }
     catch ( error ) {

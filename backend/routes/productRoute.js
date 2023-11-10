@@ -2,10 +2,11 @@ const express = require("express");
 const productController = require("../controllers/productController");
 const productRouter = express.Router();
 const { body } = require("express-validator");
+const authUserVerification = require('../middlewares/authUserVerification') ;
 
   //! create a new product
   productRouter.post(
-    "/products" ,
+    "/products" , authUserVerification ,
     [
       body("product_name")
         .trim()
@@ -45,17 +46,17 @@ const { body } = require("express-validator");
   );
 
 //! Get all product
-productRouter.get("/products", productController.listingProducts);
+productRouter.get("/products" , productController.listingProducts);
 
 //! Search for a product
-productRouter.get("/product", productController.searchForProduct);
+productRouter.get("/product" , productController.searchForProduct);
 
 //! Get a product by ID
-productRouter.get("/products/:id", productController.getProductById);
+productRouter.get("/products/:id" , authUserVerification , productController.getProductById);
 
 //! Update a product
 productRouter.put(
-  "/product/:id",
+  "/product/:id" , authUserVerification ,
   [
     body("product_name")
       .trim()
@@ -90,6 +91,6 @@ productRouter.put(
 );
 
 //! Delete a product by id
-productRouter.delete("/product/:id", productController.deleteProduct);
+productRouter.delete("/product/:id" , authUserVerification , productController.deleteProduct);
 
 module.exports = productRouter;

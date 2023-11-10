@@ -3,7 +3,6 @@ const userModel = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-
 const userController = {
     //! Register
     register : async (req , res) => { 
@@ -123,10 +122,10 @@ const userController = {
         const { id } = req.params ;
         try {
             const user = await userModel.findOne({_id : id}) ;
-            res.status(200).send(user) ;
+            res.status(200).json({ user : user }) ;
         }
         catch ( error ) {
-            res.status(500).json({message:error.message});
+            res.status(500).json({ message : error.message });
         }
     },
 
@@ -182,6 +181,53 @@ const userController = {
         }
     } ,
 
+    //! User Profile
+    userProfile : async (req , res) => {
+        const id = req.user._id
+        const user = await userModel.findById(id) ;
+
+        if ( user ) {
+            res.status(200).json(user) ;
+        }
+        else {
+            res.status(400).json('oops !') ;
+        }
+
+    } ,
+
+    //! Update profile info
+    updateProfileInfo : async (req , res) => {
+        const id = req.user._id ;
+
+        //* Check is there is any validation problem
+        const errors = validationResult(req) ;
+        if ( !errors.isEmpty() ) {
+            return res.status(403).json(errors) ;
+        }
+
+        try {
+            const { first_name , last_name , user_name , email } = req.body ;
+            
+            const userInformationUpdated = await userModel.findByIdAndUpdate(id.toString() , {
+                first_name : first_name ,
+                last_name : last_name ,
+                user_name : user_name ,
+                email : email ,
+            } , {new : true}) ;
+            
+            if ( userInformationUpdated ) {
+                res.status(200).json({
+                    message : 'Information has been updated with success' ,
+                    newInfo : userInformationUpdated ,
+                }) ;
+            }
+
+        }
+        catch ( error ) {
+            res.status(400).json(error) ;
+        }
+    } ,
+
     //! Deleting a user
     deleteUser: async (req, res) => {
         try {
@@ -195,7 +241,7 @@ const userController = {
             res.status(200).json({ message: 'User deleted successfully' });
         } 
         catch (error) {
-            res.status(500).json({ message: 'Internal Server Error' });
+            res.status(500).json(error);
         }
     },
 };

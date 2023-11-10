@@ -2,11 +2,11 @@ const express = require('express') ;
 const companyController = require('../controllers/companyController');
 const companyRouter = express.Router() ;
 const { body } = require('express-validator') ;
-const companyVerification = require('../middlewares/companyVerification');
+const authUserVerification = require('../middlewares/authUserVerification') ;
 
 //! Create a new company ( Register )
 companyRouter.post(
-"/companies" ,
+"/companies" , authUserVerification ,
   [
     body("companyName")
       .trim()
@@ -48,11 +48,11 @@ companyRouter.post(
 );
 
 //! Get All companies 
-companyRouter.get("/companies" , companyController.getAllCompanies) ;
+companyRouter.get("/companies" , authUserVerification , companyController.getAllCompanies) ;
 
 //! Update a company data
 companyRouter.put(
-  "/company/:id" , companyVerification ,
+  "/company/:id" , authUserVerification ,
   [
     body("companyName")
       .trim()
@@ -85,6 +85,6 @@ companyRouter.put(
 );
 
 //! Delete a company
-companyRouter.delete("/companies/:id" , companyController.deleteCompany) ;
+companyRouter.delete("/companies/:id" , authUserVerification , companyController.deleteCompany) ;
 
 module.exports = companyRouter ;
