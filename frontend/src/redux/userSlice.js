@@ -17,6 +17,24 @@ export const createNewUser = createAsyncThunk('users/createNewUser' , async ( us
     }).catch(error => rejectWithValue(error.response.data.errors)) ;
 })
 
+//! User profile
+export const userProfile = createAsyncThunk('users/userProfile' , async () => {
+    return AuthAxios.get(`http://localhost:4000/v1/user/profile`)
+    .then(response => response.data) 
+    .catch(error => console.log(error)) ;
+})
+
+//! Update profile info 
+export const updateProfileInfo = createAsyncThunk('users/updateProfileInfo' , async ( newInformation , { rejectWithValue } ) => {
+    return AuthAxios.put(`http://localhost:4000/v1/user/profile/update/information` , newInformation)
+    .then(response => {
+        const returnData = { messageSuccess : response.data.message , info :newInformation } ;
+        return returnData ;
+    }) 
+    .catch(error => rejectWithValue(error)) ;
+})
+
+
 //! Delete user
 export const deleteUser = createAsyncThunk('users/deleteUser' , async ( id ) => {
     return AuthAxios.delete(`http://localhost:4000/v1/users/${id}`)
@@ -32,8 +50,10 @@ const userSlice = createSlice({
 
     initialState : {
         users : [] ,
+        user : '' ,
         status : '' ,
         error : '' ,
+        success : ''
     } ,
 
     reducers : {
@@ -68,6 +88,36 @@ const userSlice = createSlice({
             state.error = action.payload 
         })
         .addCase(createNewUser.pending , (state , action) => {
+            state.status = 'pending'
+        })
+
+        //! Get user profile
+        .addCase(userProfile.fulfilled , (state , action) => {
+            state.status = 'fulfilled' ;
+            state.user = action.payload ;
+        })
+        .addCase(userProfile.rejected , (state , action) => {
+            state.status = 'rejected'
+            state.error = action.payload 
+        })
+        .addCase(userProfile.pending , (state , action) => {
+            state.status = 'pending'
+        })
+
+        //! Update profile information
+        .addCase(updateProfileInfo.fulfilled , (state , action) => {
+            state.status = 'fulfilled' ;
+            state.success = action.payload.messageSuccess ;
+            state.user.first_name = action.payload.info.first_name ;
+            state.user.last_name = action.payload.info.last_name ;
+            state.user.user_name = action.payload.info.user_name ;
+            state.user.email = action.payload.info.email ;
+        })
+        .addCase(updateProfileInfo.rejected , (state , action) => {
+            state.status = 'rejected'
+            state.error = action.payload 
+        })
+        .addCase(updateProfileInfo.pending , (state , action) => {
             state.status = 'pending'
         })
 

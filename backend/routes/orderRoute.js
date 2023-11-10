@@ -2,6 +2,7 @@ const { body } = require("express-validator");
 const express = require("express");
 const orderController = require("../controllers/orderController");
 const orderRouter = express.Router();
+const authUserVerification = require('../middlewares/authUserVerification') ;
 
 //! Create new order
 orderRouter.post(
@@ -29,7 +30,7 @@ orderRouter.post(
 );
 
 //! Get an order by ID
-orderRouter.get("/orders/:id", orderController.getOrderById);
+orderRouter.get("/orders/:id" , orderController.getOrderById);
 
 //! Update the order status
 orderRouter.put(
@@ -45,6 +46,6 @@ orderRouter.put(
 );
 
 //! List all orders
-orderRouter.get("/orders", orderController.listOrders);
+orderRouter.get("/orders" , authUserVerification , orderController.listOrders);
 
 module.exports = orderRouter;

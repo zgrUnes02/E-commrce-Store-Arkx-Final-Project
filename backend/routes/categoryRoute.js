@@ -2,11 +2,11 @@ const categoryController = require("../controllers/categoryController");
 const { body } = require("express-validator");
 const express = require("express");
 const categoryRouter = express.Router();
-const userVerification = require('../middlewares/userVerification') ;
+const authUserVerification = require('../middlewares/authUserVerification') ;
 
 //! Create new category
 categoryRouter.post(
-  "/categories",
+  "/categories" , authUserVerification , 
   [
     body("category_name")
       .trim()
@@ -23,14 +23,14 @@ categoryRouter.post(
 );
 
 //! Delete category
-categoryRouter.delete("/categories/:id" , userVerification , categoryController.deleteCategory);
+categoryRouter.delete("/categories/:id" , authUserVerification , categoryController.deleteCategory);
 
 //! Get a category by ID
-categoryRouter.get("/categories/:id" , categoryController.getCategoryById);
+categoryRouter.get("/categories/:id" , authUserVerification , categoryController.getCategoryById);
 
 //! Updating the category data
 categoryRouter.put(
-  "/categories/:id" ,
+  "/categories/:id" , authUserVerification , 
   [
     body("category_name")
       .trim()
@@ -45,9 +45,9 @@ categoryRouter.put(
 );
 
 //! Get all categories
-categoryRouter.get("/categories" , categoryController.listingCategories);
+categoryRouter.get("/categories" , authUserVerification , categoryController.listingCategories);
 
 //! Search for a category
-categoryRouter.get("/category" , categoryController.searchForCategory);
+categoryRouter.get("/category" , authUserVerification , categoryController.searchForCategory);
 
 module.exports = categoryRouter;

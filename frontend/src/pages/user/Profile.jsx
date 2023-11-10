@@ -1,4 +1,4 @@
-import React from 'react' ;
+import React, { useEffect } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { Link } from 'react-router-dom' ;
@@ -6,13 +6,16 @@ import Overview from '../../components/profile/Overview' ;
 import EditInformation from '../../components/profile/EditInformation' ;
 import ChangePassword from '../../components/profile/ChangePassword' ;
 import ImageAndName from '../../components/profile/ImageAndName';
-import { useSelector } from 'react-redux' ;
+import { useDispatch, useSelector } from 'react-redux' ;
+import { userProfile } from '../../redux/userSlice';
 
 function Profile() {
 
-    const id = localStorage.getItem('id') ;
-    const users = useSelector(state => state.user.users) ;
-    const currentUser = users.find(user => user._id === id) ;
+    const dispatch = useDispatch() ;
+
+    useEffect(() => { dispatch(userProfile()) } , [])  
+     
+    const user = useSelector(state => state.user.user) ;
 
     return (
         <React.Fragment>
@@ -33,7 +36,7 @@ function Profile() {
                 <section class="section profile">
                     <div class="row">
 
-                        <ImageAndName currentUser={currentUser} />
+                        <ImageAndName currentUser={user} />
 
                         <div class="col-xl-8">
 
@@ -56,9 +59,9 @@ function Profile() {
                                     </ul>
 
                                     <div class="tab-content pt-2">
-                                        <Overview currentUser={currentUser} />
-                                        <EditInformation currentUser={currentUser} />
-                                        <ChangePassword currentUser={currentUser} />
+                                        <Overview currentUser={user} />
+                                        <EditInformation currentUser={user} />
+                                        <ChangePassword currentUser={user} />
                                     </div>
 
                                 </div>

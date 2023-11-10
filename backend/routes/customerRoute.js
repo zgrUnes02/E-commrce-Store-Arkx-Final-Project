@@ -2,8 +2,7 @@ const express = require("express");
 const customerController = require("../controllers/customerController.js");
 const customerRouter = express.Router();
 const { body } = require("express-validator");
-const customerVerification = require("../middlewares/customerVerification.js");
-const userVerification = require("../middlewares/userVerification.js");
+const authUserVerification = require('../middlewares/authUserVerification') ;
 
 //! Customer authentication ( Login )
 customerRouter.post('/customers/login' , [
@@ -53,7 +52,7 @@ customerRouter.put("/validate/:id" , customerController.validateAndInvalidateCus
 
 //! Updating the customer's data 
 customerRouter.put(
-  "/customers/:id" , customerVerification ,
+  "/customers/:id" ,
   [
     body("first_name")
       .trim()
@@ -76,9 +75,9 @@ customerRouter.put(
 );
 
 //! Block or unblock a customer 
-customerRouter.put("/customers/block-unblock/:id" , customerController.blockOrUnblock) ;
+customerRouter.put("/customers/block-unblock/:id" , authUserVerification , customerController.blockOrUnblock) ;
 
 //! Deleting the customer's account
-customerRouter.delete("/customers/delete/:id" , customerController.deleteCustomer) ;
+customerRouter.delete("/customers/delete/:id" , authUserVerification , customerController.deleteCustomer) ;
 
 module.exports = customerRouter;

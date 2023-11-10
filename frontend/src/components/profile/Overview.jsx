@@ -2,8 +2,6 @@ import React from 'react' ;
 
 function Overview(props) {
 
-    console.log(props.currentUser.first_name)
-
     return (
         <React.Fragment>
 

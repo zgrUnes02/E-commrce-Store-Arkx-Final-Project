@@ -2,10 +2,11 @@ const express = require("express");
 const serviceController = require("../controllers/serviceController");
 const serviceRouter = express.Router();
 const { body } = require("express-validator");
+const authUserVerification = require('../middlewares/authUserVerification') ;
 
 //! create a new service
 serviceRouter.post(
-  "/services",
+  "/services" , authUserVerification ,
   [
     body("service_name")
       .trim()
@@ -54,18 +55,18 @@ serviceRouter.post(
 );
 
 //! Get all services
-serviceRouter.get("/services", serviceController.listingServices);
+serviceRouter.get("/services" , serviceController.listingServices);
 
 //! search for a product
-serviceRouter.get("/service", serviceController.searchForService);
+serviceRouter.get("/service" , serviceController.searchForService);
 
 //! find a service by id
-serviceRouter.get("/services/:id", serviceController.getServiceById);
+serviceRouter.get("/services/:id" , authUserVerification , serviceController.getServiceById);
 
 //! update a service
-serviceRouter.put("/services/:id", serviceController.updateService);
+serviceRouter.put("/services/:id" , authUserVerification , serviceController.updateService);
 
 //! delete a service
-serviceRouter.delete("/services/:id", serviceController.deleteService);
+serviceRouter.delete("/services/:id" , authUserVerification , serviceController.deleteService);
 
 module.exports = serviceRouter;

@@ -1,11 +1,12 @@
 const express = require("express");
-const userRouter = require('express').Router();
+const userRouter = express.Router();
 const userController = require('../controllers/userController');
 const { body } = require("express-validator");
-const userVerification = require("../middlewares/userVerification");
+const authUserVerification = require("../middlewares/authUserVerification");
 
 //! Create new user ( Register )
-userRouter.post("/users",[
+userRouter.post("/users" ,
+  [
     body("first_name")
       .trim()
       .notEmpty()
@@ -41,7 +42,7 @@ userRouter.post("/users",[
 
 //! login
 userRouter.post(
-  "/users/login",
+  "/users/login" ,
   [
     body("email")
       .trim()
@@ -58,21 +59,53 @@ userRouter.post(
 ) ;
 
 //! Get all users
-userRouter.get("/users" , userController.listingUsers) ;
+userRouter.get("/users" , authUserVerification , userController.listingUsers) ;
 
 //! Search for a user
-userRouter.get("/user" , userController.searchForUser) ;
+userRouter.get("/user" , authUserVerification , userController.searchForUser) ;
 
 //! Get a user by ID
-userRouter.get("/users/:id" , userController.getUserById) ;
+userRouter.get("/users/:id" , authUserVerification , userController.getUserById) ;
+
+//! Get a user profile
+userRouter.get("/user/profile" , authUserVerification , userController.userProfile) ;
+
+//! Update profile information
+userRouter.put('/user/profile/update/information'
+ , authUserVerification , 
+ [
+  body("first_name")
+      .trim()
+      .notEmpty()
+      .withMessage("the first name is required")
+      .isAlpha()
+      .withMessage("please enter a valid first name"),
+  body("last_name")
+    .trim()
+    .notEmpty()
+    .withMessage("the last name is required")
+    .isAlpha()
+    .withMessage("please enter a valid last name"),
+  body("user_name")
+    .trim()
+    .notEmpty()
+    .withMessage("the username is required") ,
+  body("email")
+    .trim()
+    .notEmpty()
+    .withMessage("the email is required")
+    .isEmail()
+    .withMessage("please enter a valid email"),
+ ] ,
+ userController.updateProfileInfo) ;
 
 //! Update the user's data 
-userRouter.put('/users/:id', userController.updateUser) ;
+userRouter.put('/users/:id' , authUserVerification , userController.updateUser) ;
 
 //! Block or unblock an user
-userRouter.put('/users/block-unblock/:id' , userController.blockOrUnblock) ;
+userRouter.put('/users/block-unblock/:id' , authUserVerification , userController.blockOrUnblock) ;
 
 //! Deleting a user
-userRouter.delete('/users/:id' , userController.deleteUser) ;
+userRouter.delete('/users/:id' , authUserVerification , userController.deleteUser) ;
 
 module.exports = userRouter ;

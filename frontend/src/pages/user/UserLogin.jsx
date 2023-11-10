@@ -10,36 +10,20 @@ function App() {
     const [email , setEmail] = useState() ;
     const [password , setPassword] = useState() ;
 
-    const [emailError , setEmailError] = useState() ;
-    const [passwordError , setPasswordError] = useState() ;
-
-    const login = (e) => {
-
-        let checkUser = 0 ;
+    const login = async (e) => {
 
         e.preventDefault() ;
-        if ( email === '' ) {
-            checkUser = 1 ;
-        }
 
-        if ( password === '' ) {
-            checkUser = 1 ;
-        }
-
-        if ( checkUser === 0 ) {
-            axios.post('http://localhost:4000/v1/users/login' , { email , password })
-            .then(response => {
-                if ( response.data.token ) {
-                    localStorage.setItem('token' , response.data.token) ;
-                    localStorage.setItem('id' , response.data.user._id) ;
-                    navigate('/dashboard') ;
-                }
-                else {
-                    console.log(response.data) ;
-                }
-            })
-            .catch(error => console.log(error)) ;
-        }
+        await axios.post('http://localhost:4000/v1/users/login' , { email , password })
+        .then(response => {
+            if ( response.data.token ) {
+                navigate('/dashboard') ;
+                localStorage.setItem('token' , response.data.token) ;
+            }
+            else {
+                console.log(response.data) ;
+            }
+        }).catch(error => console.log(error)) ;
     }
 
     return (

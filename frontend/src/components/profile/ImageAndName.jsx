@@ -11,7 +11,7 @@ function ImageAndName(props) {
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
                         <img src="https://upload.wikimedia.org/wikipedia/en/d/db/Daryl_Dixon_Norman_Reedus.png" alt="Profile" class="rounded-circle" />
-                        <h2> { props.currentUser.first_name } { props.currentUser.last_name } </h2>
+                        <h2> <span style={{ textTransform:'capitalize' }}> { props.currentUser.first_name } </span> { props.currentUser.last_name } </h2>
                         <h3> { props.currentUser.role } </h3>
 
                     </div>
