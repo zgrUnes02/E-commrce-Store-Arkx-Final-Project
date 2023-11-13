@@ -76,7 +76,7 @@ const userController = {
             }
           } 
           catch (error) {
-                res.status(500).json({ msg: "Internal Server Error" });
+                res.status(500).json({ msg: error.message });
           }
     },
 
@@ -109,7 +109,7 @@ const userController = {
             res.status(200).json(user);
         } 
         else {
-            res.status(404).send("There is no user by this name");
+            res.status(401).send("There is no user by this name");
         }
     } 
     catch (error) {

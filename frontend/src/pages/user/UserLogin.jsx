@@ -10,20 +10,21 @@ function App() {
     const [email , setEmail] = useState() ;
     const [password , setPassword] = useState() ;
 
-    const login = async (e) => {
+    const login = (e) => {
 
         e.preventDefault() ;
 
-        await axios.post('http://localhost:4000/v1/users/login' , { email , password })
+        axios.post('http://localhost:4000/v1/users/login' , { email , password })
         .then(response => {
             if ( response.data.token ) {
-                navigate('/dashboard') ;
                 localStorage.setItem('token' , response.data.token) ;
+                navigate('/dashboard') ;
             }
             else {
                 console.log(response.data) ;
             }
-        }).catch(error => console.log(error)) ;
+        })
+        .catch(error => console.log(error)) ;
     }
 
     return (
