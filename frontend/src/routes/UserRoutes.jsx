@@ -23,7 +23,7 @@ import ServicesUpdate from '../pages/user/ServicesUpdate';
 import CompaniesUpdate from '../pages/user/CompaniesUpdate';
 import UserLogin from '../pages/user/UserLogin';
 import ProtectedRouter from '../helpers/ProtectedRouter';
-import UserAlreadyAuthenticated from '../helpers/UserAlreadyAuthenticated';
+import LandingPage from '../pages/LandingPage';
 
 function UserRoutes() {
   return (
@@ -63,9 +63,8 @@ function UserRoutes() {
 
         </Route>
 
-        <Route element={<UserAlreadyAuthenticated />}>
-          <Route path='/users/login' element={<UserLogin/>} />
-        </Route>
+        <Route path='/users/login' element={<UserLogin/>} />
+        <Route path='/' element={<LandingPage/>} />
 
       </Routes>
     </Router>

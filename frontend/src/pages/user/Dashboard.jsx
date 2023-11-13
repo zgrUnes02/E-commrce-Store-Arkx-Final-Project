@@ -2,8 +2,14 @@ import React from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { Link } from 'react-router-dom' ;
+import { useDispatch } from 'react-redux';
+import { userProfile } from '../../redux/userSlice';
 
 function Dashboard() {
+
+    const dispatch = useDispatch() ;
+    dispatch(userProfile())
+    
     return (
         <React.Fragment>
             <Header/>
