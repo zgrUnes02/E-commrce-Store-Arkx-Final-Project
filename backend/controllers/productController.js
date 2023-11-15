@@ -55,7 +55,7 @@ const productController = {
                 lean : true ,
                 populate : ['subcategory_id'] ,
                 page : req.query.page  ,
-                limit : 10 ,
+                limit : 100 ,
             } ;
 
             //* Paginate with populate

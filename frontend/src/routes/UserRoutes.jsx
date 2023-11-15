@@ -24,6 +24,7 @@ import CompaniesUpdate from '../pages/user/CompaniesUpdate';
 import UserLogin from '../pages/user/UserLogin';
 import ProtectedRouter from '../helpers/ProtectedRouter';
 import LandingPage from '../pages/LandingPage';
+import ProductView from '../pages/user/ProductView';
 
 function UserRoutes() {
   return (
@@ -43,6 +44,7 @@ function UserRoutes() {
           <Route path='/products' element={<Products/>} />
           <Route path='/products/create' element={<ProductCreate/>} />
           <Route path='/products/update/:id' element={<ProductUpdate/>} />
+          <Route path='/products/show/:id' element={<ProductView/>} />
           
           <Route path='/categories' element={<Categories/>} />
           <Route path='/categories/create' element={<CategoriesCreate/>} />

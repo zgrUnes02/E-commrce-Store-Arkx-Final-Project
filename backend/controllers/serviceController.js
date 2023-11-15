@@ -58,7 +58,7 @@ const serviceController = {
         lean : true ,
         populate : ['company_id' , 'category_id' , 'subcategory_id'] ,
         page : req.query.page  ,
-        limit : 10 ,
+        limit : 100 ,
       };
 
       //* Paginate with populate

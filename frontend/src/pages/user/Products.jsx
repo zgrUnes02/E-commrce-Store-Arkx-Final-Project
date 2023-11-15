@@ -4,25 +4,19 @@ import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { useDispatch , useSelector } from 'react-redux' ;
 import { Link } from 'react-router-dom';
 import { deleteProduct, getAllProducts } from '../../redux/productSlice';
+import DataTable from 'datatables.net-dt' ;
 
 function Products() {
 
     const dispatch = useDispatch() ;
+    useEffect(() => { dispatch(getAllProducts()) } , [])
     const products = useSelector(state => state.product.products) ;
-    const [deleteMessage , setDeleteMessage] = useState() ;
 
-    //! UseEffect
-    useEffect(() => {
-        dispatch(getAllProducts()) ;
-    } , [])
+    new DataTable('#dataTable') ;
 
     //! Delete product
     const handleDelete = ( id ) => {
-        dispatch(deleteProduct(id)).then(response => {
-            if ( response.payload.message ) {
-                setDeleteMessage(response.payload.message)
-            }
-        }) ;
+        dispatch(deleteProduct(id)) ;
     }
 
     return (
@@ -39,14 +33,6 @@ function Products() {
                             <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
-                    {/* Show alert when user delete */}
-                    {
-                        deleteMessage && 
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong> Success : </strong> { deleteMessage }
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    }
                 </div>
 
                 <section className="section">
@@ -56,7 +42,7 @@ function Products() {
                         <div className="card">
                             <div className="card-body">
 
-                            <table className="table text-center table-responsive-lg">
+                            <table id='dataTable' className="table table-responsive-lg">
                                 <thead>
                                     <tr>
                                         <th scope="col"> # </th>
@@ -78,7 +64,7 @@ function Products() {
                                                 <td> { product.price } MAD </td>
                                                 { product.active ? <td> <span class='badge bg-success'> Active </span> </td> : <td> <span class='badge bg-danger'> Inactive </span> </td> }
                                                 <td style={{ display:'flex' , justifyContent:'space-between' }}>
-                                                    <button className='btn btn-outline-success'> <i className="fa-solid fa-eye"></i> </button>
+                                                    <Link to={`/products/show/${product._id}`}> <button className='btn btn-outline-success'> <i className="fa-solid fa-eye"></i> </button> </Link>
                                                     <Link to={`/products/update/${product._id}`}> <button className='btn btn-outline-primary'> <i className="fa-solid fa-edit"></i> </button> </Link>
                                                     <button onClick={() => { handleDelete(product._id) }} className='btn btn-outline-danger'> <i className="fa-solid fa-trash"></i> </button>
                                                 </td>

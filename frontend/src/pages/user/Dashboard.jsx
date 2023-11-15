@@ -3,12 +3,30 @@ import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { Link } from 'react-router-dom' ;
 import { useDispatch } from 'react-redux';
-import { userProfile } from '../../redux/userSlice';
+import { getAllUsers, userProfile } from '../../redux/userSlice';
+import { useEffect } from 'react';
+import { getAllCategories } from '../../redux/categorySlice';
+import { getAllSubcategories } from '../../redux/subcategorySlice';
+import { getAllProducts } from '../../redux/productSlice';
+import { getAllServices } from '../../redux/serviceSlice';
+import { getAllCompanies } from '../../redux/companySlice';
+import { getAllOrders } from '../../redux/orderSlice';
+import { getAllCustomers } from '../../redux/customerSlice';
 
 function Dashboard() {
 
     const dispatch = useDispatch() ;
-    dispatch(userProfile())
+    useEffect(() => {
+        dispatch(userProfile()) ;
+        dispatch(getAllCategories()) ;
+        dispatch(getAllSubcategories()) ;
+        dispatch(getAllProducts()) ;
+        dispatch(getAllServices()) ;
+        dispatch(getAllUsers()) ;
+        dispatch(getAllCompanies()) ;
+        dispatch(getAllOrders()) ;
+        dispatch(getAllCustomers()) ;
+    } , [])
     
     return (
         <React.Fragment>
@@ -30,81 +48,133 @@ function Dashboard() {
 
                     <div className="row">
 
-                        <div class="col col-md-3" >
-                            <div href="/">
-                                <div class="card info-card sales-card" >
+                        <div class="col col-md-3">
+                            <Link to={'/categories'} style={{ textDecoration:'none' }}>
+                            <div>
+                                <div class="card info-card sales-card">
                                     <div class="card-body">
-                                        <h5 class="card-title"> Users </h5>
-
-                                        <div class="d-flex align-items-center">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="fa-solid fa-message"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6> hhhh </h6>
-                                        </div>
+                                        <h1 class="card-title" style={{ fontSize:'20px' , fontWeight:'600' , color:'#012970'}}> Categories </h1>
+                                        <div class="d-flex align-items-center" style={{ display:'flex' , justifyContent:'space-between' , alignItems:'center' }}>
+                                            <i class="fa-solid fa-paste" style={{ color:'#012970' , fontSize:'25px' }}></i>
+                                            <h6 style={{ color:'#012970' , fontWeight:'600' }}> 20 </h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            </Link>
                         </div>
 
                         <div class="col col-md-3" >
-                            <div href="/">
-                                <div class="card info-card sales-card" >
+                            <Link to={'/subcategories'} style={{ textDecoration:'none' }}>
+                            <div>
+                                <div class="card info-card sales-card">
                                     <div class="card-body">
-                                        <h5 class="card-title"> Products </h5>
-
-                                        <div class="d-flex align-items-center">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="fa-solid fa-message"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6> hhhh </h6>
-                                        </div>
+                                        <h1 style={{ fontSize:'20px' , fontWeight:'600' , color:'#012970' }} class="card-title"> Subcategories </h1>
+                                        <div class="d-flex align-items-center" style={{ display:'flex' , justifyContent:'space-between' , alignItems:'center' }}>
+                                            <i class="fa-solid fa-file-circle-plus" style={{ color:'#012970' , fontSize:'25px' }}></i>
+                                            <h6 style={{ color:'#012970' , fontWeight:'600' }}> 20 </h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            </Link>
                         </div>
 
                         <div class="col col-md-3" >
-                            <div href="/">
-                                <div class="card info-card sales-card" >
+                            <Link to={'/products'} style={{ textDecoration:'none' }}>
+                            <div>
+                                <div class="card info-card sales-card">
                                     <div class="card-body">
-                                        <h5 class="card-title"> Services </h5>
-                                        <div class="d-flex align-items-center">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="fa-solid fa-users"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6> hhhh </h6>
-                                        </div>
+                                        <h1 style={{ fontSize:'20px' , fontWeight:'600' , color:'#012970' }} class="card-title"> Products </h1>
+                                        <div class="d-flex align-items-center" style={{ display:'flex' , justifyContent:'space-between' , alignItems:'center' }}>
+                                            <i class="fa-solid fa-shirt" style={{ color:'#012970' , fontSize:'25px' }}></i>
+                                            <h6 style={{ color:'#012970' , fontWeight:'600' }}> 20 </h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            </Link>
                         </div>
-                        
 
                         <div class="col col-md-3" >
-                            <div href="/">
-                                <div class="card info-card sales-card" >
+                            <Link to={'/services'} style={{ textDecoration:'none' }}>
+                            <div>
+                                <div class="card info-card sales-card">
                                     <div class="card-body">
-                                        <h5 class="card-title"> Orders </h5>
-
-                                        <div class="d-flex align-items-center">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="fa-solid fa-message"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6> hhhh </h6>
-                                        </div>
+                                        <h1 style={{ fontSize:'20px' , fontWeight:'600' , color:'#012970' }} class="card-title"> Services </h1>
+                                        <div class="d-flex align-items-center" style={{ display:'flex' , justifyContent:'space-between' , alignItems:'center' }}>
+                                            <i class="fa-solid fa-bell-concierge"  style={{ color:'#012970' , fontSize:'25px' }}></i>
+                                            <h6 style={{ color:'#012970' , fontWeight:'600' }}> 20 </h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            </Link>
                         </div>
+
+                        <div class="col col-md-3" >
+                            <Link to={'/users'} style={{ textDecoration:'none' }}>
+                            <div>
+                                <div class="card info-card sales-card">
+                                    <div class="card-body">
+                                        <h1 style={{ fontSize:'20px' , fontWeight:'600' , color:'#012970' }} class="card-title"> Users </h1>
+                                        <div class="d-flex align-items-center text-white" style={{ display:'flex' , justifyContent:'space-between' , alignItems:'center' }}>
+                                            <i class="fa-solid fa-user-shield"  style={{ color:'#012970' , fontSize:'25px' }}></i>
+                                            <h6 style={{ color:'#012970' , fontWeight:'600' }}> 20 </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </Link>
+                        </div>
+
+                        <div class="col col-md-3" >
+                            <Link to={'/customers'} style={{ textDecoration:'none' }}>
+                            <div>
+                                <div class="card info-card sales-card" >
+                                    <div class="card-body">
+                                        <h1 style={{ fontSize:'20px' , fontWeight:'600' , color:'#012970' }} class="card-title"> Customers </h1>
+                                        <div class="d-flex align-items-center" style={{ display:'flex' , justifyContent:'space-between' , alignItems:'center' }}>
+                                            <i class="fa-solid fa-users" style={{ color:'#012970' , fontSize:'25px' }}></i>
+                                            <h6 style={{ color:'#012970' , fontWeight:'600' }}> 20 </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </Link>
+                        </div>
+
+                        <div class="col col-md-3" >
+                            <Link to={'/companies'} style={{ textDecoration:'none' }}>
+                            <div>
+                                <div class="card info-card sales-card">
+                                    <div class="card-body">
+                                        <h1 style={{ fontSize:'20px' , fontWeight:'600' , color:'#012970' }} class="card-title"> Companies </h1>
+                                        <div class="d-flex align-items-center" style={{ display:'flex' , justifyContent:'space-between' , alignItems:'center' }}>
+                                            <i class="fa-solid fa-building" style={{ color:'#012970' , fontSize:'25px' }}></i>
+                                            <h6 style={{ color:'#012970' , fontWeight:'600' }}> 20 </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </Link>
+                        </div>
+
+                        <div class="col col-md-3" >
+                            <Link to={'/orders'} style={{ textDecoration:'none' }}>
+                            <div>
+                                <div class="card info-card sales-card" >
+                                    <div class="card-body" >
+                                        <h1 style={{ fontSize:'20px' , fontWeight:'600' , color:'#012970' }} class="card-title"> Orders </h1>
+                                        <div class="d-flex align-items-center" style={{ display:'flex' , justifyContent:'space-between' , alignItems:'center' }}>
+                                            <i class="fa-solid fa-folder-plus" style={{ color:'#012970' , fontSize:'25px' }}></i>
+                                            <h6 style={{ color:'#012970' , fontWeight:'600' }}> 20 </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </Link>
+                        </div>                        
 
                     </div>
 

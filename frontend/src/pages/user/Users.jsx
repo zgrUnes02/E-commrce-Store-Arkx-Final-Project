@@ -1,26 +1,23 @@
-import React, { useEffect, useState } from 'react' ;
+import React, { useEffect } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import AuthAxios from '../../helpers/request' ;
 import { useDispatch , useSelector } from 'react-redux' ;
-import { deleteUser, getAllUsers, refreshUser } from '../../redux/userSlice';
-import { Link } from 'react-router-dom';
+import { deleteUser, getAllUsers, refreshUser } from '../../redux/userSlice' ;
+import { Link } from 'react-router-dom' ;
+import DataTable from 'datatables.net-dt' ;
 
 function Users() {
 
     const dispatch = useDispatch() ;
+    useEffect(() => { dispatch(getAllUsers()) } , [])
     const users = useSelector(state => state.user.users) ;
 
-    useEffect(() => { dispatch(getAllUsers()) } , [])
+    new DataTable('#dataTable') ;
 
     //! Delete an user
-    const [deleteMessage , setDeleteMessage] = useState() ;
     const deleteAnUser = ( id ) => {
-        dispatch(deleteUser(id)).then(response => {
-            if ( response.payload.message ) {
-                setDeleteMessage(response.payload.message) ;
-            }
-        });
+        dispatch(deleteUser(id));
     }
 
     //! Block or unblock user 
@@ -45,14 +42,6 @@ function Users() {
                             <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
-                    {/* Show alert when user delete */}
-                    {
-                        deleteMessage && 
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong> Success : </strong> { deleteMessage }
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    }
                 </div>
 
                 <section className="section">
@@ -62,7 +51,7 @@ function Users() {
                         <div className="card">
                             <div className="card-body">
 
-                            <table className="table text-center table-responsive-lg">
+                            <table id='dataTable' className="table table-responsive-lg">
                                 <thead>
                                     <tr>
                                         <th scope="col"> # </th>

@@ -1,12 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit" ;
 import AuthAxios from '../helpers/request' ;
 
+//! Get all companies
 export const getAllCompanies = createAsyncThunk('companies/getAllCompanies' , async () => {
     return AuthAxios.get('http://localhost:4000/v1/companies')
     .then(response => response.data.docs)
     .catch(error => console.log(error)) ;
 })
 
+//! Delete company
 export const deleteCompany = createAsyncThunk('companies/deleteCompany' , async ( id ) => {
     return AuthAxios.delete(`http://localhost:4000/v1/companies/${id}`)
     .then(response => {

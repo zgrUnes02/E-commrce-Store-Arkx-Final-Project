@@ -1,26 +1,23 @@
-import React, { useEffect, useState } from 'react' ;
+import React, { useEffect } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import AuthAxios from '../../helpers/request' ;
 import { useDispatch , useSelector } from 'react-redux' ;
-import { deleteCustomer, getAllCustomers , refreshCustomer } from '../../redux/customerSlice';
-import { Link } from 'react-router-dom';
+import { deleteCustomer, getAllCustomers , refreshCustomer } from '../../redux/customerSlice' ;
+import { Link } from 'react-router-dom' ;
+import DataTable from 'datatables.net-dt' ;
 
 function Customers() {
 
     const dispatch = useDispatch() ;
+    useEffect(() => { dispatch(getAllCustomers()) } , []) ;
     const customers = useSelector(state => state.customer.customers) ;
 
-    useEffect(() => { dispatch(getAllCustomers()) } , []) ;
+    new DataTable('#dataTable') ;
 
     //! Delete customer
-    const [deleteMessage , setDeleteMessage] = useState() ;
     const deleteAnCustomer = ( id ) => {
-        dispatch(deleteCustomer(id)).then(response => {
-            if ( response.payload.message ) {
-                setDeleteMessage(response.payload.message)
-            }
-        }) ;
+        dispatch(deleteCustomer(id)) ;
     } 
 
     //! Block or unblock customer
@@ -46,13 +43,6 @@ function Customers() {
                         <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                     </ol>
                 </nav>
-                {
-                    deleteMessage && 
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong> Success : </strong> { deleteMessage }
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                }
             </div>
 
             <section className="section">
@@ -62,7 +52,7 @@ function Customers() {
                     <div className="card">
                         <div className="card-body">
 
-                        <table className="table text-center table-responsive-lg">
+                        <table id='dataTable' className="table table-responsive-lg">
                             <thead>
                                 <tr>
                                     <th scope="col"> # </th>

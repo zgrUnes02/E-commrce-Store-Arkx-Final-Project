@@ -43,7 +43,7 @@ const subcategoryController = {
                 lean : true ,
                 populate : 'category_id' ,
                 page : req.query.page  ,
-                limit : 10 ,
+                limit : 100 ,
             };
 
             //* Paginate with populate
