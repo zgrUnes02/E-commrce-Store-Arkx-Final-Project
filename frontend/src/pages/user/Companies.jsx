@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from 'react' ;
+import React, { useEffect } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { useDispatch , useSelector } from 'react-redux' ;
 import { deleteCompany, getAllCompanies } from '../../redux/companySlice';
 import { Link } from 'react-router-dom';
+import DataTable from 'datatables.net-dt' ;
 
 function Companies() {
 
     const dispatch = useDispatch() ;
+    useEffect(() => { dispatch(getAllCompanies()) } , [])
     const companies = useSelector(state => state.company.companies) ;
 
-    useEffect(() => { dispatch(getAllCompanies()) } , [])
+    new DataTable('#dataTable') ;
 
     //! Delete a company
-    const [deleteMessage , setDeleteMessage] = useState() ;
     const deleteACompany = ( id ) => {
-        dispatch(deleteCompany(id)).then(response => {
-            if ( response.payload.message ) {
-                setDeleteMessage(response.payload.message) ;
-            }
-        }) ;
+        dispatch(deleteCompany(id)) ;
     }
 
     return (
@@ -36,13 +33,6 @@ function Companies() {
                             <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
-                    {
-                        deleteMessage && 
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong> Success : </strong> { deleteMessage }
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    }
                 </div>
 
                 <section className="section">
@@ -52,7 +42,7 @@ function Companies() {
                         <div className="card">
                             <div className="card-body">
 
-                            <table className="table text-center table-responsive-lg">
+                            <table id='dataTable' className="table table-responsive-lg">
                                 <thead>
                                     <tr>
                                         <th scope="col"> # </th>

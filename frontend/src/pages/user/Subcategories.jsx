@@ -1,27 +1,22 @@
-import React, { useEffect, useState } from 'react' ;
+import React, { useEffect } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { useDispatch, useSelector } from 'react-redux' ;
 import { Link } from 'react-router-dom';
 import { deleteSubcategory, getAllSubcategories } from '../../redux/subcategorySlice';
+import DataTable from 'datatables.net-dt' ;
 
 function Subcategories() {
 
     const dispatch = useDispatch() ;
+    useEffect(() => { dispatch(getAllSubcategories())} , [])
     const subcategories = useSelector(state => state.subcategory.subcategories) ; 
-    const [deleteMessage , setDeleteMessage] = useState() ;
 
-    useEffect(() => {
-        dispatch(getAllSubcategories()) ;
-    } , [])
+    new DataTable('#dataTable') ;
 
     //! Delete subcategory
     const handleDelete = ( id ) => {
-        dispatch(deleteSubcategory(id)).then(response => {
-            if ( response.payload.message ) {
-                setDeleteMessage(response.payload.message) ;
-            }
-        }) ;
+        dispatch(deleteSubcategory(id)) ;
     }
 
     return (
@@ -38,14 +33,6 @@ function Subcategories() {
                             <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
-                    {/* Show alert when user delete */}
-                {
-                    deleteMessage && 
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong> Success : </strong> { deleteMessage }
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                }
                 </div>
 
                 <section class="section">
@@ -55,7 +42,7 @@ function Subcategories() {
                         <div class="card">
                             <div class="card-body">
 
-                            <table class="table text-center table-responsive-lg">
+                            <table id='dataTable' class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col"> # </th>

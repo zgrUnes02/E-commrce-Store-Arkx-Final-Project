@@ -2,14 +2,17 @@ import React, { useEffect } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { useDispatch , useSelector } from 'react-redux' ;
-import { getAllOrders } from '../../redux/orderSlice';
-import { Link } from 'react-router-dom';
+import { getAllOrders } from '../../redux/orderSlice' ;
+import { Link } from 'react-router-dom' ;
+import DataTable from 'datatables.net-dt' ;
 
 function Orders() {
 
     const dispatch = useDispatch() ;
     useEffect(() => { dispatch(getAllOrders()) } , []) ;
     const orders = useSelector(state => state.order.orders) ;
+
+    new DataTable('#dataTable') ;
 
     return (
         <React.Fragment>
@@ -34,7 +37,7 @@ function Orders() {
                         <div class="card">
                             <div class="card-body">
 
-                            <table class="table text-center table-responsive-lg">
+                            <table id='dataTable' class="table table-responsive-lg">
                                 <thead>
                                     <tr>
                                         <th scope="col"> # </th>

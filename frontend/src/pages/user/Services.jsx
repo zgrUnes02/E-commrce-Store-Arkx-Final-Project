@@ -4,23 +4,19 @@ import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { useDispatch , useSelector } from 'react-redux' ;
 import { Link } from 'react-router-dom';
 import { deleteService, getAllServices } from '../../redux/serviceSlice';
+import DataTable from 'datatables.net-dt' ;
 
 function Services() {
 
     const dispatch = useDispatch() ;
-    const services = useSelector(state => state.service.services) ;
-    const success = useSelector(state => state.service.success) ;
-
     useEffect(() => { dispatch(getAllServices()) } , [])
+    const services = useSelector(state => state.service.services) ;
+
+    new DataTable('#dataTable') ;
 
     //! Delete service
-    const [deleteMessage , setDeleteMessage] = useState() ;
     const handleDelete = ( id ) => {
-        dispatch(deleteService(id)).then(response => {
-            if ( response.payload.message ) {
-                setDeleteMessage(response.payload.message) ;
-            }
-        }) ;
+        dispatch(deleteService(id)) ;
     }
 
     return (
@@ -37,13 +33,6 @@ function Services() {
                             <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                         </ol>
                     </nav>
-                    {
-                        deleteMessage && 
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong> Success : </strong> { deleteMessage }
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    }
                 </div>
 
                 <section className="section">
@@ -53,7 +42,7 @@ function Services() {
                         <div className="card">
                             <div className="card-body">
 
-                            <table className="table text-center table-responsive-lg">
+                            <table id='dataTable' className="table table-responsive-lg">
                                 <thead>
                                     <tr>
                                         <th scope="col"> # </th>

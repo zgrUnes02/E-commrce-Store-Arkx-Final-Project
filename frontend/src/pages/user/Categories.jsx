@@ -4,6 +4,7 @@ import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { useDispatch , useSelector } from 'react-redux' ;
 import { deleteCategory, getAllCategories } from '../../redux/categorySlice';
 import { Link } from 'react-router-dom';
+import DataTable from 'datatables.net-dt' ;
 
 function Categories() {
 
@@ -11,14 +12,12 @@ function Categories() {
     useEffect(() => { dispatch(getAllCategories()) } , [])
     const categories = useSelector(state => state.category.categories);
 
+    new DataTable('#dataTable') ;
+
     //! Delete Category
-    const [deleteMessage , setDeleteMessage] = useState() ;
+
     const handleDelete = ( id ) => {
-        dispatch(deleteCategory(id)).then(response => {
-            if ( response.payload.message ) {
-                setDeleteMessage(response.payload.message)
-            }
-        }) ;
+        dispatch(deleteCategory(id)) ;
     } ;
 
     return (
@@ -35,13 +34,6 @@ function Categories() {
                         <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                     </ol>
                 </nav>
-                {
-                    deleteMessage && 
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong> Success : </strong> { deleteMessage }
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                }
             </div>
 
             <section className="section">
@@ -51,7 +43,7 @@ function Categories() {
                     <div className="card">
                         <div className="card-body">
 
-                        <table className="table text-center table-responsive-lg">
+                        <table id='dataTable' className="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col"> # </th>

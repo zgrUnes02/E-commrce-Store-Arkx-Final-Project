@@ -85,7 +85,7 @@ const userController = {
         try {
             const users = await userModel.paginate(
                 {} , 
-                { page : req.query.page , limit : 5 }
+                { page : req.query.page , limit : 100 }
             ) ;
             res.status(200).send(users) ;
         }

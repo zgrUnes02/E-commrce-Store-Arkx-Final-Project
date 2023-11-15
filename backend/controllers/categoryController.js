@@ -89,7 +89,7 @@ const categoryController={
             //* Paginate the categories
             const categories = await categoryModel.paginate(
                 {} , 
-                { page : req.query.page , limit :8 }
+                { page : req.query.page , limit : 100}
             ) ;
             res.status(200).send(categories) ;
         }
@@ -103,7 +103,7 @@ const categoryController={
         try {
             const category = await categoryModel.paginate(
                 {category_name : req.query.name} ,
-                { name : req.query.name , page : req.query.page , limit : 5 }
+                { name : req.query.name , page : req.query.page , limit : 100 }
             ) ;
             res.status(200).send(category) ;
         }

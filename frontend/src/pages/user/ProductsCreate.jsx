@@ -3,7 +3,7 @@ import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { Link , useNavigate } from 'react-router-dom' ;
 import { useDispatch, useSelector } from 'react-redux' ;
-import AuthAxios from '../../helpers/request' ;
+import axios from 'axios' ;
 import { getAllSubcategories } from '../../redux/subcategorySlice' ;
 import { createNewProduct } from '../../redux/productSlice';
 
@@ -25,6 +25,24 @@ function ProductCreate() {
     const [options , setOptions] = useState() ;
     const [product_image , setProduct_image] = useState() ;
 
+    const uploadImage = async (e) => {
+        e.preventDefault() ;
+        const formData = new FormData() ;
+        formData.append('file' , e.target.files[0])
+        formData.append('upload_preset' , 'athlark') ;
+        try {
+            const response = await axios.post('https://api.cloudinary.com/v1_1/dm9jmhqox/image/upload' , formData , {
+                headers : {
+                    'Content-Type' : 'multipart/form-data' ,
+                }
+            })
+            setProduct_image(response.data.secure_url) ;
+        }
+        catch ( error ) {
+            console.log( error ) ;
+        }
+    }
+
     const handleSelectChange = (event) => {
         const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
         setOptions(selectedValues);
@@ -42,6 +60,7 @@ function ProductCreate() {
             options,
             product_image
         } ;
+        
         dispatch(createNewProduct(data)).then(response => {
             if ( response.payload.messageSuccess ) {
                 navigate('/products') ;
@@ -91,7 +110,10 @@ function ProductCreate() {
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setProduct_image(e.target.value)} type="file" id="form6Example2" class="form-control"/>
+                                                    <input onChange={(e) => {
+                                                        // setProduct_image(e.target.value)
+                                                        uploadImage(e) ;
+                                                    }} type="file" id="form6Example2" class="form-control"/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example2"> Product Image </label>
                                                 </div>
                                             </div>
