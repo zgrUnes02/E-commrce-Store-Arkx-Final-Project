@@ -56,7 +56,7 @@ function Products() {
 
                                 <tbody>
                                     {
-                                        products.length ? products?.map((product , index) => 
+                                        products?.map((product , index) => 
                                             <tr key={index}>
                                                 <th> { index + 1 } </th>
                                                 <td> { product.product_name } </td>
@@ -69,10 +69,7 @@ function Products() {
                                                     <button onClick={() => { handleDelete(product._id) }} className='btn btn-outline-danger'> <i className="fa-solid fa-trash"></i> </button>
                                                 </td>
                                             </tr>
-                                        ) : 
-                                        <tr>
-                                            <td colSpan={6}> There is no products now </td>
-                                        </tr>
+                                        )
                                     }
                                 </tbody>
 

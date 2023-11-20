@@ -27,10 +27,10 @@ function Categories() {
 
             <main id="main" className="main">
 
-            <div class="pagetitle">
+            <div className="pagetitle">
                 <h1> Categories </h1>
                 <nav>
-                    <ol class="breadcrumb">
+                    <ol className="breadcrumb">
                         <Link to={'/dashboard'} style={{ textDecoration:'none' }}> Home </Link>
                     </ol>
                 </nav>

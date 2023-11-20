@@ -4,6 +4,7 @@ import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { Link , useNavigate, useParams } from 'react-router-dom' ;
 import { useSelector } from 'react-redux' ;
 import AuthAxios from '../../helpers/request' ;
+import axios from 'axios';
 
 function ProductUpdate() {
 
@@ -28,6 +29,24 @@ function ProductUpdate() {
         const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
         setOptions(selectedValues);
     };
+
+    const uploadImage = async (e) => {
+        e.preventDefault() ;
+        const formData = new FormData() ;
+        formData.append('file' , e.target.files[0])
+        formData.append('upload_preset' , 'athlark') ;
+        try {
+            const response = await axios.post('https://api.cloudinary.com/v1_1/dm9jmhqox/image/upload' , formData , {
+                headers : {
+                    'Content-Type' : 'multipart/form-data' ,
+                }
+            })
+            setProduct_image(response.data.secure_url) ;
+        }
+        catch ( error ) {
+            console.log( error ) ;
+        }
+    }
     
     const updateProduct = (e) => {
         e.preventDefault() ;
@@ -42,7 +61,6 @@ function ProductUpdate() {
             options,
             product_image
         } ;
-
 
         AuthAxios.put(`http://localhost:4000/v1/product/${id}` , data)
         .then(response => {
@@ -96,7 +114,10 @@ function ProductUpdate() {
                                             </div>
                                             <div className="col">
                                                 <div className="form-outline">
-                                                    <input onChange={(e) => setProduct_image(e.target.value)} type="file" id="form6Example2" className="form-control" />
+                                                    <input onChange={(e) => 
+                                                        // setProduct_image(e.target.value)
+                                                        uploadImage(e) 
+                                                        } type="file" id="form6Example2" className="form-control" />
                                                     <label className="form-label mt-2 mx-3" for="form6Example2"> Product Image </label>
                                                 </div>
                                             </div>

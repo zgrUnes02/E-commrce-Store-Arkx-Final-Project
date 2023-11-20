@@ -65,9 +65,7 @@ productRouter.put(
     body("product_image")
       .trim()
       .notEmpty()
-      .withMessage("An image of the product is required")
-      .isArray()
-      .withMessage("please put valid images"),
+      .withMessage("An image of the product is required") ,
     body("short_description")
       .trim()
       .notEmpty()
