@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react' ;
+import React, { useEffect } from 'react' ;
 import Header from '../../layouts/Header' ;
 import LeftSideBar from '../../layouts/LeftSideBar' ;
 import { useDispatch , useSelector } from 'react-redux' ;
@@ -45,19 +45,19 @@ function Services() {
                             <table id='dataTable' className="table table-responsive-lg">
                                 <thead>
                                     <tr>
-                                        <th scope="col"> # </th>
-                                        <th scope="col"> Service Name </th>
-                                        <th scope="col"> Subcategory Name </th>
-                                        <th scope="col"> Company Name </th>
-                                        <th scope="col"> City </th>
-                                        <th scope="col"> Price </th>
-                                        <th scope="col" width="14%"> Actions </th>
+                                        <td> # </td>
+                                        <td> Service Name </td>
+                                        <td> Subcategory Name </td>
+                                        <td> Company Name </td>
+                                        <td> City </td>
+                                        <td> Price </td>
+                                        <td width="14%"> Actions </td>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     {
-                                        services.length ? services?.map((service , index) => 
+                                        services?.map((service , index) => 
                                         <tr key={index}>
                                             <th> { index + 1 } </th>
                                             <td> { service.service_name } </td>
@@ -71,12 +71,7 @@ function Services() {
                                                 <button onClick={() => { handleDelete(service._id) }} className='btn btn-outline-danger'> <i className="fa-solid fa-trash"></i> </button> 
                                             </td> 
                                         </tr>
-                                        ) :
-                                        <tr>
-                                            <td colSpan={7}>
-                                                There no services for now
-                                            </td>
-                                        </tr>
+                                        )
                                     }
                                 </tbody>
 

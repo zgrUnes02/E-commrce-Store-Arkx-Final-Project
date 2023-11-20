@@ -1,5 +1,6 @@
 import React from 'react' ;
 import { Link, useNavigate } from 'react-router-dom' ;
+import logo from '../../src/assets/Athleark.png' ;
 
 function Header() {
 
@@ -16,7 +17,7 @@ function Header() {
         <header id="header" class="header fixed-top d-flex align-items-center">
           <div class="d-flex align-items-center justify-content-between">
             <a href="/" class="logo d-flex align-items-center">
-              <img src="" alt="logo" />
+              <img src={logo} alt="logo" />
               <span class="d-none d-lg-block"></span>
             </a>
           </div>
