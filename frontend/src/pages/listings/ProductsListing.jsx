@@ -1,87 +1,117 @@
 import React, { useEffect, useState } from 'react' ;
 import { useDispatch, useSelector } from 'react-redux' ;
 import { getAllProducts } from '../../redux/productSlice' ;
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import GreatProducts from '../../components/GreateProducts';
+import ProductList from './ProductList';
 
 function ProductsListing() {
 
-    const dispatch = useDispatch() ;
-    const cartFromLocalStorage = JSON.parse(localStorage.getItem('cart') || '[]') ;
-
-    const [cart , setCart] = useState(cartFromLocalStorage) ;
-
-    useEffect(() => { 
-        dispatch(getAllProducts())  ;
-        localStorage.setItem('cart' , JSON.stringify(cart)) ;
-    } , [ cart ])
-
-    const products = useSelector(state => state.product.products) ;
-
-
-    const addToCart = ( product ) => {
-        setCart([...cart , product]) ;
-        console.log(cart)
-    }
-
     return (
         <React.Fragment>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <div className="container px-4 px-lg-5">
-                    <a className="navbar-brand" href="#!">Start Bootstrap</a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                            <li className="nav-item"><a className="nav-link active" aria-current="page" href="/">Home</a></li>
-                            <li className="nav-item"><a className="nav-link" href="#!">About</a></li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" id="navbarDropdown" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item" href="#!">All Products</a></li>
-                                    <li><hr className="dropdown-divider" /></li>
-                                    <li><a className="dropdown-item" href="#!">Popular Items</a></li>
-                                    <li><a className="dropdown-item" href="#!">New Arrivals</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <form className="d-flex">
-                            <button className="btn btn-outline-dark" type="submit">
-                                <i className="bi-cart-fill me-1"></i>
-                                Cart
-                                <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                            </button>
-                        </form>
+
+            <Header/>
+
+            {/* <div style={{ margin:"0 100px" , marginBottom:'50px' }} id="carouselExampleDark" class="carousel carousel-dark slide">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="10000">
+                    <img style={{ height:'100%' , borderRadius:'20px'  }} src="https://images.pexels.com/photos/1103833/pexels-photo-1103833.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="..." />
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 className='text-black'>First slide label</h5>
+                        <p className='text-black'>Some representative placeholder content for the first slide.</p>
+                    </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="2000">
+                    <img style={{ height:'100%' , borderRadius:'20px' }} src="https://images.pexels.com/photos/28080/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="..." />
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 className='text-white'>Second slide label</h5>
+                        <p className='text-white'>Some representative placeholder content for the second slide.</p>
+                    </div>
+                    </div>
+                    <div class="carousel-item">
+                    <img style={{ height:'100%' , borderRadius:'20px' }} src="https://images.pexels.com/photos/1171480/pexels-photo-1171480.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="..." />
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 className='text-white'>Third slide label</h5>
+                        <p className='text-white'>Some representative placeholder content for the third slide.</p>
+                    </div>
                     </div>
                 </div>
-            </nav>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div> */}
             
-            <section className="py-5">
-                <div className="container px-4 px-lg-5 mt-5">
-                    <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                        
-                        {
-                            products?.map((product , index) => 
-                                <div className="col mb-5" key={index}>
-                                    <div className="card h-100">
-                                        <img className="card-img-top" src={product.product_image} alt="..." />
-                                        <div className="card-body p-4">
-                                            <div className="text-center">
-                                                <h5 className="fw-bolder"> { product.product_name } </h5>
-                                                { product.price } MAD
-                                            </div>
-                                        </div>
-                                        <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                            <div className="text-center" style={{ display:'flex' , justifyContent:'space-between' , alignItems:'center' }}>
-                                                <button className="btn btn-outline-dark mt-auto"> View product </button>
-                                                <button className="btn btn-outline-dark mt-auto" onClick={() => { addToCart(product) }}> <i class="fa-solid fa-cart-shopping"></i>  </button>
-                                            </div>
-                                        </div>
-                                    </div>
+            <section class="">
+            <div class="container">
+                <div class="row gy-4">
+                <div class="col-lg-6">
+                    <div class="card-banner bg-gray h-100" style={{ 
+                                                                minHeight: "200px" ,
+                                                                backgroundSize: "cover" ,
+                                                                backgroundPosition: "center" ,
+                                                                width: "100%" ,
+                                                                backgroundRepeat: "no-repeat" ,
+                                                                top: "50%" ,
+                                                                backgroundImage: "url('https://res.cloudinary.com/dm9jmhqox/image/upload/v1700249319/kunrmlm553f6zahmrmag.png')"}}>
+                    <div class="p-3 p-lg-5" style={{maxWidth: "70%"}}>
+                        <h3 class="text-dark">Best products & brands in our store at 50% off</h3>
+                        <p>That's true but not always</p>
+                        <button class="btn btn-warning shadow-0" href="/"> Claim offer </button>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row mb-3 mb-sm-4 g-3 g-sm-4">
+
+                        <div class="col-6 d-flex">
+                            <div class="card w-100 bg-primary" style={{minHeight: '200px'}}>
+                                <div class="card-body">
+                                    <h5 class="text-white"> Men </h5>
+                                    <p class="text-white-50">Technology for cyber sport</p>
+                                    <a class="btn btn-outline-light btn-sm" href="/"> See more </a>
                                 </div>
-                            )
-                        }
+                            </div>
+                        </div>
+
+                        <div class="col-6 d-flex" style={{ borderRadius:'40px' }}>
+                            <div class="card w-100 bg-primary" style={{minHeight: '200px'}}>
+                            <div class="card-body">
+                                <h5 class="text-white"> Women </h5>
+                                <p class="text-white-50">All you need for music</p>
+                                <a class="btn btn-outline-light btn-sm" href="/"> See more </a>
+                            </div>
+                            </div>
+                        </div>
 
                     </div>
+
+                    <div class="card bg-success" style={{minHeight: '200px'}}>
+                        <div class="card-body">
+                            <h5 class="text-white">Buy 2 items, With special gift</h5>
+                            <p class="text-white-50" style={{maxWidth: '400px'}}>Buy one, get one free marketing strategy helps your business improves the brand by sharing the profits</p>
+                            <a class="btn btn-outline-light btn-sm" href="/"> See more </a>
+                        </div>
+                    </div>
                 </div>
+                </div>
+            </div>
             </section>
+
+            <GreatProducts/>
+            <ProductList/>
+            <Footer/>
+
         </React.Fragment>
     )
 }
