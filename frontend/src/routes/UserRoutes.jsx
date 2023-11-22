@@ -69,6 +69,7 @@ function UserRoutes() {
         <Route path='/users/login' element={<UserLogin/>} />
         <Route path='/products/list' element={<ProductsListing/>} />
         <Route path='/cart' element={<Cart/>} />
+        <Route path='/' element={<ProductsListing/>} />
 
       </Routes>
     </Router>
