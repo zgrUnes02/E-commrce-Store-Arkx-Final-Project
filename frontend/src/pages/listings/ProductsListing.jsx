@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react' ;
-import { useDispatch, useSelector } from 'react-redux' ;
-import { getAllProducts } from '../../redux/productSlice' ;
+import React from 'react'
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import GreatProducts from '../../components/GreateProducts';
 import ProductList from './ProductList';
+import style from './greatProducts.module.css';
 
 function ProductsListing() {
 
@@ -12,45 +11,6 @@ function ProductsListing() {
         <React.Fragment>
 
             <Header/>
-
-            {/* <div style={{ margin:"0 100px" , marginBottom:'50px' }} id="carouselExampleDark" class="carousel carousel-dark slide">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="10000">
-                    <img style={{ height:'100%' , borderRadius:'20px'  }} src="https://images.pexels.com/photos/1103833/pexels-photo-1103833.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="..." />
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5 className='text-black'>First slide label</h5>
-                        <p className='text-black'>Some representative placeholder content for the first slide.</p>
-                    </div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="2000">
-                    <img style={{ height:'100%' , borderRadius:'20px' }} src="https://images.pexels.com/photos/28080/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="..." />
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5 className='text-white'>Second slide label</h5>
-                        <p className='text-white'>Some representative placeholder content for the second slide.</p>
-                    </div>
-                    </div>
-                    <div class="carousel-item">
-                    <img style={{ height:'100%' , borderRadius:'20px' }} src="https://images.pexels.com/photos/1171480/pexels-photo-1171480.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="..." />
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5 className='text-white'>Third slide label</h5>
-                        <p className='text-white'>Some representative placeholder content for the third slide.</p>
-                    </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div> */}
             
             <section class="">
             <div class="container">
@@ -78,17 +38,21 @@ function ProductsListing() {
                             <div class="card w-100 bg-primary" style={{minHeight: '200px'}}>
                                 <div class="card-body">
                                     <h5 class="text-white"> Men </h5>
-                                    <p class="text-white-50">Technology for cyber sport</p>
+                                    <p class="text-white-50">
+                                        Upgrade your wardrobe with this trendy men's shirt. Perfect for both casual and semi-formal occasions, this shirt combines comfort and style effortlessly. Available in multiple sizes and colors.
+                                    </p>
                                     <a class="btn btn-outline-light btn-sm" href="/"> See more </a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-6 d-flex" style={{ borderRadius:'40px' }}>
+                        <div class="col-6 d-flex" style={style.greatProduct}>
                             <div class="card w-100 bg-primary" style={{minHeight: '200px'}}>
                             <div class="card-body">
                                 <h5 class="text-white"> Women </h5>
-                                <p class="text-white-50">All you need for music</p>
+                                <p class="text-white-50">
+                                    Add a touch of sophistication to your wardrobe with this elegant women's dress. Perfect for special occasions or a night out, the flattering design and quality fabric make it a must-have. Available in various sizes and colors.
+                                </p>
                                 <a class="btn btn-outline-light btn-sm" href="/"> See more </a>
                             </div>
                             </div>
@@ -99,7 +63,9 @@ function ProductsListing() {
                     <div class="card bg-success" style={{minHeight: '200px'}}>
                         <div class="card-body">
                             <h5 class="text-white">Buy 2 items, With special gift</h5>
-                            <p class="text-white-50" style={{maxWidth: '400px'}}>Buy one, get one free marketing strategy helps your business improves the brand by sharing the profits</p>
+                            <p class="text-white-50" style={{maxWidth: '400px'}}>
+                                Upgrade your wardrobe with our exclusive bundle offer! Buy any 2 items and receive a special gift with your purchase. Choose from our stylish collection of men's and women's clothing. Limited stock available.
+                            </p>
                             <a class="btn btn-outline-light btn-sm" href="/"> See more </a>
                         </div>
                     </div>

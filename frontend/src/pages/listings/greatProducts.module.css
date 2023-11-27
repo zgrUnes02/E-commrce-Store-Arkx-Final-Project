@@ -1,0 +1,19 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.greatProduct {
+    /* background-image: url(''); */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.gift {
+    /* background-image: url(''); */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

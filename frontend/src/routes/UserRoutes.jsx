@@ -26,6 +26,7 @@ import ProtectedRouter from '../helpers/ProtectedRouter';
 import ProductView from '../pages/user/ProductView';
 import ProductsListing from '../pages/listings/ProductsListing';
 import Cart from '../pages/listings/Cart';
+import LandingPage from '../pages/userInterface/LandingPage';
 
 function UserRoutes() {
   return (
@@ -69,7 +70,7 @@ function UserRoutes() {
         <Route path='/users/login' element={<UserLogin/>} />
         <Route path='/products/list' element={<ProductsListing/>} />
         <Route path='/cart' element={<Cart/>} />
-        <Route path='/' element={<ProductsListing/>} />
+        <Route path='/' element={<LandingPage/>} />
 
       </Routes>
     </Router>
