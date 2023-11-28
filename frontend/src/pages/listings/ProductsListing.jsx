@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux' ;
 import { getAllProducts } from '../../redux/productSlice' ;
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import GreatProducts from '../../components/GreateProducts';
+import GreatProducts from '../../components/Greateproducts/GreateProducts';
 import ProductList from './ProductList';
 
 function ProductsListing() {

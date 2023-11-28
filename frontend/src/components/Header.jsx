@@ -11,7 +11,7 @@ function Header() {
                 <div className={style.left}>
 
                     <div>
-                        <img src={logo} style={{ width:"200px" }} alt="" />
+                        <img src={logo} style={{ width:"150px" }} alt="" />
                     </div>
 
                     <div className={style.links}>

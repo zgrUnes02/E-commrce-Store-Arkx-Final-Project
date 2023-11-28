@@ -10,6 +10,7 @@ import UserRoutes from "./routes/UserRoutes" ;
   import './assets/vendor/remixicon/remixicon.css' ;
   import './assets/vendor/simple-datatables/style.css' ;
   import './assets/css/style.css' ;
+import ProductsRoutes from "./routes/ProductsRoutes";
 //! --------------------------------------------------------------
 
 
@@ -17,6 +18,7 @@ function App() {
   return (
     <React.Fragment>
       <UserRoutes />
+      <ProductsRoutes/> 
     </React.Fragment>
   );
 }
