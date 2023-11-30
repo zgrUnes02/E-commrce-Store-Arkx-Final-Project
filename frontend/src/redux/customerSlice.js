@@ -8,6 +8,20 @@ export const getAllCustomers = createAsyncThunk('customers/getAllCustomers' , as
     .catch(error => console.log(error)) ;
 })
 
+//! Get all customers
+export const getCustomerProfile = createAsyncThunk('customers/getCustomerProfile' , async () => {
+    return AuthAxios.get('http://localhost:4000/v1/customer/profile')
+    .then(response => response.data)
+    .catch(error => console.log(error)) ;
+})
+
+//! Login customer
+export const loginCustomer = createAsyncThunk('customers/loginCustomer' , async ( credential , { rejectWithValue } ) => {
+    return AuthAxios.post('http://localhost:4000/v1/customers/login' , credential)
+    .then(response => response.data)
+    .catch(error => rejectWithValue(error.response)) ;
+})
+
 //! Delete customer
 export const deleteCustomer = createAsyncThunk('customers/deleteCustomer' , async ( id ) => {
     return AuthAxios.delete(`http://localhost:4000/v1/customers/delete/${id}`)
@@ -25,6 +39,7 @@ const customerSlice = createSlice({
         customers : [] ,
         status : '' ,
         error : '' ,
+        customer : '' ,
     } ,
 
     reducers : {
@@ -48,6 +63,32 @@ const customerSlice = createSlice({
             state.status = 'rejected' ;
         })
         .addCase(getAllCustomers.pending , (state , action) => {
+            state.status = 'pending' ;
+        })
+
+        //! Login customer
+        .addCase(loginCustomer.fulfilled , (state , action) => {
+            state.customers = action.payload ;
+            state.status = 'fulfilled' ;
+        })
+        .addCase(loginCustomer.rejected , (state , action) => {
+            state.error = action.payload ;
+            state.status = 'rejected' ;
+        })
+        .addCase(loginCustomer.pending , (state , action) => {
+            state.status = 'pending' ;
+        })
+
+        //! Customer profile
+        .addCase(getCustomerProfile.fulfilled , (state , action) => {
+            state.customer = action.payload ;
+            state.status = 'fulfilled' ;
+        })
+        .addCase(getCustomerProfile.rejected , (state , action) => {
+            state.error = action.payload ;
+            state.status = 'rejected' ;
+        })
+        .addCase(getCustomerProfile.pending , (state , action) => {
             state.status = 'pending' ;
         })
 

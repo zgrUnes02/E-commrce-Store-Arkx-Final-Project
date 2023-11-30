@@ -192,7 +192,6 @@ const userController = {
         else {
             res.status(400).json('oops !') ;
         }
-
     } ,
 
     //! Update profile info

@@ -213,7 +213,20 @@ const customerController = {
         catch ( error ) {
             console.log( error ) ;
         }
-    } 
+    } ,
+
+    //! Customer profile
+    customerProfile : async (req , res) => {
+        const id = req.customer._id
+        const customer = await customerModel.findById(id) ;
+
+        if ( customer ) {
+            res.status(200).json(customer) ;
+        }
+        else {
+            res.status(400).json('oops !') ;
+        }
+    }
 } 
 
 module.exports = customerController ;

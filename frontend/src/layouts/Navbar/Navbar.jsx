@@ -4,13 +4,23 @@ import './Navbar.css';
 import { IoSearchOutline  } from "react-icons/io5";
 import {IoHeartOutline} from  "react-icons/io5";
 import { AiOutlineShoppingCart} from "react-icons/ai";
+import { Link } from 'react-router-dom';
+import { FaRegUser } from "react-icons/fa";
 
 function Navbar() {
+
+    const logout = () => {
+        localStorage.clear();
+        window.location.reload() ;
+    }
+
+    const token = localStorage.getItem('token') ;
+
   return (
 
          <nav className="navbar navbar-expand-lg " >
         <div className="container">
-            <a className="navbar-brand me-auto" href="/">AthlArk</a>
+            <Link to={'/'}><a className="navbar-brand me-auto">AthlArk</a></Link>
             <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
                 aria-labelledby="offcanvasNavbarLabel">
                 <div className="offcanvas-header">
@@ -64,9 +74,15 @@ function Navbar() {
 
             <div style={{ display:'flex' , justifyContent:'space-between' , alignItems:'center' }} >
 
-                <button type="button" className="btn btn-ghost btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                {
+                    token && <Link to={'/profile/customer'}><button className="btn btn-ghost btn-circle mb-1">
+                        <FaRegUser size={20} className='icon' style={{color: 'black'}}  /> 
+                    </button></Link>
+                }
+                
+                {/* <button type="button" className="btn btn-ghost btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <IoSearchOutline  size={25} className='icon' style={{color: 'black'}}/>
-                </button>
+                </button> */}
 
                 <div>
                     <button className="btn btn-ghost btn-circle"><IoHeartOutline size={25} className='icon' style={{color: 'black'}} /></button>
@@ -76,7 +92,11 @@ function Navbar() {
                     <button className="btn btn-ghost btn-circle"><AiOutlineShoppingCart size={25} className='icon' style={{color: 'black'}} /></button>
                 </div>
 
-                <button className="login-button" style={{ marginLeft:'12px' }}>Login</button>   
+                {
+                    token ? 
+                        <button onClick={logout} className="login-button" style={{ marginLeft:'12px' }}> Logout </button> 
+                    : <Link to={'/login/customer'}><button className="login-button" style={{ marginLeft:'12px' }}>Login</button></Link>  
+                }
 
                 <button className="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                     aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -84,8 +104,6 @@ function Navbar() {
                 </button>             
 
             </div>
-
-            
         </div>
     </nav>
 

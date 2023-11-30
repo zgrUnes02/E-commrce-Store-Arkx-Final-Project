@@ -27,6 +27,10 @@ import ProductView from '../pages/user/ProductView';
 import ProductsListing from '../pages/listings/ProductsListing';
 import Cart from '../pages/listings/Cart';
 import LandingPage from '../pages/userInterface/LandingPage';
+import SingleProduct from '../components/singleProduct/SingleProduct'
+import LoginCustomer from '../components/loginCustomer/LoginCustomer';
+import ProfileCustomer from '../components/loginCustomer/ProfileCustomer';
+import CustomerProtectedRouter from '../helpers/CustomerProtectedRouter';
 
 function UserRoutes() {
   return (
@@ -71,6 +75,13 @@ function UserRoutes() {
         <Route path='/products/list' element={<ProductsListing/>} />
         <Route path='/cart' element={<Cart/>} />
         <Route path='/' element={<LandingPage/>} />
+        <Route path='/products/:id' element={<SingleProduct/>} />
+        <Route path='/login/customer' element={<LoginCustomer/>} />
+
+        <Route element={<CustomerProtectedRouter/>}>
+          <Route path='/profile/customer' element={<ProfileCustomer/>} />
+        </Route>
+        
 
       </Routes>
     </Router>
