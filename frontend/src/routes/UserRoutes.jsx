@@ -21,7 +21,6 @@ import SubcategoriesUpdate from '../pages/user/SubcategoriesUpdate';
 import ProductUpdate from '../pages/user/ProductsUpdate';
 import ServicesUpdate from '../pages/user/ServicesUpdate';
 import CompaniesUpdate from '../pages/user/CompaniesUpdate';
-// import UserLogin from '../pages/user/UserLogin';
 import UserLoginFinal from '../pages/user/UserLoginFinal';
 import ProtectedRouter from '../helpers/ProtectedRouter';
 import ProductView from '../pages/user/ProductView';

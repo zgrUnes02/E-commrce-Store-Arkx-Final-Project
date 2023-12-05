@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./CustomerRegister.css";
+import style from "./CustomerRegister.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { registerCustomer } from "../../../redux/customerSlice";
@@ -38,31 +38,35 @@ const CustomerRegister = () => {
         }
       }) ;
     }
+
+    if ( errors ) {
+      toast(errors.data.message);
+    }
   }
 
   return (
     <div>
       <ToastContainer/>
-      <div className="section">
-        <div className="image"></div>
-        <article className="login">
-          <div className="all">
-            <h1>
-              Welcome, <span>Champion!</span>
+      <div className={style.section}>
+        <div className={style.image}></div>
+        <article className={style.login}>
+          <div className={style.all}>
+            <h1 className={style.h1}>
+              Welcome, <span className={style.span}>Champion!</span>
             </h1>
-            <h3>Enter your informations </h3>
+            <h3 className={style.h3}>Enter your informations </h3>
 
-            <form action="" className="form" onSubmit={register}>
+            <form action="" className={style.form} onSubmit={register}>
               <input
                 type="text"
-                className="input"
+                className={style.input}
                 placeholder="First name"
                 required
                 onChange={(e) => {setFirstName(e.target.value)}}
               />
               <input
                 type="text"
-                className="input"
+                className={style.input}
                 placeholder="Last name"
                 required
                 onChange={(e) => {setLastName(e.target.value)}}
@@ -90,7 +94,7 @@ const CustomerRegister = () => {
                 onChange={(e) => {setConfirmPassword(e.target.value)}}
               />
               <button type="submit">Register</button>
-              <div className=" input-check">
+              <div className={style.input_check}>
                 <div className="form-check">
                   <input
                     class="form-check-input"
@@ -98,14 +102,14 @@ const CustomerRegister = () => {
                     value=""
                     id="flexCheckDefault"
                   />
-                  <label className="form-check-label" for="flexCheckDefault">
+                  <label className={style.form_check_label} for="flexCheckDefault">
                     Receive emails for new arrivals
                   </label>
                 </div>
                 <p>
                   Already have an account ?{" "}
                   <span>
-                    <Link to={'/login/customer'}><a>Sign in</a></Link>
+                    <Link to={'/login/customer'}><a className={style.a}>Sign in</a></Link>
                   </span>
                 </p>
               </div>

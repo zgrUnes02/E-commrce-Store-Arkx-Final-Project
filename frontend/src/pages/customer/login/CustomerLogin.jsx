@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./CustomerLogin.css";
+import style from  "./CustomerLogin.module.css";
 import { Link, useNavigate } from 'react-router-dom';
 import { loginCustomer } from '../../../redux/customerSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,48 +37,48 @@ const CustomerLogin = () => {
   return (
     <div>
       <ToastContainer/>
-      <div className="section">
-        <div className="image"></div>
-        <article className="login">
+      <div className={style.section}>
+        <div className={style.image}></div>
+        <article className={style.login}>
           <div className="all">
-            <h1>
-              Welcome back, <span>Champion!</span>
+            <h1 className={style.h1}>
+              Welcome back, <span className={style.span}>Champion!</span>
             </h1>
-            <h3>Enter your credentials</h3>
+            <h3 className={style.h3}>Enter your credentials</h3>
 
-            <form action="" className="form" onSubmit={login}>
+            <form action="" className={style.form} onSubmit={login}>
               <input
                 type="email"
-                className="input"
+                className={style.input}
                 placeholder="Enter your email"
                 required
                 onChange={(e) => {setEmail(e.target.value)}}
               />
               <input
                 type="password"
-                className="password"
+                className={style.input}
                 placeholder="Enter your password"
                 required
                 onChange={(e) => {setPassword(e.target.value)}}
               />
-              <button type="submit">LOGIN</button>
+              <button type="submit" className={style.button}>LOGIN</button>
               <div className="d-flex justify-content-between gap-5 input-check">
                 <div className="form-check">
                   <input
-                    class="form-check-input"
+                    className={style.form_check_input}
                     type="checkbox"
                     value=""
                     id="flexCheckDefault"
                   />
-                  <label className="form-check-label" for="flexCheckDefault">
+                  <label className={style.form_check_label} for="flexCheckDefault">
                     Remember me
                   </label>
                 </div>
-                <a href="#">Forgot your password ?</a>
+                <a className={style.a} href="#">Forgot your password ?</a>
               </div>
-              <div class="text-center">
+              <div className="text-center">
                 <p>
-                  Not a member? <Link to={'/register/customer'}><a>Register</a></Link>
+                  Not a member? <Link to={'/register/customer'}><a className={style.a}>Register</a></Link>
                 </p>
               </div>
             </form>
