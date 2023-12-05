@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit" ;
 import AuthAxios from '../helpers/request' ;
+import axios from "axios";
 
 //! Get all customers
 export const getAllCustomers = createAsyncThunk('customers/getAllCustomers' , async () => {
@@ -17,7 +18,14 @@ export const getCustomerProfile = createAsyncThunk('customers/getCustomerProfile
 
 //! Login customer
 export const loginCustomer = createAsyncThunk('customers/loginCustomer' , async ( credential , { rejectWithValue } ) => {
-    return AuthAxios.post('http://localhost:4000/v1/customers/login' , credential)
+    return axios.post('http://localhost:4000/v1/customers/login' , credential)
+    .then(response => response.data)
+    .catch(error => rejectWithValue(error.response)) ;
+})
+
+//! Register customer
+export const registerCustomer = createAsyncThunk('customers/registerCustomer' , async ( data , { rejectWithValue } ) => {
+    return axios.post('http://localhost:4000/v1/customers/register' , data)
     .then(response => response.data)
     .catch(error => rejectWithValue(error.response)) ;
 })
@@ -76,6 +84,19 @@ const customerSlice = createSlice({
             state.status = 'rejected' ;
         })
         .addCase(loginCustomer.pending , (state , action) => {
+            state.status = 'pending' ;
+        })
+
+        //! Register customer
+        .addCase(registerCustomer.fulfilled , (state , action) => {
+            state.status = 'fulfilled' ;
+        })
+        .addCase(registerCustomer.rejected , (state , action) => {
+            state.error = action.payload ;
+            state.status = 'rejected' ;
+            console.log(action.payload)
+        })
+        .addCase(registerCustomer.pending , (state , action) => {
             state.status = 'pending' ;
         })
 

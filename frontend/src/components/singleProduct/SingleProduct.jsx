@@ -44,10 +44,10 @@ function SingleProduct() {
   };
 
   return (
-    <div className = "card-wrapper ">
-    <div className = "card shadow">
+    <div className = "card-wrapper container p-4">
+    <div className = "row">
     
-      <div className = "product-imgs">
+      <div className = "product-imgs col-md-6">
         <div className = "img-display">
           <div className = "img-showcase">
             <img src = "https://i.pinimg.com/564x/a1/d7/7c/a1d77cfc3ebcef19453a30fffcd21b0f.jpg" alt = "image"/>
@@ -80,7 +80,7 @@ function SingleProduct() {
         </div>
       </div>
     
-      <div className = "product-content">
+      <div className = "col-md-6 p-4 d-flex flex-column">
         <h2 className = "product-title">Hoodie</h2>
 
         <div className = "product-price">
@@ -281,11 +281,11 @@ function SingleProduct() {
            onChange = {handleQuantityChange}
          />
 
-         <button type = "button" className = "btn">
+         <button type = "button" className = "btn mb-4">
            Add to Cart 
          </button>
 
-         <button type = "button" className = "btn">
+         <button type = "button" className = "btn mb-4">
            Add to wish lit
          </button>
 

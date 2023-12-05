@@ -18,7 +18,7 @@ customerRouter.post('/customers/login' , [
 
 //! Create new customer ( Register )
 customerRouter.post(
-  "/customers",
+  "/customers/register",
   [
     body("first_name")
       .trim()

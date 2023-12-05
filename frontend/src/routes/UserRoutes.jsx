@@ -21,16 +21,18 @@ import SubcategoriesUpdate from '../pages/user/SubcategoriesUpdate';
 import ProductUpdate from '../pages/user/ProductsUpdate';
 import ServicesUpdate from '../pages/user/ServicesUpdate';
 import CompaniesUpdate from '../pages/user/CompaniesUpdate';
-import UserLogin from '../pages/user/UserLogin';
+// import UserLogin from '../pages/user/UserLogin';
+import UserLoginFinal from '../pages/user/UserLoginFinal';
 import ProtectedRouter from '../helpers/ProtectedRouter';
 import ProductView from '../pages/user/ProductView';
 import ProductsListing from '../pages/listings/ProductsListing';
 import Cart from '../pages/listings/Cart';
 import LandingPage from '../pages/userInterface/LandingPage';
 import SingleProduct from '../components/singleProduct/SingleProduct'
-import LoginCustomer from '../components/loginCustomer/LoginCustomer';
 import ProfileCustomer from '../components/loginCustomer/ProfileCustomer';
 import CustomerProtectedRouter from '../helpers/CustomerProtectedRouter';
+import CustomerLogin from '../pages/customer/login/CustomerLogin';
+import CustomerRegister from '../pages/customer/register/CustomerRegister';
 
 function UserRoutes() {
   return (
@@ -71,12 +73,14 @@ function UserRoutes() {
 
         </Route>
 
-        <Route path='/users/login' element={<UserLogin/>} />
+        {/* <Route path='/users/login' element={<UserLogin/>} /> */}
+        <Route path='/users/login' element={<UserLoginFinal/>} />
         <Route path='/products/list' element={<ProductsListing/>} />
         <Route path='/cart' element={<Cart/>} />
         <Route path='/' element={<LandingPage/>} />
         <Route path='/products/:id' element={<SingleProduct/>} />
-        <Route path='/login/customer' element={<LoginCustomer/>} />
+        <Route path='/login/customer' element={<CustomerLogin/>} />
+        <Route path='/register/customer' element={<CustomerRegister/>} />
 
         <Route element={<CustomerProtectedRouter/>}>
           <Route path='/profile/customer' element={<ProfileCustomer/>} />

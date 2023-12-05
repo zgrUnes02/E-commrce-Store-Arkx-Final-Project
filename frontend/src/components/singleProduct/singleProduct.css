@@ -4,9 +4,6 @@
     margin-top: 5%;
 
 }
-.card{
-    border: none;
-}
 img{
     width: 100%;
     display: block;
@@ -105,6 +102,7 @@ img{
 .purchase-info .btn{
     cursor: pointer;
     color: #fff;
+
 }
 .purchase-info .btn:first-of-type{
     background: #be0013;
@@ -116,7 +114,7 @@ img{
     opacity: 0.9;
 }
 .view{
-    padding: 6%;
+    padding: 4%;
 }
 @media screen and (min-width: 992px){
     .card{
