@@ -1,0 +1,139 @@
+.card-wrapper{
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 5%;
+
+}
+img{
+    width: 100%;
+    display: block;
+}
+.img-display{
+    overflow: hidden;
+    height: 600px;
+}
+.img-display img{
+  height: 600px;
+}
+.img-showcase{
+    display: flex;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+.img-showcase img{
+    min-width: 100%;
+}
+.img-select{
+    display: flex;
+}
+.img-item{
+    margin: 0.3rem;
+}
+.img-item:nth-child(1),
+.img-item:nth-child(2),
+.img-item:nth-child(3){
+    margin-right: 0;
+}
+.img-item:hover{
+    opacity: 0.8;
+}
+.product-content{
+    margin: 1rem ;
+    margin-top: 5rem ;
+}
+.product-title{
+    font-size: 3rem;
+    text-transform: capitalize;
+    font-weight: 700;
+    position: relative;
+    color: 2f2f2f;
+}
+.product-title::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 80px;
+    background: #2f2f2f;
+}
+.product-price{
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.product-detail p{
+    font-size: 1rem;
+    padding: 0.5rem;
+    padding-top: 2rem;
+    opacity: 0.8;
+}
+.product-detail ul{
+    font-size: 1rem;
+}
+.product-detail ul li{
+    margin: 0;
+    list-style: none;
+    background: url(../../assets/img/checked.png) left center no-repeat;
+    background-size: 18px;
+    padding-left: 1.7rem;
+    margin: 0.4rem 0;
+    font-weight: 700;
+    opacity: 0.9;
+}
+.product-detail ul li span{
+    font-weight: 400;
+}
+.purchase-info{
+    margin: 1.5rem 0;
+}
+.purchase-info input,
+.purchase-info .btn{
+    border: 1.5px solid #2f2f2f;
+    border-radius: 15px;
+    text-align: center;
+    padding: 0.45rem 0.8rem;
+    outline: 0;
+    margin-right: 0.2rem;
+}
+.purchase-info input{
+    width: 60px;
+}
+.purchase-info .btn{
+    cursor: pointer;
+    color: #fff;
+
+}
+.purchase-info .btn:first-of-type{
+    background: #be0013;
+}
+.purchase-info .btn:last-of-type{
+    background: #2f2f2f;
+}
+.purchase-info .btn:hover{
+    opacity: 0.9;
+}
+.view{
+    padding: 4%;
+}
+@media screen and (min-width: 992px){
+    .card{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1.5rem;
+    }
+    .card-wrapper{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .product-imgs{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .product-content{
+        padding-top: 0;
+    }
+}

@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+*{
+    box-sizing: border-box;
+}
+
+.section{
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    height: 100vh;
+    font-family: "Poppins";
+    color: #000;
+    width: 100%; 
+}
+
+.image {
+    background-image: url('../../../assets/img/formimage.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50%;
+    
+}
+
+.login{
+    text-align: center;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgb(223, 223, 223) 0%, rgb(232, 232, 232) 15%, rgb(232, 232, 232) 35%, rgb(255, 255, 255) 100%); 
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.h1{
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0 0 40px;
+    color: black;
+    font-family: "Poppins";
+    
+}
+
+.span {
+    color:#DC2626;
+    font-weight: bolder;
+}
+
+.h3 {
+    color:rgb(0 0 0/38%);
+    margin:0 0 20px;
+    font-weight: 800;
+    font-family: 'Poppins';
+    font-size: 20px;
+}
+
+.form {
+    display: grid;
+    gap: 20px;
+    place-items: center;
+    width: 100%;
+    margin: 0;
+}
+
+.form > :is(input, button) {
+    height: 46px;
+    border-radius: 10px;
+    width: 75%;
+    border: solid 1px rgb(215, 205, 205);
+    text-align: center;
+}
+
+.form > input  {
+    background:#fcfcfc;
+    transition: 0.3s;
+}
+
+.form > input:focus{
+    border: solid 1px rgb(215, 205, 205);
+    outline: none;
+    box-shadow: 0 0 5pt 2pt #a4a4a4;
+}
+
+.form > button {
+    cursor: pointer;
+    background: black;
+    color: white;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-family: "Poppins";
+    transition: 0.3s;
+}
+
+.form > button:hover{
+    background:#DC2626;
+}
+
+.a {
+    color:#DC2626;
+    font-family: "Poppins";
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.login > .all .form form_check_label {
+    font-weight: 600;
+    font-family: "Poppins";
+}
+
+.login > .all .form .form-check-input{
+    outline: none;
+    box-shadow: 0 0 3pt 1pt #575757;
+    border: none;
+    transition: 0.3s;
+}
+
+.login > .all .form .form-check-input:checked{
+    outline: none;
+    box-shadow: 0 0 3pt 1pt #575757;
+    background-color: #000000;
+    border: none;
+}
+
+.login > .all .form .form-check-input:focus{
+    outline: none;
+    box-shadow: 0 0 3pt 1pt #4f4e4e;
+    border: none;
+}
+
+.input_check {
+    display: flex;
+    justify-content:space-between;
+    gap: 35px;
+}
+
+
+/* CSS for responsiveness */
+@media (max-width: 768px) {
+    .section {
+      flex-direction: column;
+      height: auto;
+    }
+    .login {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-size:cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .login > .all{
+        background: rgb(255, 255, 255);
+        background: linear-gradient(90deg, rgb(223, 223, 223) 0%, rgb(232, 232, 232) 15%, rgb(232, 232, 232) 35%, rgb(255, 255, 255) 100%); 
+        border-radius: 20px;
+        width: 100%;
+    }
+  
+    .login > .all > h1 {
+      font-size: 30px; 
+      margin: 20px; 
+    }
+  
+    .login > .all h3 {
+      font-size: 16px; 
+      margin-bottom: 12px; 
+    }
+  
+    .form > :is(input, button) {
+      width: 90%; 
+      font-size: 14px; 
+      height: 50px;
+    }
+    .image {
+     display: none;
+    }
+     .input-check {
+        display: grid;
+        gap:10px; 
+    }
+   
+  }
+  

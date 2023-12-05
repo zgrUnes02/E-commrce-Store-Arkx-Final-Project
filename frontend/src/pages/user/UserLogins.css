@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/archicoco');
+
+*{
+    box-sizing: border-box;
+}
+.hero-section{
+   
+    margin: 0;
+    height: 100vh;
+    font-family: "Poppins";
+    width: 100%; 
+    background-color: rgb(246, 246, 246)
+ 
+    
+}
+
+.background{
+    display: flex;
+    flex-direction: column;
+   gap: 10px;
+    border-right: solid 1.5px white;
+    
+    
+}
+.background > .headings {
+    margin: 15px;
+    text-align: center;
+
+}
+
+.hero-section >.background > .headings h1{
+    font-family: 'Archicoco', sans-serif;                             
+    font-weight: bolder; 
+    font-size: 50px;
+    color: black;
+}
+.hero-section >.background > .headings h3{
+    font-family: 'Poppins', sans-serif;                             
+    font-weight: bolder; 
+    font-style: italic;
+    letter-spacing: 2px;
+    font-size: 25px;
+    color: rgb(73, 73, 73);
+
+}
+
+.background > .paragraph {
+    font-family: 'Poppins';
+    font-weight: bold;
+    font-size: 22px;
+    margin: 15px;
+    color: black;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+
+}
+.background > .paragraph h4{
+    font-family: 'Poppins';
+    font-weight: bolder;
+    font-size: 35px;
+    color: #bf0909;
+    
+}
+.background > .headings hr {
+    height: 2px;
+}
+.login-user .all-user {
+    border: white solid 1px;
+    border-radius: 20px;
+    border-width: 1.5px;
+}
+.background > .paragraph .form-user {
+    display: grid;
+    gap: 18px;
+    place-items: center;
+    width: 36%;
+    margin: 0;
+    background-color: rgb(49, 46, 46);
+    border-radius: 20px;
+}
+ .paragraph > .form-user > :is(input, button) {
+    height: 46px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+}
+.paragraph > .form-user input {
+    font-size: 16px;
+    
+}
+.form-check-user{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+.paragraph > .form-user h3 {
+    color:white;
+    margin:0 0 20px;
+    font-weight: 800;
+    font-family: "Poppins";
+    font-size: 25px;
+    margin-top: 20px;
+}
+.form-user > input:focus{
+    outline: none;
+    box-shadow: 0 0 4pt 1pt #f2f2f2;
+}
+.form-user button {
+    background-color: #bf0909;
+    color: white;
+    font-family: 'Poppins', sans-serif;                             
+    font-weight: bolder;
+    font-size: 17px;
+    transition: 0.3s;
+}
+.form-user button:hover {
+    background-color:rgb(232, 0, 0);
+    color: white;
+}
+.check-input{
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+.check-input a {
+    font-family: 'Poppins', sans-serif;  
+    font-weight: bold;
+    color: white;
+    font-size: 15px;
+    transition: 0.3s;
+}
+.check-input a:hover{
+    color: #f90505;
+}
+.form-check-user .form-check-input{
+    outline: none;
+    box-shadow: 0 0 3pt 1pt #575757;
+    border: none;
+    transition: 0.3s;
+    margin: 0;
+}
+.form-check-user .form-check-input:checked{
+    outline: none;
+    box-shadow: 0 0 3pt 1pt #575757;
+    border: none;
+    background-color: #bf0909;
+}
+.form-check-user .form-check-input:focus{
+    outline: none;
+    box-shadow: 0 0 3pt 1pt #4f4e4e;
+    border: none;
+}
+.form-check-user .form-check-label {
+    color: white;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif; 
+    font-size: 15px; 
+}
+
+
+/* Media queries for responsiveness */
+
+@media (max-width: 768px) {
+    .background > .paragraph .form-user {
+        width: 90%; /* Adjust form width for smaller screens */
+    }
+    .check-input{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .hero-section >.background > .headings h1{
+        font-family: 'Archicoco', sans-serif;                             
+        font-weight: bolder; 
+        font-size: 45px;
+        color: black;
+    }
+    .hero-section >.background > .headings h3{
+        font-family: 'Poppins', sans-serif;                             
+        font-weight: bolder; 
+        font-style: italic;
+        letter-spacing: 2px;
+        font-size: 18px;
+        color: rgb(73, 73, 73);
+    
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .background > .paragraph .form-user {
+        width: 100%; 
+    }
+    .check-input{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .hero-section >.background > .headings h1{
+        font-family: 'Archicoco', sans-serif;                             
+        font-weight: bolder; 
+        font-size: 45px;
+        color: black;
+    }
+    .hero-section >.background > .headings h3{
+        font-family: 'Poppins', sans-serif;                             
+        font-weight: bolder; 
+        font-style: italic;
+        letter-spacing: 2px;
+        font-size: 18px;
+        color: rgb(73, 73, 73);
+    
+    }
+   
+}

@@ -7,9 +7,9 @@ const customerVerification = async ( req , res , next ) => {
         const decoded = jwt.verify(token , process.env.JWT_SECRET) ;
 
         //* Find the user with the email
-        const user = await customerModel.findOne({email : decoded.email}) ;
-        if ( user ) {
-            req.user = user ;
+        const customer = await customerModel.findOne({email : decoded.email}) ;
+        if ( customer ) {
+            req.customer = customer ;
             next() ;
         }
     } 
