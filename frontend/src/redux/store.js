@@ -8,6 +8,7 @@ import customerReducer from './customerSlice' ;
 import companyReducer from './companySlice' ;
 import orderReducer from './orderSlice' ;
 import serviceReducer from './serviceSlice' ;
+import cartReducer from './cartSlice' ;
 
 const store = configureStore({
     reducer : {
@@ -18,7 +19,9 @@ const store = configureStore({
         customer : customerReducer ,
         company : companyReducer ,
         order : orderReducer ,
-        service : serviceReducer
+        service : serviceReducer ,
+        cart : cartReducer
+        
     }
 }) ;
 
