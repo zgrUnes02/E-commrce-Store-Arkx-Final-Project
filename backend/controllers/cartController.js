@@ -7,7 +7,7 @@ const cartController = {
         const cart = await cartModel.find({customer_id : customer._id}) ;
 
         if ( cart ) {
-            res.status(200).json(cart) ;
+            res.status(200).send(cart) ;
         } 
     }
 
