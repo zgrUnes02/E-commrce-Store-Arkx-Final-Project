@@ -109,21 +109,21 @@
     font-family: "Poppins";
 }
 
-.login > .all .form .form-check-input{
+.login > .all .form .form_check_input{
     outline: none;
     box-shadow: 0 0 3pt 1pt #575757;
     border: none;
     transition: 0.3s;
 }
 
-.login > .all .form .form-check-input:checked{
+.form_check_input:checked{
     outline: none;
     box-shadow: 0 0 3pt 1pt #575757;
     background-color: #000000;
     border: none;
 }
 
-.login > .all .form .form-check-input:focus{
+.form_check_input:focus{
     outline: none;
     box-shadow: 0 0 3pt 1pt #4f4e4e;
     border: none;

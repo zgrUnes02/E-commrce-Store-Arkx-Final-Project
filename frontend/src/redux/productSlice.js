@@ -8,6 +8,13 @@ export const getAllProducts = createAsyncThunk('product/getAllProducts' , async 
     .catch(error => console.log(error))
 }) 
 
+//! Add to cart
+export const addProductToCart = createAsyncThunk('product/addProductToCart' , async ( id , { rejectWithValue } ) => {
+    return AuthAxios.post(`http://localhost:4000/v1/add/to/cart/${id}`)
+    .then(response => response)
+    .catch(error => rejectWithValue(error))
+}) 
+
 //! Create new product
 export const createNewProduct = createAsyncThunk('products/createNewProduct' , async ( product , { rejectWithValue } ) => {
     return AuthAxios.post('http://localhost:4000/v1/products' , product)
@@ -51,6 +58,19 @@ const productSlice = createSlice({
             state.status = "rejected" ; 
         })
         .addCase(getAllProducts.pending , (state , action) => {
+            state.status = "pending" ;
+        })
+
+        //! Add product to cart
+        .addCase(addProductToCart.fulfilled , (state , action) => {
+            state.products = action.payload ;
+            state.status = "fulfilled" ;
+        })
+        .addCase(addProductToCart.rejected , (state , action) => {
+            state.error = action.payload ;
+            state.status = "rejected" ; 
+        })
+        .addCase(addProductToCart.pending , (state , action) => {
             state.status = "pending" ;
         })
 

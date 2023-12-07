@@ -1,0 +1,158 @@
+.container{
+  display: flex;
+  width: 100%;
+}
+.containersidebar{
+  padding: 1.5rem;
+
+}
+.checkbox {
+  position: relative;
+  top: rem(-6);
+  margin: 0 1rem 0 0 ;
+  cursor: pointer;
+}
+.h3{
+  line-height: 2.5;
+}
+
+.containerlist {
+  padding: 1.5rem;
+    width: 100%;
+  }
+
+.productlist {
+  display: grid;
+  gap:  3rem;
+
+  padding-top: 1rem;
+}
+
+.btnicon{
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.button {
+  height: 3rem;
+  width: 3rem;
+  border: solid white;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+  
+}
+
+
+.button:hover,
+.button:focus {
+  border-color: black; 
+  background-color: black; 
+  color: #fff; 
+  outline: none;
+  
+}
+
+.productcard {
+    background-color: #fff;
+    padding: 1em;
+    box-shadow: 0 5px 5px #e1e1e1;
+    border-radius: 3%;
+    transition: all .2s ease-in-out;
+  }
+  
+  .productcard img {
+    height: 30rem;
+    width: 100%;
+  }
+
+  .productcard h4 {
+    font-size: 1.3em;
+    margin: 0.5em 0;
+    font-weight: bold;
+  }
+
+  .productcard div {
+    font-size: 1.2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .productcard button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .productcard:hover {
+    background-color: black;
+    color: #fff;
+  }
+
+  .productcard:hover button {
+    color: #000;
+    background-color: #fff;
+  }
+
+ .range{
+    display: flex;
+    gap: 1rem;
+ }
+                                                               
+ .range input{
+    width: 70px;
+    border: 2px solid black;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 6px;
+    outline: none;
+ }
+
+.productlist2cols {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (max-width: 600px){
+  .containersidebar{
+    width: 14rem;
+  }
+
+  .productcard img {
+    height: 23rem;
+    width: 100%;
+    
+  }
+}
+
+@media (min-width: 600px) {
+  .productlist2cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+   
+  .productcard img {
+    height: 23rem;
+    width: 100%;
+    
+  }
+}
+
+@media (min-width: 1000px) {
+  .productlist3cols {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .containersidebar{
+    width: 17rem;
+  }
+}
+
+  

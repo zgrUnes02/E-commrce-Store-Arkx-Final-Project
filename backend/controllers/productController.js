@@ -1,4 +1,5 @@
 const productModel = require("../models/productModel");
+const cartModel = require("../models/cartModel") ;
 const { validationResult } = require("express-validator");
 
 const productController = {
@@ -9,6 +10,7 @@ const productController = {
             product_image,
             product_name,
             subcategory_id,
+            category_id,
             short_description,
             long_description,
             price,
@@ -30,6 +32,7 @@ const productController = {
                 product_image: product_image,
                 product_name: product_name,
                 subcategory_id: subcategory_id,
+                category_id: category_id,
                 short_description: short_description,
                 long_description: long_description,
                 price: price,
@@ -53,7 +56,7 @@ const productController = {
             var options = {
                 sort : { created_at: -1 } ,
                 lean : true ,
-                populate : ['subcategory_id'] ,
+                populate : ['subcategory_id' , 'category_id'] ,
                 page : req.query.page  ,
                 limit : 100 ,
             } ;
@@ -109,6 +112,38 @@ const productController = {
             console.log(error);
         }
     },
+
+    //! Add a product to cart
+    addToCart : async (req , res) => {
+
+        const { id } = req.params ;
+        const customer = req.customer ;
+
+        try {
+            const product = await productModel.find({_id : id}) ;
+            var isProductExistsInCart = false ;
+            
+            const searchIfProductExistsInCart = await cartModel.find({customer_id : customer._id}) ;
+            
+            searchIfProductExistsInCart.map(cart => {
+                if ( cart.product[0]._id.toString() == id ) {
+                    isProductExistsInCart = true ;
+                }
+            })
+
+            if ( isProductExistsInCart == false ) {
+                const customerCart = await cartModel.create({customer_id : customer._id  , product : product}) ;
+                if ( customerCart ) {
+                    res.status(200).send('added to cart')
+                }
+            } else {
+                res.status(200).send('The product is already exists in the cart')
+            }
+        } 
+        catch (error) {
+            console.log(error);
+        }
+    } ,
 
     //! update a product
     updateProduct : async (req, res) => {

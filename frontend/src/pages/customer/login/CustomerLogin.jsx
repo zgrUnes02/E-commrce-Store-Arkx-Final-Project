@@ -62,10 +62,10 @@ const CustomerLogin = () => {
                 onChange={(e) => {setPassword(e.target.value)}}
               />
               <button type="submit" className={style.button}>LOGIN</button>
-              <div className="d-flex justify-content-between gap-5 input-check">
+              <div className={style.input_check}>
                 <div className="form-check">
                   <input
-                    className={style.form_check_input}
+                    className="form-check-input"
                     type="checkbox"
                     value=""
                     id="flexCheckDefault"

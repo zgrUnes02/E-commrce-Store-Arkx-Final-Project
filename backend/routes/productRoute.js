@@ -3,6 +3,7 @@ const productController = require("../controllers/productController");
 const productRouter = express.Router();
 const { body } = require("express-validator");
 const authUserVerification = require('../middlewares/authUserVerification') ;
+const customerVerification = require('../middlewares/customerVerification') ;
 
   //! create a new product
   productRouter.post(
@@ -20,6 +21,10 @@ const authUserVerification = require('../middlewares/authUserVerification') ;
         .trim()
         .notEmpty()
         .withMessage("A subcategory id is required") ,
+      body("category_id")
+        .trim()
+        .notEmpty()
+        .withMessage("A category id is required") ,
       body("short_description")
         .trim()
         .notEmpty()
@@ -53,6 +58,10 @@ productRouter.get("/product" , productController.searchForProduct);
 
 //! Get a product by ID
 productRouter.get("/products/:id" , authUserVerification , productController.getProductById);
+
+
+//! Add a product to cart
+productRouter.post("/add/to/cart/:id" , customerVerification , productController.addToCart);
 
 //! Update a product
 productRouter.put(

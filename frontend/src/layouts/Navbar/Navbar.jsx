@@ -1,7 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Navbar.css';
-import { IoSearchOutline  } from "react-icons/io5";
 import {IoHeartOutline} from  "react-icons/io5";
 import { AiOutlineShoppingCart} from "react-icons/ai";
 import { Link } from 'react-router-dom';
@@ -37,8 +36,7 @@ function Navbar() {
                                 Shop
                             </a>
                             <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="#">Women</a></li>
-                                <li><a className="dropdown-item" href="#">Men</a></li>
+                                <Link style={{ textDecoration:'none' }} to={'/store/products'}><li><a className="dropdown-item" href="#"> Products </a></li></Link>
                                 <li><a className="dropdown-item" href="#">Tools</a></li>
                             </ul>
                         </li>
@@ -80,16 +78,12 @@ function Navbar() {
                     </button></Link>
                 }
                 
-                {/* <button type="button" className="btn btn-ghost btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <IoSearchOutline  size={25} className='icon' style={{color: 'black'}}/>
-                </button> */}
-
                 <div>
                     <button className="btn btn-ghost btn-circle"><IoHeartOutline size={25} className='icon' style={{color: 'black'}} /></button>
                 </div>
 
                 <div>
-                    <button className="btn btn-ghost btn-circle"><AiOutlineShoppingCart size={25} className='icon' style={{color: 'black'}} /></button>
+                    <Link to={'/cart'}><button className="btn btn-ghost btn-circle"><AiOutlineShoppingCart size={25} className='icon' style={{color: 'black'}} /></button></Link>
                 </div>
 
                 {
