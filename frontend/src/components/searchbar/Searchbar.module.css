@@ -1,0 +1,23 @@
+.searchBar {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.26);
+    padding: 1.5rem 1rem;
+    width: 100%;
+  }
+  .searchBaricon {
+    color: rgba(0, 0, 0, 0.712);
+    margin-right: 2rem;
+  }
+  
+  .searchBar input {
+    font-size: 1.5rem;
+    outline: none;
+    border: none;
+    width: 100%;
+  }
+  
+  .searchBar input::placeholder {
+    color: rgba(0, 0, 0, 0.479);
+  }
+  

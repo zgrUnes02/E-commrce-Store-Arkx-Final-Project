@@ -6,18 +6,26 @@ import { useDispatch, useSelector } from 'react-redux' ;
 import axios from 'axios' ;
 import { getAllSubcategories } from '../../redux/subcategorySlice' ;
 import { createNewProduct } from '../../redux/productSlice';
+import { getAllCategories } from '../../redux/categorySlice';
 
 function ProductCreate() {
 
     const dispatch = useDispatch() ;
     const navigate = useNavigate() ;
 
-    useEffect(() => { dispatch(getAllSubcategories()) } , []) ;
+    useEffect(() => { 
+        dispatch(getAllSubcategories()) ;
+        dispatch(getAllCategories()) ;
+    } , []) ;
+
     const subcategories = useSelector(state => state.subcategory.subcategories) ;
+    const categories = useSelector(state => state.category.categories) ;
+
     const errors = useSelector(state => state.product.error) ;
 
     const [product_name , setProduct_name] = useState() ;
     const [subcategory_id , setSubcategory_id] = useState() ;
+    const [category_id , setCategory_id] = useState() ;
     const [short_description , setShortDescription] = useState() ;
     const [long_description , setLongDescription] = useState() ;
     const [price , setPrice] = useState() ;
@@ -53,6 +61,7 @@ function ProductCreate() {
         const data = {
             product_name ,
             subcategory_id ,
+            category_id ,
             short_description ,
             long_description ,
             price,
@@ -111,7 +120,6 @@ function ProductCreate() {
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <input onChange={(e) => {
-                                                        // setProduct_image(e.target.value)
                                                         uploadImage(e) ;
                                                     }} type="file" id="form6Example2" class="form-control"/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example2"> Product Image </label>
@@ -120,6 +128,20 @@ function ProductCreate() {
                                         </div>
 
                                         <div class="row">
+                                            <div className='col'>
+                                                <div class="form-outline mb-4">
+                                                    <select onChange={(e) => setCategory_id(e.target.value)} class="form-select" id="exampleSelect">
+                                                        <option disabled selected> Enter the category's name </option>
+                                                        {
+                                                            categories?.map(category => 
+                                                                <option value={ category._id }> { category.category_name } </option> 
+                                                            )
+                                                        }
+                                                    </select>
+                                                    <label class="form-label mt-2 mx-3" for="form6Example3"> Subcategory Name </label>
+                                                </div>
+                                            </div>
+
                                             <div className='col'>
                                                 <div class="form-outline mb-4">
                                                     <select onChange={(e) => setSubcategory_id(e.target.value)} class="form-select" id="exampleSelect">
@@ -131,13 +153,6 @@ function ProductCreate() {
                                                         }
                                                     </select>
                                                     <label class="form-label mt-2 mx-3" for="form6Example3"> Subcategory Name </label>
-                                                </div>
-                                            </div>
-
-                                            <div className='col'>
-                                                <div class="form-outline mb-4">
-                                                    <input onChange={(e) => setPrice(e.target.value)} placeholder='Enter the product price' type="number" id="form6Example4" class="form-control"/>
-                                                    <label class="form-label mt-2 mx-3" for="form6Example4"> Product Price </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -185,6 +200,13 @@ function ProductCreate() {
                                                 </div>
                                             </div>
 
+                                        </div>
+
+                                        <div className='col'>
+                                            <div class="form-outline mb-4">
+                                                <input onChange={(e) => setPrice(e.target.value)} placeholder='Enter the product price' type="number" id="form6Example4" class="form-control"/>
+                                                <label class="form-label mt-2 mx-3" for="form6Example4"> Product Price </label>
+                                            </div>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-block mb-4"> Create the new product </button>

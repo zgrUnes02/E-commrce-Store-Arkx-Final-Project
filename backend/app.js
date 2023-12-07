@@ -11,6 +11,7 @@ const serviceRouter = require('./routes/serviceRoute');
 const companyRouter = require('./routes/companyRoute');
 const orderRouter = require('./routes/orderRoute');
 const cors = require('cors') ;
+const cartRouter = require('./routes/cartRoute');
 const PORT = process.env.PORT ;
 
 //! Database connection
@@ -33,6 +34,7 @@ app.use('/v1' , subcategoryRouter) ;
 app.use('/v1' , companyRouter) ;
 app.use('/v1' , orderRouter) ;
 app.use('/v1' , userRouter) ;
+app.use('/v1' , cartRouter) ;
 
 //! Run the server
 app.listen(PORT, () => {

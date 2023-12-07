@@ -95,6 +95,12 @@
     background:#DC2626;
 }
 
+.input_check {
+    display: flex;
+    justify-content:space-between;
+    gap: 35px;
+}
+
 .a {
     color:#DC2626;
     font-family: "Poppins";

@@ -97,7 +97,7 @@ const CustomerRegister = () => {
               <div className={style.input_check}>
                 <div className="form-check">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="checkbox"
                     value=""
                     id="flexCheckDefault"

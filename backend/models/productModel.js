@@ -23,6 +23,12 @@ const productSchema = new mongoose.Schema({
     required: true ,
   } ,
 
+  category_id: {
+    type: mongoose.Schema.Types.ObjectId ,
+    ref : 'Category' ,
+    required: true ,
+  } ,
+
   short_description: {
     type: String ,
     required: true ,
