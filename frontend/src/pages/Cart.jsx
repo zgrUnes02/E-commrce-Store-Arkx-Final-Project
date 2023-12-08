@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react' ;
+import React, { useEffect, useState } from 'react' ;
 import Navbar from '../layouts/Navbar/Navbar' ;
 import Footer from '../layouts/Footer/Footer' ;
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProductToCart } from '../redux/cartSlice';
+import { deleteProductFromCart, getAllProductToCart } from '../redux/cartSlice';
 
 function Cart() {
 
@@ -13,7 +13,13 @@ function Cart() {
     } , []) ;
 
     const products = useSelector(state => state.cart.cart);
-    console.log(products)
+    const [totalPrice , setTotalPrice] = useState(products.reduce((sum, product) => sum + product.product[0].price, 0)) ;
+    
+
+    //! Function for deleting product from cart
+    const deleteFromCart = ( id ) => {
+        dispatch(deleteProductFromCart(id))
+    }
 
     return (
         <React.Fragment>
@@ -30,7 +36,7 @@ function Cart() {
                                 <div class="card mb-4">
                                     
                                     <div class="card-header py-3">
-                                        <h5 class="mb-0">Cart - 2 items</h5>
+                                        <h5 class="mb-0"> Cart - { products.length } items </h5>
                                     </div>
 
                                     {
@@ -49,9 +55,9 @@ function Cart() {
 
                                                 <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
                                                     <p><strong> { product.product[0].product_name } </strong></p>
-                                                    <p>Color: blue</p>
-                                                    <p>Size: M</p>
-                                                    <button type="button" class="btn btn-danger btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item">
+                                                    <p> Price : { product.product[0].price } MAD </p>
+                                                    <p> Sku : { product.product[0].sku } </p>
+                                                    <button onClick={() => deleteFromCart(product._id)} type="button" class="btn btn-danger btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -63,8 +69,8 @@ function Cart() {
                                                             <i class="fas fa-minus"></i>
                                                         </button>
 
-                                                        <div class="form-outline">
-                                                            <input id="form1" min={1} name="quantity" type="number" class="form-control" />
+                                                        <div class="form-outline mt-2">
+                                                            <input name="quantity" value={product.quantity} class="form-control" readOnly />
                                                         </div>
 
                                                         <button class="btn btn-danger px-3 ms-2">
@@ -93,10 +99,9 @@ function Cart() {
                                 </div>
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
-                                    <li
-                                        class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                        Products
-                                        <span>53.98 MAD </span>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                        Total price
+                                        <span> { totalPrice } MAD </span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                         Shipping
@@ -105,12 +110,12 @@ function Cart() {
                                     <li
                                         class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                         <div>
-                                        <strong>Total amount</strong>
+                                        <strong> Total amount </strong>
                                         <strong>
-                                            <p class="mb-0">(including VAT)</p>
+                                            <p class="mb-0"> ( including VAT ) </p>
                                         </strong>
                                         </div>
-                                        <span><strong>53.98 MAD</strong></span>
+                                        <span><strong> { totalPrice } MAD </strong></span>
                                     </li>
                                     </ul>
 

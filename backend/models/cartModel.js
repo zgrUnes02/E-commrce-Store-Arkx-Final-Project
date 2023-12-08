@@ -8,6 +8,11 @@ const schemaCart = new mongoose.Schema({
 
     product : {
         type: mongoose.Schema.Types.Mixed
+    } ,
+
+    quantity : {
+        type : Number ,
+        default : 1
     }
 }) ;
 

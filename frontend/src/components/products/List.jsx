@@ -8,13 +8,6 @@ import { addProductToCart, getAllProducts } from '../../redux/productSlice';
 import { ToastContainer , toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-const sampleProducts = [
-  { id: 1, name: 'Product 1', category: 'Women', subcategory: 'Hoodies', price: 50, service: 'Sports Fields' },
-  { id: 2, name: 'Product 2', category: 'Men', subcategory: 'T-shirt', price: 30, service: 'Swimming Pool' },
-  { id: 3, name: 'Product 3', category: 'Tools', subcategory: 'Suit', price: 100, service: 'Gym' },
-];
-
 const List = () => {
 
   const dispatch = useDispatch() ;
@@ -291,7 +284,7 @@ const List = () => {
       </div>
       <div className={`${ListCSS.productlist} ${columns === 2 ? ListCSS.productlist2cols : ListCSS.productlist3cols}`}>
 
-        {filteredProducts.map(product => (
+        { filteredProducts.map(product => ( 
           <div key={product.id} className={ListCSS.productcard}>
             <img src={product.product_image[0]} alt=""/>
             <h4 >{product.product_name}</h4>
