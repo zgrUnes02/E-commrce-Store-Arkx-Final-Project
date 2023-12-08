@@ -32,6 +32,7 @@ import CustomerLogin from '../pages/customer/login/CustomerLogin';
 import CustomerRegister from '../pages/customer/register/CustomerRegister';
 import ProductsListStore from '../pages/ProdcutsStoreList';
 import Cart from '../pages/Cart' ;
+import Checkout from '../pages/Checkout';
 
 function UserRoutes() {
   return (
@@ -80,6 +81,7 @@ function UserRoutes() {
         <Route path='/register/customer' element={<CustomerRegister/>} />
         <Route path='/store/products' element={<ProductsListStore/>} />
         <Route path='/cart' element={<Cart/>} />
+        <Route path='/checkout' element={<Checkout/>} />
 
         <Route element={<CustomerProtectedRouter/>}>
           <Route path='/profile/customer' element={<ProfileCustomer/>} />
