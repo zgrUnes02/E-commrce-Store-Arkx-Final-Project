@@ -1,12 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Shop.css'
-import { Link } from 'react-router-dom' ;
 
 
 function Shop() {
   return (
-     <div className=' container '>
+     <div className='container'>
 
         <div className='d-flex justify-content-center'>
             <h3 className="mb-7 display-3 fw-bold">Shop 
@@ -15,7 +14,7 @@ function Shop() {
         </div>
 
         <div className="container-md px-5 py-2 lg:px-32 lg:pt-12">
-            <div className="row row-cols-1 row-cols-md-3 g-2">
+            <div className="row row-cols-1 row-cols-md-3 g-4">
             
                 <div className="col">
                 <div className="custom-container">
@@ -37,7 +36,7 @@ function Shop() {
                     </div>
                 </div>
 
-                <div className="col">
+                <div className="col "  >
                 <div className="custom-container">
                     <span className="custom-card">
                         <img alt="gallery" className="custom-img" src="https://images.pexels.com/photos/4793221/pexels-photo-4793221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
@@ -61,7 +60,7 @@ function Shop() {
         </div>
 
         <div className="d-flex justify-content-center shop">
-            <Link to={'/store/products'}> <button className="shop-button">Shop Now</button> </Link>
+                <button className="shop-button">Shop Now</button> 
         </div>
 
   </div>

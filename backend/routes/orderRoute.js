@@ -8,6 +8,9 @@ const customerVerification = require('../middlewares/customerVerification') ;
 //! Create new order
 orderRouter.post("/new/order" , customerVerification , orderController.addNewOrder);
 
+//! Create new service order
+orderRouter.post("/new/service/order" , customerVerification , orderController.addNewServiceOrder);
+
 //! Get an order by ID
 orderRouter.get("/orders/:id" , orderController.getOrderById);
 

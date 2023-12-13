@@ -57,7 +57,11 @@ function Orders() {
                                                 <td> { order.status } </td>
                                                 <td> { order.type } </td>
                                                 <td style={{ display:'flex' , justifyContent:'space-between' }}>
-                                                    <button className='btn btn-outline-success'> <i class="fa-solid fa-eye"></i> </button>
+                                                    {
+                                                        order.type === "product" ? 
+                                                        <Link to={`/orders/view/${order.customer_id._id}`}><button className='btn btn-outline-success'> <i class="fa-solid fa-eye"></i> </button></Link> :
+                                                        <Link to={`/orders/service/view/${order.customer_id._id}`}><button className='btn btn-outline-success'> <i class="fa-solid fa-eye"></i> </button></Link>
+                                                    }
                                                     <button className='btn btn-outline-primary'> <i class="fa-solid fa-edit"></i> </button>
                                                     <button className='btn btn-outline-danger'> <i class="fa-solid fa-trash"></i> </button>
                                                 </td>

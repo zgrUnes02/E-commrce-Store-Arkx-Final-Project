@@ -31,10 +31,14 @@ import CustomerProtectedRouter from '../helpers/CustomerProtectedRouter';
 import CustomerLogin from '../pages/customer/login/CustomerLogin';
 import CustomerRegister from '../pages/customer/register/CustomerRegister';
 import ProductsListStore from '../pages/ProdcutsStoreList';
+import ServicesListStore from '../pages/ServicesStoreList';
 import Cart from '../pages/Cart' ;
 import Checkout from '../pages/Checkout';
 import SingleProduct from '../components/singleProduct/SingleProduct';
 import WishList from '../pages/WishList';
+import OrderView from '../pages/user/OrderView';
+import SingleService from '../components/singleService/SingleService';
+import ServiceOrderView from '../pages/user/ServiceOrderView';
 
 function UserRoutes() {
   return (
@@ -72,6 +76,8 @@ function UserRoutes() {
           <Route path='/services' element={<Services/>} />
           <Route path='/services/create' element={<ServicesCreate/>} />
           <Route path='/services/update/:id' element={<ServicesUpdate/>} />
+          <Route path='/orders/view/:id' element={<OrderView/>} />
+          <Route path='/orders/service/view/:id' element={<ServiceOrderView/>} />
 
         </Route>
 
@@ -82,10 +88,12 @@ function UserRoutes() {
         <Route path='/login/customer' element={<CustomerLogin/>} />
         <Route path='/register/customer' element={<CustomerRegister/>} />
         <Route path='/store/products' element={<ProductsListStore/>} />
+        <Route path='/store/services' element={<ServicesListStore/>} />
         <Route path='/cart' element={<Cart/>} />
         <Route path='/wish/list' element={<WishList/>} />
         <Route path='/checkout' element={<Checkout/>} />
         <Route path='/store/products/:id' element={<SingleProduct/>} />
+        <Route path='/store/services/:id' element={<SingleService/>} />
 
         <Route element={<CustomerProtectedRouter/>}>
           <Route path='/profile/customer' element={<ProfileCustomer/>} />

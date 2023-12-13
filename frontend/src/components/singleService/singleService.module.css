@@ -1,0 +1,141 @@
+.cardwrapper{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+img{
+    width: 100%;
+    display: block;
+}
+.imgdisplay{
+    overflow: hidden;
+    height: 600px;
+}
+.imgdisplay img{
+  height: 600px;
+}
+.img-showcase{
+    display: flex;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+.imgshowcase img{
+    min-width: 100%;
+}
+.imgselect{
+    display: flex;
+}
+.imgitem{
+    margin: 0.3rem;
+}
+.imgitem:nth-child(1),
+.imgitem:nth-child(2),
+.imgitem:nth-child(3){
+    margin-right: 0;
+}
+.imgitem:hover{
+    opacity: 0.8;
+}
+.productcontent{
+    margin: 1rem ;
+    margin-top: 5rem ;
+}
+.producttitle{
+    font-size: 3rem;
+    text-transform: capitalize;
+    font-weight: 700;
+    position: relative;
+    color: 2f2f2f;
+}
+.producttitle::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 80px;
+    background: #2f2f2f;
+}
+.productprice{
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.productdetail{
+    margin: 0rem;
+}
+.productdetail p{
+    font-size: 1rem;
+    padding: 0.5rem;
+    opacity: 0.8;
+}
+.productdetail ul{
+    font-size: 1rem;
+}
+.productdetail ul li{
+    margin: 0;
+    list-style: none;
+    background: url('../../assets/img/checked.png') left center no-repeat;
+    background-size: 18px;
+    padding-left: 1.7rem;
+    margin: 0.4rem 0;
+    font-weight: 700;
+    opacity: 0.9;
+}
+.productdetail ul li span{
+    font-weight: 400;
+}
+.purchaseinfo{
+    margin: 1.5rem 0;
+}
+.purchaseinfo input,
+.purchaseinfo .btn{
+    border: 1.5px solid #2f2f2f;
+    border-radius: 15px;
+    text-align: center;
+    padding: 0.45rem 0.8rem;
+    outline: 0;
+    margin-right: 0.2rem;
+}
+.purchaseinfo .btn{
+    cursor: pointer;
+    color: #fff;
+
+}
+.purchaseinfo .btn:first-of-type{
+    background: #be0013;
+}
+.purchaseinfo .btn:last-of-type{
+    background: #2f2f2f;
+}
+.purchaseinfo .btn:hover{
+    opacity: 0.9;
+}
+.date{
+    display: flex;
+    gap: 3rem;
+    padding-top: 0.5rem;
+}
+.reserve input{
+    gap: 2rem;
+}
+@media screen and (min-width: 992px){
+    .card{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1.5rem;
+    }
+    .cardwrapper{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .productimgs{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .productcontent{
+        padding-top: 0;
+    }
+}

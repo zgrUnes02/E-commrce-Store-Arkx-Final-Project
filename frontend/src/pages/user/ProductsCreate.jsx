@@ -119,9 +119,7 @@ function ProductCreate() {
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => {
-                                                        uploadImage(e) ;
-                                                    }} type="file" id="form6Example2" class="form-control"/>
+                                                    <input onChange={ (e) => { uploadImage(e) }} type="file" id="form6Example2" class="form-control"/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example2"> Product Image </label>
                                                 </div>
                                             </div>

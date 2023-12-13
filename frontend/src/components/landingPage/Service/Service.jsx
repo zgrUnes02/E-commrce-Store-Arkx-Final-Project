@@ -19,7 +19,7 @@ function Service() {
     <div className="overlay-background">
       <div className="content-container ">
         <div className="text-content ">
-          <div className="">
+          <div className="hero">
               <h3 className="text-danger display-2 fw-bold tracking-tight">
               MORE
               <span className="text-white"> COMFORT</span><br/>
@@ -38,11 +38,10 @@ function Service() {
     </div> 
 
 
-    <div className="container-md px-5 py-2 lg:px-32 lg:pt-12">
-      <div className="row row-cols-1 row-cols-md-3 g-2">
+    <div className="container-md px-5 py-2 lg:px-32 lg:pt-10">
+      <div className="row row-cols-1 row-cols-md-3 g-4">
               
         <div className="col">
-          
             <div className="custom1-container">
                 <span className="custom1-card">
                     <img alt="gallery" className="custom1-img" src="https://images.pexels.com/photos/18986953/pexels-photo-18986953/free-photo-of-homme-jouer-sport-jeu.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
@@ -74,6 +73,28 @@ function Service() {
 
         </div>
       </div>
+
+      <div className='contact'>
+        <div className='bgcontact'>
+          <img src='https://images.pexels.com/photos/5623073/pexels-photo-5623073.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' alt=''/>
+        </div>
+
+        <div className='background1'>
+          <div className='contact-titles'>
+            <h2>You have your own sport space ?</h2>
+            <h3>Be Part Of Our Sellers</h3>
+          </div>
+          <div className='form'>
+            <input type='text' placeholder='Full Name'/>
+            <input type='email' placeholder='Email'/>
+            <input type='text' placeholder='Phone Number'/>
+            <button className='button2'>Join us</button>
+          </div> 
+        </div>
+      </div>
+
+
+
 
     </div>    
   )

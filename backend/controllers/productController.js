@@ -134,10 +134,10 @@ const productController = {
             if ( isProductExistsInCart == false ) {
                 const customerCart = await cartModel.create({customer_id : customer._id  , product : product}) ;
                 if ( customerCart ) {
-                    res.status(200).send('added to cart')
+                    res.status(200).send('The product has been added with success !')
                 }
             } else {
-                res.status(200).send('The product is already exists in the cart')
+                res.status(200).send('The product is already exists in the cart !')
             }
         } 
         catch (error) {
