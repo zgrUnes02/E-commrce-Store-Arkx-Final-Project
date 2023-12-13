@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit" ;
 import AuthAxios from "../helpers/request";
+import axios from "axios";
 
 //! Get all products
 export const getAllProducts = createAsyncThunk('product/getAllProducts' , async () => {
-    return AuthAxios.get('http://localhost:4000/v1/products')
+    return axios.get('http://localhost:4000/v1/products')
     .then(response => response.data.docs)
     .catch(error => console.log(error))
 }) 

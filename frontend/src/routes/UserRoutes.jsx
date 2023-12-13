@@ -33,6 +33,8 @@ import CustomerRegister from '../pages/customer/register/CustomerRegister';
 import ProductsListStore from '../pages/ProdcutsStoreList';
 import Cart from '../pages/Cart' ;
 import Checkout from '../pages/Checkout';
+import SingleProduct from '../components/singleProduct/SingleProduct';
+import WishList from '../pages/WishList';
 
 function UserRoutes() {
   return (
@@ -81,7 +83,9 @@ function UserRoutes() {
         <Route path='/register/customer' element={<CustomerRegister/>} />
         <Route path='/store/products' element={<ProductsListStore/>} />
         <Route path='/cart' element={<Cart/>} />
+        <Route path='/wish/list' element={<WishList/>} />
         <Route path='/checkout' element={<Checkout/>} />
+        <Route path='/store/products/:id' element={<SingleProduct/>} />
 
         <Route element={<CustomerProtectedRouter/>}>
           <Route path='/profile/customer' element={<ProfileCustomer/>} />

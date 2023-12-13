@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Shop.css'
+import { Link } from 'react-router-dom' ;
 
 
 function Shop() {
@@ -60,7 +61,7 @@ function Shop() {
         </div>
 
         <div className="d-flex justify-content-center shop">
-                <button className="shop-button">Shop Now</button> 
+            <Link to={'/store/products'}> <button className="shop-button">Shop Now</button> </Link>
         </div>
 
   </div>

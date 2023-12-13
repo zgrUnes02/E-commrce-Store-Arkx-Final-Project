@@ -23,7 +23,39 @@ const cartController = {
         catch ( error ) {
             console.log(error) ;
         }
-    }
+    } ,
+
+    //! Increase the quantity
+    increaseQuantity : async (req , res) => {
+        const { id } = req.params ;
+        try {
+            const cartThatWantToIncrementHisProduct = await cartModel.findById(id) ;
+            const updateQuantity = await cartModel.findByIdAndUpdate(id , {
+                quantity : cartThatWantToIncrementHisProduct.quantity + 1 ,
+            } , {new : true}) ;
+            res.status(200).send(updateQuantity) ;
+        }
+        catch ( error ) {
+            console.log(error) ;
+        }
+    }, 
+
+    //! Decrease the quantity
+    decreaseQuantity : async (req , res) => {
+        const { id } = req.params ;
+        try {
+            const cartThatWantToIncrementHisProduct = await cartModel.findById(id) ;
+            if ( cartThatWantToIncrementHisProduct.quantity >= 2 ) {
+                const updateQuantity = await cartModel.findByIdAndUpdate(id , {
+                    quantity : cartThatWantToIncrementHisProduct.quantity - 1 ,
+                } , {new : true}) ;
+                res.status(200).send(updateQuantity) ;
+            }
+        }
+        catch ( error ) {
+            console.log(error) ;
+        }
+    } ,
 
 } ;
 

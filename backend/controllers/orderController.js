@@ -1,31 +1,27 @@
 const { validationResult } = require("express-validator");
 const orderModel = require("../models/orderModel");
+const cartModel = require('../models/cartModel') ;
 
 const orderController = {
   //! Create a new order
-  addNewOrder: async (req, res) => {
-    const { customer_id, company_id, order_items, cart_total_price, status, type } = req.body ;
-
-    //! Check if there is any validation problem
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json(errors);
-    }
-
+  addNewOrder : async (req, res) => {
+    const customer = req.customer ;
     //* Create the new order
     try {
+      const productsForOrder = await cartModel.find({customer_id : customer._id}) ;
       const newOrder = await orderModel.create({
-        customer_id: customer_id,
-        company_id: company_id,
-        order_items: order_items,
-        cart_total_price: cart_total_price,
-        status: status,
-        type: type ,
-      });
-      res.status(200).json({
-        message: "Order created with success",
-        order: newOrder,
-      });
+        customer_id : customer._id ,
+        order_items : productsForOrder ,
+        cart_total_price : 10000 ,
+        status : 'opened' ,
+        type : 'product' ,
+      }) ;
+
+      await cartModel.deleteMany({customer_id : customer._id}) ;
+
+      if ( newOrder ) {
+        res.state(200).send({message : 'The order has been placed with success !'}) ;
+      }
     } catch (error) {
       console.log("Something went wrong", error);
     }
@@ -38,9 +34,9 @@ const orderController = {
       var options = {
         sort : { created_at: -1 } ,
         lean : true ,
-        populate : ['company_id' , 'customer_id'] ,
+        populate : ['customer_id'] ,
         page : req.query.page  ,
-        limit : 10 ,
+        limit : 100 ,
       };
 
       //* Paginate with populate
