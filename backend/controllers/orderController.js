@@ -20,12 +20,32 @@ const orderController = {
       await cartModel.deleteMany({customer_id : customer._id}) ;
 
       if ( newOrder ) {
-        res.state(200).send({message : 'The order has been placed with success !'}) ;
+        res.status(200).send({message : 'The order has been placed with success !'}) ;
       }
     } catch (error) {
       console.log("Something went wrong", error);
     }
   },
+
+  //! Create new service order
+  addNewServiceOrder : async (req , res) => {
+    const customer = req.customer ;
+    try {
+      const newOrder = await orderModel.create({
+        customer_id : customer._id ,
+        order_items : req.body ,
+        cart_total_price : 10000 ,
+        status : 'opened' ,
+        type : 'service' ,
+      }) ;
+
+      if ( newOrder ) {
+        res.status(200).send({message : 'The order has been placed with success !'}) ;
+      }
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  } ,
 
   //! List all orders
   listOrders: async (req, res) => {
@@ -62,10 +82,7 @@ const orderController = {
     const { id } = req.params ;
 
     try {
-      const order = await orderModel.findOne({ _id : id }).populate([
-        {path : 'company_id' , select : ['companyName']} , 
-        {path : 'customer_id' , select : ['first_name' , 'family_name' , 'email']}
-      ]);
+      const order = await orderModel.findOne({ customer_id : id });
 
       if (order) {
         res.status(200).json(order);

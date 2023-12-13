@@ -8,6 +8,7 @@ import { getAllCategories } from '../../redux/categorySlice' ;
 import { getAllCompanies } from '../../redux/companySlice' ;
 import { getAllSubcategories } from '../../redux/subcategorySlice' ;
 import { createNewService } from '../../redux/serviceSlice';
+import axios from 'axios';
 
 function ServicesCreate() {
 
@@ -35,6 +36,25 @@ function ServicesCreate() {
     const [location , setLocation] = useState() ;
     const [option , setOption] = useState() ;
     const [company_id , setCompany_id] = useState() ;
+
+    const uploadImage = async (e) => {
+        e.preventDefault() ;
+        const formData = new FormData() ;
+        formData.append('file' , e.target.files[0])
+        formData.append('upload_preset' , 'athlark') ;
+        try {
+            const response = await axios.post('https://api.cloudinary.com/v1_1/dm9jmhqox/image/upload' , formData , {
+                headers : {
+                    'Content-Type' : 'multipart/form-data' ,
+                }
+            })
+            setService_image(response.data.secure_url) ; 
+            console.log(response.data.secure_url) ;
+        }
+        catch ( error ) {
+            console.log( error ) ;
+        }
+    }
 
     const createNewServiceSubmit = (e) => {
         e.preventDefault() ;
@@ -96,7 +116,7 @@ function ServicesCreate() {
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input onChange={(e) => setService_image(e.target.value)} type="file" id="form6Example2" class="form-control" required/>
+                                                    <input onChange={ (e) => {uploadImage(e) }} type="file" id="form6Example2" class="form-control" required/>
                                                     <label class="form-label mt-2 mx-3" for="form6Example2"> Service Image </label>
                                                 </div>
                                             </div>

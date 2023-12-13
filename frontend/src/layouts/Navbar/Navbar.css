@@ -1,87 +1,144 @@
-.navbar {
-    background-color: #fff;
-    height: 60px;
-    border-radius: 16px;
-    padding: 0.5rem;
+@import url('https://fonts.cdnfonts.com/css/archicoco');
+*,
+*::after,
+*::before {
+  margin: 0;
+  box-sizing: border-box;
+}
+li {
+  list-style: none;
 }
 
-.navbar-brand {
-    font-weight: 500;
-    color: #be0013;
-    font-size: 24px;
-    transition: 0.3s color;
+button{
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 3rem;
+  height: 8vh;
+  background: #e5e5e5;
+}
+.navbrand{
+  padding-left: 3rem;
+  font-family: 'Archicoco', sans-serif;
+  color: black;      
+                                         
+}
+.navmenu {
+  display: flex;
+  align-items: center;
+  gap:  2rem;
+
+}
+.navitem{
+  padding-top: 1rem;
+  font-size: 17px;
+  font-weight: 500;
+}
+.navlink:hover{
+  color: #be0013;
+  font-size: 18px;
+  font-weight: 500;
+  transition: 0.3s ease-in
+}
+.navtoggler {
+  display: none;
+}
+.navtoggler div {
+  width: 2.5rem;
+  height: 0.2rem;
+  margin: 0.4rem;
+  background: black;
+  transition: 0.3s ease-in;
+}
+.navicon {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 15%;
+} 
+.navicon li{
+  display: inline-block;
+  justify-content: space-around;
+  gap:  2rem;
+}
+.iconlink:hover{
+  color: #be0013;
+}
+.navmenu li {
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .navtoggler {
+    display: block;
+    cursor: pointer;
+  }
+  .navmenu {
+    position: fixed;
+    top: 7vh;
+    right: 0;
+    height: 100%;
+    width: 50vw;
+    background: #e5e5e5;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: 0.5s ease-in;
+    padding-top: 4rem;
+  }
+  .navbrand{
+    padding-left: 0.75rem;
+  }
 }
 
-.login-button {
-    background-color: #be0013;
-    color: #fff;
-    font-size: 14px;
-    padding: 8px 20px;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: 0.3s background-color;
-    font-weight: 500;
+.navactive {
+  transform: translateX(0%);
+
 }
 
-.login-button:hover {
-    background-color: #be0013;
+.toggle .line1 {
+  transform: rotate(-45deg) translate(-4px, 5px);
+}
+.toggle .line2 {
+  opacity: 0;
+}
+.toggle .line3 {
+  transform: rotate(45deg) translate(-4px, -5px);
 }
 
-.navbar-toggler {
-    border: none;
-    font-size: 1.25rem;
+.dropdown {
+  position: relative;
+  display: inline-block;
+
 }
 
-.navbar-toggler:focus, .btn-close:focus {
-    box-shadow: none;
-    outline: none;
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 130px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  right: 0;
 }
 
-.nav-link {
-    color: #666777;
-    font-weight: 500;
-    position: relative;
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
-.nav-link:hover, .nav-link.active {
-    color: #000;
+.profil{
+  display: flex;
+  justify-content: space-around;
 }
 
-@media (min-width: 991px) {
-    .nav-link::before{
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 0;
-        height: 2px;
-        background-color: #be0013;
-        visibility: hidden;
-        transition: 0.3s ease-in-out;
-    }
-
-    .nav-link:hover::before, .nav-link.active::before {
-        width: 100%;
-        visibility: visible;
-    }
+.profil img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
-.btn-icon{
-    margin-bottom: 3%;
-}
-
-.form-group{
-    display: flex;
-    justify-content: center;
-    }
-
-
-
-.form-group input{
-    
-    height: 35px;
-    border: 1px solid gray;
-    border-radius: 20px;
-    padding: 15px;
-}

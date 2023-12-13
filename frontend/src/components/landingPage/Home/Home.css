@@ -39,3 +39,9 @@
     width: 50%;
     height: 100px;
   }
+
+  @media screen and (max-width: 768px) {
+    .features{
+      display: inline;
+    }
+  }
