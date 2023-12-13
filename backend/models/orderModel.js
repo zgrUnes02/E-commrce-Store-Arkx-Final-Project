@@ -9,12 +9,6 @@ const orderSchema = new mongoose.Schema({
     required: [true, 'Customer ID is missing'],
   },
 
-  company_id: {
-    type : mongoose.Schema.Types.ObjectId , 
-    ref: 'Company' ,
-    required: [true, 'Company ID is missing'],
-  },
-
   order_items: {
     type: Array ,
     required: [true, 'Order items are missing'],
@@ -27,7 +21,7 @@ const orderSchema = new mongoose.Schema({
 
   status: {
     type: String,
-    enum: ['open', 'shipped', 'paid', 'closed', 'canceled'],
+    enum: ['opened', 'shipped', 'paid', 'closed', 'canceled'],
     required: [true, 'Order status is missing'],
   },
 

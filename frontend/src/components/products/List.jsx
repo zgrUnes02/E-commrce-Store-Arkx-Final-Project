@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addProductToCart, getAllProducts } from '../../redux/productSlice';
 import { ToastContainer , toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
+import { addProductToWishList } from '../../redux/wishListSlice';
 
 const List = () => {
 
@@ -21,6 +23,16 @@ const List = () => {
   const addToCart = (product_id) => {
     if ( localStorage.getItem('token') ) {
         dispatch(addProductToCart(product_id)).then(response => {
+          toast(response.payload.data) ;
+        }) ;
+    } else {
+      toast('Please login to your account !') ;
+    }
+  }
+
+  const addToWishList = (product_id) => {
+    if ( localStorage.getItem('token') ) {
+        dispatch(addProductToWishList(product_id)).then(response => {
           toast(response.payload.data) ;
         }) ;
     } else {
@@ -286,13 +298,13 @@ const List = () => {
 
         { filteredProducts.map(product => ( 
           <div key={product.id} className={ListCSS.productcard}>
-            <img src={product.product_image[0]} alt=""/>
+            <Link style={{ textDecoration:'none' }} to={`/store/products/${product._id}`}><img src={product.product_image[0]} alt=""/> </Link>
             <h4 >{product.product_name}</h4>
             <div>
                 <span>{product.price} MAD</span>
                 <div className={ListCSS.btnicon}>
                   <div>
-                    <button><IoHeartOutline size={25}/></button>
+                    <button onClick={() => {addToWishList(product._id)}} ><IoHeartOutline size={25}/></button>
                   </div>
                   <div>
                     <button onClick={() => {addToCart(product._id)}}>+</button>

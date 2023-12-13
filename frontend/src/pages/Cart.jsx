@@ -2,23 +2,39 @@ import React, { useEffect, useState } from 'react' ;
 import Navbar from '../layouts/Navbar/Navbar' ;
 import Footer from '../layouts/Footer/Footer' ;
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteProductFromCart, getAllProductToCart } from '../redux/cartSlice';
+import { checkout, decreaseProductQuantity, deleteProductFromCart, getAllProductToCart, increaseProductQuantity } from '../redux/cartSlice';
+import { Link } from 'react-router-dom';
 
 function Cart() {
 
     const dispatch = useDispatch() ;
+    const token = localStorage.getItem('token') ;
 
     useEffect(() => {
-        dispatch(getAllProductToCart()) ;
+        token && dispatch(getAllProductToCart()) ;
     } , []) ;
 
     const products = useSelector(state => state.cart.cart);
-    const [totalPrice , setTotalPrice] = useState(products.reduce((sum, product) => sum + product.product[0].price, 0)) ;
+    const [totalPrice , setTotalPrice] = useState(products.reduce((sum, product) => sum + product.product[0].price * product.quantity , 0)) ;
     
+    //! Function to decrease the product's quantity
+    const increaseQuantity = ( id ) => {
+        dispatch(increaseProductQuantity(id)) ;
+    }
+
+    //! Function to increase the product's quantity
+    const decreaseQuantity = ( id ) => {
+        dispatch(decreaseProductQuantity(id)) ;
+    }
 
     //! Function for deleting product from cart
     const deleteFromCart = ( id ) => {
-        dispatch(deleteProductFromCart(id))
+        dispatch(deleteProductFromCart(id)) ;
+    }
+
+    //! Function for checking out
+    const checkoutFromCart = () => {
+        dispatch(checkout()) ;
     }
 
     return (
@@ -26,7 +42,7 @@ function Cart() {
             <Navbar/>
             <section>
                 {
-                    localStorage.getItem('id') ? 
+                    token ? 
 
                     <section class="h-100 gradient-custom">
 
@@ -65,7 +81,7 @@ function Cart() {
                                                 <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
 
                                                     <div class="d-flex mb-4" style={{maxWidth: "300px" , display:'flex' , justifyContent:'space-between' , alignItems:'center'}}>
-                                                        <button class="btn btn-danger px-3 me-2">
+                                                        <button onClick={() => decreaseQuantity(product._id)} class="btn btn-danger px-3 me-2">
                                                             <i class="fas fa-minus"></i>
                                                         </button>
 
@@ -73,13 +89,13 @@ function Cart() {
                                                             <input name="quantity" value={product.quantity} class="form-control" readOnly />
                                                         </div>
 
-                                                        <button class="btn btn-danger px-3 ms-2">
+                                                        <button onClick={() => increaseQuantity(product._id)} class="btn btn-danger px-3 ms-2">
                                                             <i class="fas fa-plus"></i>
                                                         </button>
                                                     </div>
 
                                                     <p class="text-start text-md-center">
-                                                        <strong> { product.product[0].price } MAD  </strong>
+                                                        <strong> { product.product[0].price * product.quantity } MAD  </strong>
                                                     </p>
                                                 </div>
                                             </div>
@@ -119,7 +135,7 @@ function Cart() {
                                     </li>
                                     </ul>
 
-                                    <button type="button" class="btn btn-danger btn-lg btn-block">
+                                    <button onClick={checkoutFromCart} type="button" class="btn btn-danger btn-lg btn-block">
                                         Go to checkout
                                     </button>
                                 </div>
@@ -127,9 +143,18 @@ function Cart() {
                             </div>
                             </div>
                         </div>
-                        </section>
-
-                    : <p> please login </p>
+                        </section> : 
+                        <div className="container mt-5">
+                            <div className="jumbotron">
+                                <h1 className="display-4">Welcome to Our Website</h1>
+                                <p className="lead">Please log in to access the full features of our site.</p>
+                                <hr className="my-4" />
+                                <p>If you don't have an account, you can sign up <Link to={'/register/customer'} style={{ color:'red' }}><a style={{ color:'red' }} href="/signup">here</a>.</Link></p>
+                                <p className="lead">
+                                    <Link to={'/login/customer'}> <a className="btn btn-danger btn-lg" role="button">Log In</a> </Link>
+                                </p>
+                            </div>
+                        </div>
                 }
             </section>
 

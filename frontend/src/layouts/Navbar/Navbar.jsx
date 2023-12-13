@@ -3,14 +3,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Navbar.css';
 import {IoHeartOutline} from  "react-icons/io5";
 import { AiOutlineShoppingCart} from "react-icons/ai";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaRegUser } from "react-icons/fa";
 
 function Navbar() {
 
+    const navigate = useNavigate() ;
+
     const logout = () => {
         localStorage.clear();
-        window.location.reload() ;
+        navigate('/');
+        window.location.reload()
     }
 
     const token = localStorage.getItem('token') ;
@@ -79,7 +82,7 @@ function Navbar() {
                 }
                 
                 <div>
-                    <button className="btn btn-ghost btn-circle"><IoHeartOutline size={25} className='icon' style={{color: 'black'}} /></button>
+                    <Link to={'/wish/list'}><button className="btn btn-ghost btn-circle"><IoHeartOutline size={25} className='icon' style={{color: 'black'}} /></button></Link>
                 </div>
 
                 <div>

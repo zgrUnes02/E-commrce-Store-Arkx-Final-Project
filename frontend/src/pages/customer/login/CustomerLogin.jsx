@@ -24,7 +24,8 @@ const CustomerLogin = () => {
                 localStorage.setItem('last_name' , response.payload.customer.last_name) ;
                 localStorage.setItem('email' , response.payload.customer.email) ;
                 localStorage.setItem('id' , response.payload.customer._id) ;
-                navigate('/') ;
+                navigate('/store/products') ;
+                window.location.reload();
             }
         }) ;
 
